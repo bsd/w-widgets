@@ -1,0 +1,11 @@
+#logo {
+    @include column(3);
+    img {
+        @extend .pvm;
+        max-width:100%;
+    }
+    @include mq($to: tablet) {
+        @include column(6);
+        @include pull(1);
+    }
+}

@@ -1,0 +1,194 @@
+<!doctype html>
+<html class="no-js" lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Which? Widgets</title>
+
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <!-- Place favicon.ico in the root directory -->
+
+    <!-- build:css styles/vendor.css -->
+    <!-- bower:css -->
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:css styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+    
+    <!-- build:js scripts/vendor/modernizr.js -->
+    <script src="/bower_components/modernizr/modernizr.js"></script>
+    <!-- endbuild -->
+  </head>
+  <body>
+    <header>
+      <img src="/images/which-logo.png" alt="Which? logo" class="m--logo" />
+
+      <h2 class="float-r e--edit-form">Editing form: <a href="#"><span class="form-id--display">120</span> <span class="icon-times-circle"></span></a></h2>
+    </header> 
+
+      <h1>Widget Generator</h1>
+
+    <section id="fetchForm">
+      <form name="generate-form" class="form" action="#customiseStep" method="post">
+        <fieldset>
+          <div class="form-row">
+            <label for="formID">Enter the</label>
+            <input type="text" class="b--form-field" data-validateMsg="Please enter a valid Form ID" id="formID" data-validate="presence numeric" placeholder="Form ID" />
+            <span class='uil-ring-css'><span>
+          </div>
+          <div class="form-row">
+            <input type="submit" class="b--btn b--btn__submit" name="fetchform" value="Next step" />
+          </div>
+        </fieldset>
+      </form>
+    </section>
+
+    <div id="tabbedBox">
+      <ul>
+        <li><a href="#customiseForm">Customise Form</a></li>
+        <li><a href="#personaliseForm">Personalise Form</a></li>
+        <li><a href="#generateForm">Generate Code</a></li>
+      </ul>
+        <section id="customiseForm">
+          <a href="#" class="toggle-btn">Toggle row span</a>
+          <form name="generate-form" class="form" action="#personaliseForm" method="post">
+            <fieldset>
+
+              <div class="form-row">
+                <label for="firstname">First name:</label>
+                <input type="text" id="firstname" name="firstname" value="" placeholder="First name" />
+              </div>
+
+              <div class="form-row">
+                <label for="lastname">Last name:</label>
+                <input type="text" id="lastname" name="lastname" value="" placeholder="Last name" />
+              </div>
+
+              <div class="form-row form-row--half">
+                <label for="city">City:</label>
+                <input type="text" id="city" name="city" value="" placeholder="City" />
+              </div>
+
+              <div class="form-row form-row--half">
+                <label for="postcode">Postcode:</label>
+                <input type="text" id="postcode" name="postcode" value="" placeholder="Postcode" />
+              </div>
+
+              <div class="form-row">
+                <label for="email">Email address:</label>
+                <input type="text" id="email" name="email" value="" placeholder="Email address" />
+              </div>
+
+              <div class="form-row">
+                <input type="submit" class="b--btn b--btn__submit" name="fetchform" value="Personalise form" />
+              </div>
+            </fieldset>
+          </form>
+        </section>
+
+
+        <section id="personaliseForm">
+          <form name="generate-form" class="form" action="#generateForm" method="post">
+            <h3>Styling</h3>
+            <div>
+              <div class="form-row">
+                <label for="logo">Logo</label>
+                <input type="text" name="logo" class="b--form-field" id="logo"  placeholder="" />
+              </div>
+              <div class="form-row">
+                <label for="logoAlignment">Logo alignment</label>
+                <select name="logo_alignment" id="logoAlignment">
+                  <option value="left">Left</option>
+                  <option value="centre">Centre</option>
+                  <option value="right">Right</option>
+                </select>
+              </div>
+              <div class="form-row">
+                <label for="textColour">Text colour</label>
+                <input type="text" name="text_col" class="b--form-field picker" id="textColour"  placeholder="" />
+              </div>
+              <div class="form-row">
+                <label for="bgColour">Background colour</label>
+                <input type="text" name="bg_col" class="b--form-field picker" id="bgColour"  placeholder="" />
+              </div>
+              <div class="form-row">
+                <label for="linkColour">Link colour</label>
+                <input type="text" name="link_col" class="b--form-field picker" id="linkColour"  placeholder="" />
+              </div>
+              <div class="form-row">
+                <label for="bgImg">Background image</label>
+                <input type="text" name="bg_img" class="b--form-field" id="bgImg"  placeholder="" />
+              </div>
+            </div>
+              <h3>Thank you</h3>
+            <div>
+              <div class="form-row">
+                <label for="destination">Destination</label>
+                <select name="destination" id="destination">
+                  <option value="url">Go to URL</option>
+                  <option value="content">Show thankyou content</option>
+                </select>
+              </div>
+              <div class="form-row">
+                <label for="thankyouHeader">Thankyou header</label>
+                <input type="text" name="thankyou_header" class="b--form-field" id="thankyouHeader"  placeholder="" />
+              </div>
+              <div class="form-row hide-row">
+                <label for="thankyouContent">Thankyou content</label>
+                <textarea name="thankyou_content"></textarea>
+              </div>
+              <div class="form-row hide-row">
+                <label for="formEntry">Show user's form entries</label>
+                <input type="checkbox" name="form_entry" class="b--form-checkbox" id="formEntry" value="Y" />
+              </div>
+            </div>
+              <h3>Sharing</h3>
+            <div>
+              <div class="form-row hide-row">
+                <label for="shareImg">Share image</label>
+                <input type="text" class="b--form-field" name="share_img" id="shareImg"  placeholder="" />
+              </div>
+            
+            </div>
+            <fieldset> 
+              <div class="form-row">
+                <input type="submit" class="b--btn b--btn__submit" name="fetchform" value="Generate Code" />
+              </div>
+            </fieldset>
+          </form>
+        </section>
+
+
+        <section id="generateForm">
+          <h2>Embed the code</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pharetra elit sit amet enim molestie porttitor. Nullam lacinia erat vitae luctus efficitur. Quisque ac ultrices justo, sit amet dapibus tellus. Donec nec nisi enim. Donec vitae elementum lorem. </p>
+          <form name="generate-form" class="form" action="#customiseStep" method="post">
+            <fieldset>
+              <div class="form-row">
+                <textarea disabled>
+                </textarea>
+              </div>
+              <div class="form-row">
+                <input type="submit" class="b--btn b--btn__submit" name="fetchform" value="Copy to clipboard" />
+              </div>
+            </fieldset>
+          </form>
+        </section>
+    </div> <!-- tabbedBox -->
+
+    <!-- build:js scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="/bower_components/jquery/dist/jquery.js"></script>
+    <script src="/bower_components/jquery-ui/jquery-ui.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+    
+    <!-- build:js scripts/main.js -->
+    <script src="scripts/plugins.js"></script>
+    <script src="scripts/main.js"></script>
+    <!-- endbuild -->
+  </body>
+</html>

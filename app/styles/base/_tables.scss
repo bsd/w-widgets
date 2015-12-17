@@ -1,0 +1,25 @@
+/*------------------------------------*\
+    $Table
+\*------------------------------------*/
+table {
+	border-collapse: collapse; 
+	border-spacing: 0; 
+	border: 1px solid $c-table-border;
+	width: 100%;
+        @extend %typecsset-vertical-rhythm;
+}
+th {
+	text-align: left;
+	border: 1px solid $c-table-border;
+	padding: 0.2em;
+}
+td {
+	border: 1px solid $c-table-border;
+	padding: 0.2em;
+}
+
+
+th,
+td {
+    padding: $typecsset-base-line-height / 2;
+}

@@ -1,0 +1,98 @@
+/*------------------------------------*\
+    $MIXINS
+\*------------------------------------*/
+
+/* CSS Transition
+	Usage: @include transition(width,0.3s,ease-out);
+ */
+@mixin transition($transition-property, $transition-time, $method) {
+	-webkit-transition: $transition-property $transition-time $method;
+	-moz-transition: $transition-property $transition-time $method;
+	-ms-transition: $transition-property $transition-time $method;
+	-o-transition: $transition-property $transition-time $method;
+	transition: $transition-property $transition-time $method;
+}
+
+/* Rem Unit font sizes with relative fallback http:/seesparkbox.com/foundry/scss_rem_mixin_now_with_a_better_fallback  
+	Usage: @include font-size(1, large);
+*/
+@mixin font-size( $decimal-size, $keyword: null ) {
+  @if $keyword{ font-size: $keyword; }
+  @else { font-size: $decimal-size * $base-font-multiplier * 16px;}
+  font-size: $decimal-size * 1rem;
+}
+
+%clearfix {
+    @include clearfix;
+}
+
+%imgreplace {
+    overflow: hidden;
+    text-indent: -999em;
+}
+
+%plain-btn {
+    padding: 0;
+    border: 0;
+    background: 0;
+}
+
+@mixin visuallyhidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+%visuallyhidden {
+    @include visuallyhidden;
+}
+
+@mixin rounded($radius: 5px 5px 5px 5px) {
+	 -webkit-border-radius: $radius;
+	 -moz-border-radius: $radius;
+	 -khtml-border-radius: $radius;
+	 border-radius: $radius;
+}
+
+@mixin shadowInset($values: inset 1px 1px 2px 0px rgba(255, 255, 255, 0.34)) {
+	 -webkit-box-shadow: $values;
+    box-shadow: $values;
+}		
+
+@mixin dropShadow($values: 0px 0px 3px 0px rgba(0, 0, 0, 0.21)) {
+	 -webkit-box-shadow: $values;
+    box-shadow: $values;
+}
+		
+@mixin stdMargin($margin: 0px 0px 0px 0px) {
+	margin: $margin;
+}
+
+@mixin border-box {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+@mixin transform($args) {
+    -webkit-transform: $args;
+    -moz-transform: $args;
+    transform: $args;
+}
+
+@mixin transition($args:all .5s) {
+    -webkit-transition: $args;
+    -moz-transition: $args;
+    transition: $args;
+}
+
+
+.nojs .nojs-hide {
+    display: none;
+}
+

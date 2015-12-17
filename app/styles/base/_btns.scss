@@ -1,0 +1,19 @@
+.b--btn, .form .b--btn {
+    display:inline-block;
+    margin: 5px auto;
+    cursor: pointer;
+    padding: 10px 20px;
+    text-align:center;
+    position:relative;
+    @include rounded(4px);
+    color: #fff;
+    background: #ee5a40; 
+    height:61px;
+}
+
+.toggle-btn { @extend .b--btn; background:$alto; height:auto; text-decoration:none; color:$which-dblue; 
+    &:hover { background: lighten($which-grey, 30%)}
+    &:focus { outline:none; }
+}
+
+.is-active { background: $which-red; color:$white!important;}

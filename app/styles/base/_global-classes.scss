@@ -1,0 +1,113 @@
+/*------------------------------------*\
+    $GLOBAL CLASSES
+\*------------------------------------*/
+
+/* Clearfix */
+.cf {
+    *zoom: 1;
+}
+.cf:before, .cf:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.cf:after {
+    clear: both;
+}
+
+/* Completely remove from the flow and screen readers. */
+.is-hidden {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+/* Completely remove from the flow but leave available to screen readers. */
+.is-vishidden, .visually-hidden {
+    position: absolute !important;
+    overflow: hidden;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    border: 0;
+    clip: rect(1px, 1px, 1px, 1px);
+}
+
+/* Floats */
+.right {
+	float: right;
+	@extend .plm;
+        @extend .pbm;
+}
+
+.right-search {
+	float: right;
+	@extend .prm;
+}
+
+.left {
+	float: left;
+	@extend .prm;
+        @extend .pbm;
+}
+
+/* Text-Align */
+.align-right {
+	text-align: right;
+}
+
+.align-center {
+	text-align: center;
+}
+
+.align-left {
+	text-align: left;
+}
+
+/* Display Classes */
+.hide-small {
+    @media all and (max-width: $bp-med) {
+        display: none;
+    }
+}
+
+.hide-med {
+    @media all and (min-width: $bp-med) and (max-width: $bp-large) {
+        display: none;
+    }
+}
+
+.hide-large {
+    @media all and (min-width: $bp-large) {
+        display: none;
+    }
+}
+
+.hide {
+        display: none;
+}
+
+
+.clear-left { clear:left; }
+//States
+.valid {
+	color: $c-valid;
+}
+
+.error {
+	color: $c-error;
+}
+
+.warning {
+    color: $c-warning;
+}
+
+.information {
+    color: $c-information;
+}
+
+.caps { text-transform: uppercase;}
+.underline { text-decoration: underline; }
+
+.half-top-padd {
+    padding-top:24px!important;
+}
