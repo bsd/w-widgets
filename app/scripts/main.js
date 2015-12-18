@@ -2,7 +2,7 @@
 
 (function($) {
   'use strict';
-    var sortedFields = [], signupInfo, embedCode, dragEl, signupFields, fieldsHTML,
+    var sortedFields = [], signupInfo, wrapperHTML = '', styleHTML = '', embedCode, dragEl, signupFields, fieldsHTML,
     wg = {
       init: function() {
         sortedFields = '';
@@ -38,6 +38,14 @@
       },
       personaliseForm: function() {
 
+        $('#personaliseForm .hide-row').hide();
+
+        $('#destination').on('change', function() {
+          if($(this).val() === "content") {
+            $('.hide-row').show();
+          }
+        })
+
         
         
       },
@@ -45,8 +53,9 @@
 
         embedCode = '';
 
+
         //build the css
-        var embedCSS = '<style type="text/css"></style>';
+        var embedCSS = '<style type="text/css">.signup-wrapper a { color: } </style>';
 
 
         //build the js
@@ -75,11 +84,15 @@
 
         //TODO: add submit button
 
-
         embedHTML += '</form>';
         embedHTML += '</div>';
 
-        $('#generateForm textarea').val(embedHTML); 
+        wrapperHTML += '<div class="signup-wrapper" style="color: '+$('#textColour').val()+'; background: url('+$('#bgImg').val()+') '+$('#bgColour').val()+'; ">';
+        wrapperHTML += '<div class="signup-logo" style="text-align: '+$('#logoAlignment').val()+';"><img src="'+$('#logo').val()+'" alt="logo" /></div>';
+        wrapperHTML += embedHTML;
+        wrapperHTML += '</div>';
+
+        $('#generateForm textarea').val(embedCSS+embedJS+wrapperHTML); 
 
 
       },
@@ -284,12 +297,16 @@
 
       formListener: function() { 
 
-    $('#personaliseForm form').on('submit', function(event) {
+      $('#personaliseForm form').on('submit', function(event) {
             event.preventDefault();
             //update order and position of fields
 
+
+
+
             //generate HTML
             wg.buildEmbedCode();
+
 
             //move to the next tab
             $('#tabbedBox').tabs( 'option', 'active', 2);
