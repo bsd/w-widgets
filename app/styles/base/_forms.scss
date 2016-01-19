@@ -31,7 +31,7 @@ form ol, form ul {
       background-color: #f8f8f8;
       outline: none;
       vertical-align: top;
-      font-size: 21px;
+      font-size: 18px;
       color: #212121;
       margin:0 0 10px 0;
   }
@@ -142,6 +142,7 @@ form ol, form ul {
       
   }
 
+  .form-radio--label { margin-bottom:0; padding:0;}
   .search-form {
       fieldset { position:relative; 
                  input { font-size:1em; }
@@ -202,8 +203,38 @@ form ol, form ul {
 
   }
 
+  label.visible-label { display:inline-block!important; font-size:18px; padding: 0px;  @include column(8); margin-bottom:10px;
+  }
+
+  .visible-label + input { @include column(4); }
 
   .form-row { @include column(12); }
   .form-row--half { @include column(6); }
 
 }
+
+.checkbox-text { clear: both; font-size:14px; @include column(12);}
+
+.form-row.form-row--left {text-align:left!important; }
+
+.desc { font-style:italic; color: $which-grey; }
+.desc, .error { 
+        @include typecsset-font-size(11px, 100%);
+}
+
+.form-field-static { padding:0; margin:0;}
+
+.btn-disabled { opacity:0.4; cursor:default!important; }
+.error { }
+
+
+
+.loading-animation { opacity: 0.8; animation: loadingH 1.5s cubic-bezier(.17,.37,.43,.67) infinite;}
+
+
+@keyframes loadingH {
+    0% {width: 115px;}
+    50% {width: 125px; padding: 4px;}
+    100% {width: 115px;}
+}
+

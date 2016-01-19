@@ -35,8 +35,16 @@
       <form name="generate-form" class="form" action="#customiseStep" method="post">
         <fieldset>
           <div class="form-row">
-            <label for="formID">Enter the</label>
-            <input type="text" class="b--form-field" data-validateMsg="Please enter a valid Form ID" id="formID" data-validate="presence numeric" placeholder="Form ID" />
+            <label for="branch">Select your branch</label>
+            <select name="branch" id="branch">
+              <option value="https://whichcouk.cp.bsd.net">Primary</option>
+              <option value="https://cai-whichcouk.cp.bsd.net">CAI</option>
+            </select>
+            <p class="desc">If your branch is not available please get in touch with the administrator</p>
+          </div>
+          <div class="form-row">
+            <label for="formID">Enter the form ID</label>
+            <input type="text" class="b--form-field" data-validateMsg="Please enter a valid Form ID" data-validate="presence numeric" id="formID" placeholder="e.g 194" />
             <span class='uil-ring-css'><span>
           </div>
           <div class="form-row">
@@ -122,6 +130,22 @@
                 <label for="bgImg">Background image</label>
                 <input type="text" name="bg_img" class="b--form-field" id="bgImg"  placeholder="" />
               </div>
+               <div class="form-row l--half-width">
+                <label for="paddingVertical">Input field padding (vertical)</label>
+                <input type="text" name="paddingVertical" class="b--form-field" id="paddingVertical"  placeholder="e.g 10px" />
+              </div>
+               <div class="form-row l--half-width">
+                <label for="paddingHoriz">Input field padding (horizontal)</label>
+                <input type="text" name="paddingHoriz" class="b--form-field" id="paddingHoriz"  placeholder="e.g 10px" />
+              </div>
+               <div class="form-row l--half-width">
+                <label for="marginVertical">Input field margin (vertical)</label>
+                <input type="text" name="marginVertical" class="b--form-field" id="marginVertical"  placeholder="e.g 10px" />
+              </div>
+               <div class="form-row l--half-width">
+                <label for="marginHoriz">Input field margin (horizontal)</label>
+                <input type="text" name="marginHoriz" class="b--form-field" id="marginHoriz"  placeholder="e.g 10px" />
+              </div>
             </div>
               <h3>Thank you</h3>
             <div>
@@ -168,7 +192,7 @@
           <form name="generate-form" class="form" action="#customiseStep" method="post">
             <fieldset>
               <div class="form-row">
-                <textarea disabled>
+                <textarea disabled id="embedTextbox">
                 </textarea>
               </div>
               <div class="form-row">

@@ -54,15 +54,20 @@ h1 { color:$which-dblue; font-size:30px; font-weight: 100; text-align:left; padd
 
 	display:none;
 	.form-row { text-align:center;}
+
+		.ui-state-disabled { opacity:0.3; 
+			a { cursor: pointer; }
+		}
+
 	> ul {
-		li { width:33.33%; float:left; background:$which-dblue;
+		li { width:33.33%; float:left;  background:#e5e5e5; 
 			text-align:center;
-			a { color:$white;  padding:10px 20px; display:block; text-decoration:none; }
+			a { color:$which-dblue;  padding:10px 20px; display:block; text-decoration:none; }
 		}
 		li:hover, li:focus { background: lighten($which-dblue, 10%); a { color:$white; } }
 		li:nth-child(2) { border-right:5px solid $white;border-left:5px solid $white; }
-		.ui-tabs-active { background:#e5e5e5; 
-			a { color: $which-dblue; outline:none;}
+		.ui-tabs-active { background:$which-dblue;
+			a { color: $white; outline:none;}
 		}
 	}
 
@@ -83,8 +88,8 @@ h1 { color:$which-dblue; font-size:30px; font-weight: 100; text-align:left; padd
 		section { padding: 50px 20px;}
 		h3 { float:left; background:#e5e5e5; border-bottom:2px solid darken(#e5e5e5, 10%); color:$which-grey; width:100%; display:block; width:100%; padding:20px; font-size:20px; margin:0; cursor:pointer; outline: 0; }
 		form { margin:20px 0;}
-		label { @include column(2); font-size:16px; display:table-cell; vertical-align:bottom; height:58px; }
-		textarea, select, input:not([type="submit"]) { @include column(10); }
+		label { @include column(4); font-size:16px; display:table-cell; vertical-align:bottom; height:58px; }
+		textarea, select, input:not([type="submit"]) { @include column(8); }
 		.form-row { padding:20px 0;  }
 
 	}
