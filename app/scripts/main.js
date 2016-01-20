@@ -13,12 +13,6 @@
         s = this.settings;
         Widgets.bindUIActions();
       },
-      signupJS: function() {
-        $('.apiform').bsdSignup({no_redirect:true}).on('bsd-success',function(e, response){
-          console.log('submission success',response);
-          /* do something to celebrate your success other than redirecting the user */
-        });
-      },
       validate: function(el) {
 
         var flagValidation = 0;
@@ -97,10 +91,7 @@
 
         //build the js
         //will include signup API call
-        var embedJS = '!function(e,t,r){function n(e){var t=document.createElement("a");return t.href=e,t}function i(t){var r="No response from sever";if(t&&t.responseJSON)return t.responseJSON;try{return e.parseJSON(t.responseText)}catch(n){return{status:"fail",code:503,message:r,error:r}}}function s(t){return t&&"success"===t.status?t:e.Deferred().rejectWith(this,[t])}function a(e,t,r){e.one("change keyup",function(){e.val()!==r&&t.setCustomValidity("")})}function o(e){this.trigger("bsd-success",[e]),this.data("no_redirect")!==!0&&e.thanks_url&&(t=e.thanks_url)}function u(t){var r=this,n=!1,i={};t&&t.field_errors&&t.field_errors.length&&(e.each(t.field_errors,function(e,s){var o=r.find(\'[name="\'+s.field+\'"]\'),u=o.get()[0];"submit-btn"===s.field?t.message=s.message:u&&u.setCustomValidity&&f&&r.data("no_html5validate")!==!0&&(u.setCustomValidity(s.message),a(o,u,s.message),n=!0),s.$field=o,i[s.field]=s.message,o.trigger("invalid",s.message)}),n&&f&&r.find(\'[type="submit"],[type="image"]\').eq(0).click()),r.trigger("bsd-error",[t,i])}function c(r,a,c){return function(l){var f=r.serializeObject(),d=a.replace(/\/page\/(signup|s)/,"/page/sapi"),p=e.ajax({url:d,type:"POST",method:"POST",dataType:"json",timeout:c.timeout||3e4,context:r,data:f,beforeSend:function(r,i){if(c.proxyall||i.crossDomain&&!e.support.cors&&(!e.oldiexdr||n(i.url).protocol!==t.protocol)){if(!c.oldproxy&&!c.proxyall)return!1;i.url=c.oldproxy||c.proxyall,i.crossDomain=!1,i.data+="&purl="+d}l.preventDefault()}});"canceled"!==p.statusText&&(r.trigger("bsd-submit",f),p.then(s,i).done(o).fail(u))}}function l(t,r,n){var i,s=t.find(\'[name="\'+r+\'"]\');s.length||(s=e("<input/>",{type:"hidden",name:r}).appendTo(t)),n&&(i=s.val(),s.val((""!==i?i+",":"")+n))}e.fn.serializeObject=function(){var t={},n=this.serializeArray();return e.each(n,function(){t[this.name]!==r?(t[this.name].push||(t[this.name]=[t[this.name]]),t[this.name].push(this.value||"")):t[this.name]=this.value||""}),t};var f="reportValidity"in e("<form/>").get()[0],d=function(e){var r=new RegExp("[\\?&]"+e.replace(/(\[|\])/g,"\\$1")+"=([^&#]*)"),n=r.exec(t.href);return null===n?"":n[1]},p="source",m="subsource",h=d(p)||d("fb_ref"),g=d(m);e.fn.bsdSignup=function(t){return this.each(function(){var r=e(this),n=r.attr("action");r.is("form")&&n.indexOf("page/s")>-1&&(l(r,p,h),l(r,m,g),e.isPlainObject(t)?r.data(t):t={},r.on("submit",c(r,n,t)))})}}(jQuery,window.location);';
-
-
-        embedJS += '<script type="text/javascript">jQuery(".apiform").bsdSignup({no_redirect:true}).on("bsd-success",function(e, response){ });</script>';
+        var embedJS = '<script type="text/javascript">jQuery(".apiform").bsdSignup({no_redirect:true}).on("bsd-success",function(e, response){ console.log("submitted"); return false; });</script>';
 
         //build the html
         var embedHTML = '<div class="bsd-embed-form widgetainer widget-styled">';
@@ -229,8 +220,15 @@
             //iterate through options
             $.each(optionFields, function(key, value) {
               var radioArr = value.split('|');
-              signupFields += '<label class="visible-label" for="' + fieldName + '' + radioArr[1] + '">' + radioArr[1] + '</label>';
-              signupFields += '<input type="checkbox" name="' + fieldName + '[]" ' + validationTxt + ' value="' + radioArr[0] + '" id="' + fieldName + '' + radioArr[1] + '" />';
+              if(radioArr.length > 1) {
+                signupFields += '<label class="visible-label" for="' + fieldName + '' + radioArr[1] + '">' + radioArr[1] + '</label>';
+                signupFields += '<input type="checkbox" name="' + fieldName + '[]" ' + validationTxt + ' value="' + radioArr[0] + '" id="' + fieldName + '' + radioArr[1] + '" />';
+              }
+              else {
+                signupFields += '<label class="visible-label" for="' + fieldName + '' + radioArr[0] + '">' + radioArr[0] + '</label>';
+                signupFields += '<input type="checkbox" name="' + fieldName + '[]" ' + validationTxt + ' value="' + radioArr[0] + '" id="' + fieldName + '' + radioArr[0] + '" />';
+              }
+
             });
           break;
           case '5':
@@ -243,8 +241,14 @@
             //iterate through options
             $.each(optionFields, function(key, value) {
               var radioArr = value.split('|');
-              signupFields += '<label class="visible-label" for="' + fieldName + '' + radioArr[1] + '">' + radioArr[1] + '</label>';
-              signupFields += '<input type="radio" name="' + fieldName + '[]" ' + validationTxt + '  value="' + radioArr[0] + ' " id="' + fieldName + ' ' + radioArr[1] + '" />';
+              if(radioArr.length > 1) {
+                signupFields += '<label class="visible-label" for="' + fieldName + '' + radioArr[1] + '">' + radioArr[1] + '</label>';
+                signupFields += '<input type="radio" name="' + fieldName + '[]" ' + validationTxt + '  value="' + radioArr[0] + ' " id="' + fieldName + ' ' + radioArr[1] + '" />';
+              }
+              else {
+                signupFields += '<label class="visible-label" for="' + fieldName + '' + radioArr[0] + '">' + radioArr[0] + '</label>';
+                signupFields += '<input type="radio" name="' + fieldName + '[]" ' + validationTxt + '  value="' + radioArr[0] + ' " id="' + fieldName + ' ' + radioArr[0] + '" />';
+              }
             });
           break;
           case '6':
@@ -254,7 +258,9 @@
           case '7':
             //if single checkbox
             signupFields += '<label  class="visible-label" for="' + fieldName + '">' + k.label + '</label>';
-            signupFields += '<p class="checkbox-text">' + k.extra_def.desc + '</p>';
+            if(k.extra_def.desc.length > 0) { 
+              signupFields += '<p class="checkbox-text">' + k.extra_def.desc + '</p>';
+            }
             signupFields += '<input type="checkbox" name="' + fieldName + '" ' + validationTxt + ' value="1" id="' + fieldName + '" />';
           break;
           case '8':
