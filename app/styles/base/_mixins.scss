@@ -91,6 +91,12 @@
     transition: $args;
 }
 
+@mixin vertical-align($position: relative) {
+   display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
 
 .nojs .nojs-hide {
     display: none;

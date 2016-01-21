@@ -44,217 +44,67 @@
 
 
     <script src="/bower_components/jquery/dist/jquery.js"></script>
+  
+  <script src="/scripts/signup.js"></script>
 
-    <script type="javascript">
-/*lets define our scope*/
-(function($, wlocation, undefined){
+<script>
+    window.console = window.console || {'log':function(fn){ if(typeof fn ==="function"){ fn(); } }};
+</script>
+<!--[if lte IE 8]><script src="https://cdnjs.cloudflare.com/ajax/libs/json3/3.3.2/json3.js"></script><script src="//code.jquery.com/jquery-1.11.3.min.js"></script><![endif]-->
+<!--[if gt IE 8]><!--><script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script></script><!--<![endif]-->
+<script src="js/bsd-signup-jsapi-simple.js"></script>
+<script>
+function gup(name) {
+    var regex = new RegExp("[\\?&]"+name.replace(/(\[|\])/g,"\\$1")+"=([^&#]*)"),
+        results = regex.exec( window.location.href );
+    return ( results === null )?"":results[1];
+}
+var debug = gup('debug');
+if(debug){
+    $('.apiform').append('<input type="text" name="successfail" value="'+debug+'">');
+}
 
-   //let's make it easy to jQuery's form array into a data object
-   $.fn.serializeObject = function(){
-        var o = {},
-            a = this.serializeArray();
-        $.each(a, function() {
-            if (o[this.name] !== undefined) {
-                if (!o[this.name].push) {
-                    o[this.name] = [o[this.name]];
-                }
-                o[this.name].push(this.value || '');
-            } else {
-                o[this.name] = this.value || '';
-            }
-        });
-        return o;
-    };
 
-    var interactiveValidity = 'reportValidity' in $('<form/>').get()[0],//check whether the browser supports interactive validation messages
-        pluginname = 'bsdSignup',//the plugin we plan to create
-        gup = function(name) {
-            var gupregex = new RegExp("[\\?&]"+name.replace(/(\[|\])/g,"\\$1")+"=([^&#]*)"),
-                results = gupregex.exec( wlocation.href );
-            return ( results === null )?"":results[1];
-        },//allow us to get url parameters
-        sourceString = 'source',
-        subsourceString = 'subsource',
-        urlsource = gup(sourceString)||gup('fb_ref'),//any source we can get from the url
-        urlsubsource = gup(subsourceString);//any subsource we can get from the url
 
-    function parseURL(url){
-        var p = document.createElement('a');//create a special DOM node for testing
-        p.href=url;//stick a link into it
-        //p.pathname = p.pathname.replace(/(^\/?)/,"/");//IE fix
-        return p;//return the DOM node's native concept of itself, which will expand any relative links into real ones
-    }
+</script>
 
-    // ideally the api returns informative errors, but in the case of failures, let's try to parse the error json, if any, and then make sure we have a standard response if all else fails
-    function errorFilter(e){
-        console.log(e);
-        var msg = 'No response from sever';
-        if(e && e.responseJSON){
-            return e.responseJSON;
-        }
-        else{
-            try{
-                return $.parseJSON(e.responseText);
-            }
-            catch(error){
-                return {status:'fail',code:503, message: msg, error:msg };
-            }
-        }
-    }
-
-    function successFilter(response){
-        return (!response || response.status!=="success") ?
-            $.Deferred().rejectWith(this, [response]) :
-            response;
-    }
-
-    // allow any changes to a field that was invalid to clear that custom Error value
-    function recheckIfThisIsStillInvalid($field, field, badinput){
-        $field.one('change keyup',function(){
-            if($field.val()!==badinput){
-                field.setCustomValidity('');//we've now cleared the custom error
-            }
-        });
-    }
-
-    function formSuccess(result){
-        //"this" is the jquery wrapped $form
-        this.trigger('bsd-success',[result]);
-        if(this.data('no_redirect')!==true && result.thanks_url){
-            wlocation = result.thanks_url;
-        }
-    }
-
-    function formFailure(e){
-        //"this" is the jquery wrapped $form
-        var $form = this,
-            funerror = false,
-            errorsAsObject = {};
-        if(e && e.field_errors && e.field_errors.length){
-            $.each(e.field_errors,function(i,err){
-                var $errField = $form.find('[name="'+err.field+'"]'),
-                    errField = $errField.get()[0];
-                if(err.field==="submit-btn"){
-                    e.message = err.message;
-                }
-                else if(errField && errField.setCustomValidity && interactiveValidity && $form.data('no_html5validate')!==true){
-                    errField.setCustomValidity(err.message);//this sets an additional constraint beyond what the browser validated
-                    recheckIfThisIsStillInvalid($errField,errField,err.message);//and since we don't know what it is, we at least check to make sure it's no longer what the server has already rejected
-                    funerror= true;
-                }
-                err.$field = $errField;
-                errorsAsObject[err.field] = err.message;
-                $errField.trigger('invalid', err.message);//and now let's trigger a real event that someone can use to populatre error classes
-            });
-            if(funerror && interactiveValidity){
-                //for this to work, triggering the native validation, we'd need to hit the submit button, not just do a $form.submit()
-                $form.find('[type="submit"],[type="image"]').eq(0).click();
-            }
-        }
-        $form.trigger('bsd-error',[e, errorsAsObject]);
-    }
-
-    //create a replacement for actually submitting the form directly
-    function jsapiSubmit($form, action, ops){
-        return function(e){
-            //we're going to use jQuery's ajax to actually check if a request is crossDomain or not, rather than using our own test. Then if it is, and the browser doesn't support that, we'll just cancel the request and let the form submit normally
-            var data = $form.serializeObject(),
-                apiaction = action.replace(/\/page\/(signup|s)/,'/page/sapi'),
-                request = $.ajax({
-                    url: apiaction,//where to post the form
-                    type: 'POST',
-                    method: 'POST',
-                    dataType: 'json',//no jsonp
-                    timeout: ops.timeout||3e4,
-                    context: $form,//set the value of "this" for all deferred functions
-                    data: data,
-                    beforeSend: function(jqxhr, requestsettings){
-                        console.log('beforesend check ',jqxhr, requestsettings);
-                        console.log(' url: ',requestsettings.url,' xd?: ',requestsettings.crossDomain, ' cors?: ',$.support.cors,' have oldiexdr support?: ',$.oldiexdr,' oldiexdr and protocol match?: ',($.oldiexdr && parseURL(requestsettings.url).protocol===wlocation.protocol));
-                        console.log('data',requestsettings.data);
-                        if(
-                            ops.proxyall ||
-                            (
-                                requestsettings.crossDomain &&
-                                !$.support.cors &&
-                                !($.oldiexdr && parseURL(requestsettings.url).protocol===wlocation.protocol)
-                            )
-                        ){
-                            console.log('using proxy',ops.oldproxy);
-                            if(ops.oldproxy||ops.proxyall){
-                                requestsettings.url = ops.oldproxy||ops.proxyall;
-                                requestsettings.crossDomain = false;
-                                requestsettings.data += '&purl='+apiaction;
-                                // console.log(function(){
-                                //     window.alert('using proxy:'+ops.oldproxy+' proxying: '+apiaction);
-                                // });
-                            }else{
-                                return false;//request is cors but the browser can't handle that, so let the normal form behavior proceed
-                            }
-                        }
-                        e.preventDefault();//cancel the native form submit behavior
-                    }
-                });
-                //only add the handlers if the request actually happened
-                if(request.statusText!=="canceled"){
-                    $form.trigger('bsd-submit',data);
-                    request
-                        .then(successFilter, errorFilter)
-                        .done(formSuccess)
-                        .fail(formFailure);
-                }
-        };
-    }
-
-    //handle making sure sources in the url end up in the form, like in a native tools signup form
-    function normalizeSourceField($form, name, external){
-        var $field = $form.find('[name="'+name+'"]'),
-            oldval;
-        if(!$field.length){
-            $field = $('<input/>',{'type':'hidden','name':name}).appendTo($form);
-        }
-        if(external){
-            oldval = $field.val();
-            $field.val(
-                (
-                    (oldval!=="") ?
-                        (oldval+',') :
-                        ''
-                )+external
-            );
-        }
-    }
-
-    /*create the plugin*/
-    $.fn.bsdSignup = function(ops){
-        return this.each(function(){
-            var $form = $(this),
-                action = $form.attr('action');//action or self (self is pretty unlikely here, but bwhatever)
-            if($form.is('form') && action.indexOf('page/s')>-1){//only bother if key elements are present
-                normalizeSourceField($form, sourceString, urlsource);
-                normalizeSourceField($form, subsourceString, urlsubsource);
-                if($.isPlainObject(ops)){
-                    $form.data(ops);
-                }else{
-                    ops={};
-                }
-                $form.on('submit', jsapiSubmit($form, action, ops));
-                console.log('init bsdSignup',{form:$form, interactive_validation:interactiveValidity,options:ops,action:ops.proxy||action});
-            }
-        });
-    };
-
-}(jQuery, window.location));
-    </script>
 
     <script type="text/javascript">
 
     $(document).ready(function()
     {
+
+    $('.apiform').bsdSignup({no_redirect:true, no_native_validation_hook:false}).on('bsd-success',function(e, response){
+    console.log('bsd-success',response);
+    $('#log').prepend('<br>api said: <pre>'+JSON.stringify(response,null,'\n ') + "</pre>");
+}).on('bsd-error',function(e, errorJSON, fieldErrorsAsAnObject){
+     $('#log').prepend('<br>api said: <pre>'+JSON.stringify(fieldErrorsAsAnObject,null,'\n ') + (errorJSON.original?"<br> original:" +errorJSON.original:"")+"</pre>");
+    console.log('bsd-error',e, errorJSON, fieldErrorsAsAnObject);
+    var errorClassString = 'error';
+    if(errorJSON && errorJSON.field_errors){
+        $.each(errorJSON.field_errors,function(i,error){
+            error.$field.addClass(errorClassString).after('<span class="err-msg">'+error.message+'</span>').one('change keyup',function(){
+                $(this).removeClass(errorClassString).next('.err-msg').remove();
+            });
+        });
+    }else if(errorJSON && errorJSON.code===500){
+        $(this).append(errorJSON.error);
+    }
+});
+
+
+      $('.apiform').on('submit', function(event) { event.preventDefault(); 
+
+  $(".apiform").bsdSignup({no_redirect:true}).on("bsd-success",function(e, response){ console.log("submitted"); return false; });
+      });
+
+
       $('#embedForm').on('submit', function(event) {
         
         event.preventDefault();
         $('#embed-block').html($('#embedCode').val());
+
+        
 
       });
     });
@@ -891,7 +741,6 @@
 
 <div id="mobile-nav-container"></div>
 
-<script type="text/template" id="mobile-nav-template">
 
   <div class="mobile-search">
     <div class="search-bar">
@@ -1464,8 +1313,11 @@
 
     <div class="wWrapper block block-aims">
         
-
+<div id="log"></div>
         <p>Below is where you embed the code
+
+
+          <style type="text/css"> .signup-wrapper a { color:   } .form-row--half input, .form-row--half select { width:100%; } .row-hidden {display:none!important;} .form-row--half { display: inline;  float: left;  width: 47.5609756098%;  margin: 0 1.2195121951%; } .signup-wrapper  { color: ; background: url() no-repeat ; background-size:cover; } .signup-wrapper input, .signup-wrapper textarea .signup-wrapper select { padding: 0 0; margin: 0 0; } </style><div class="signup-wrapper"><div class="bsd-embed-form widgetainer widget-styled"><form name="Widget test form" class="apiform" action="widget-test-form" method="post" id="194">            <fieldset class="ui-sortable"><div class="form-row form-row--left  row-required"><label for="custom_3658">Email</label><input type="email" name="custom_3658" data-validate="presence" data-validatemsg="Please enter a valid Email" placeholder="Email" id="custom_3658"></div><div class="form-row form-row--left "><label class="visible-label" for="custom_3941">(D) Household size</label><select name="custom_3941" id="custom_3941"><option value="1">1</option><option value="2">2</option><option value="3 to 5">3 to 5</option><option value="More than 5">More than 5</option></select></div><div class="form-row form-row--left  row-hidden"><label for="custom_3659">Prefix</label><input type="hidden" name="custom_3659" placeholder="Prefix" id="custom_3659"></div><div class="form-row form-row--left  row-required"><label for="custom_3672">Example custom field</label><input type="text" name="custom_3672" data-validate="presence" data-validatemsg="Please enter a valid Example custom field" placeholder="Example custom field" id="custom_3672"></div><div class="form-row form-row--left "><label for="custom_3660">First Name</label><input type="text" name="custom_3660" placeholder="First Name" id="custom_3660"></div><div class="form-row form-row--left "><label class="visible-label" for="custom_3942">Test select</label><select name="custom_3942" id="custom_3942"><option value="value 1">Value 1</option><option value="value 2">Value 2</option><option value="value 3">Value 3</option></select></div><div class="form-row form-row--left  row-hidden"><label for="custom_3661">Middle Name</label><input type="hidden" name="custom_3661" placeholder="Middle Name" id="custom_3661"></div><div class="form-row form-row--left  row-required"><p class="form-radio--label">Test checkbox</p><label class="visible-label" for="custom_3943Value 1">Value 1</label><input type="checkbox" name="custom_3943[]" data-validate="presence" data-validatemsg="Please enter a valid Test checkbox" value="value 1" id="custom_3943Value 1"><label class="visible-label" for="custom_3943Value 2">Value 2</label><input type="checkbox" name="custom_3943[]" data-validate="presence" data-validatemsg="Please enter a valid Test checkbox" value="value 2" id="custom_3943Value 2"><label class="visible-label" for="custom_3943Value 3">Value 3</label><input type="checkbox" name="custom_3943[]" data-validate="presence" data-validatemsg="Please enter a valid Test checkbox" value="value 3" id="custom_3943Value 3"></div><div class="form-row form-row--left "><label for="custom_3662">Last Name</label><input type="text" name="custom_3662" placeholder="Last Name" id="custom_3662"></div><div class="form-row form-row--left "><p class="form-field-static">This is static text</p></div><div class="form-row form-row--left  row-hidden"><label for="custom_3663">Suffix</label><input type="hidden" name="custom_3663" placeholder="Suffix" id="custom_3663"></div><div class="form-row form-row--left  row-required"><label for="custom_3945">sample file upload</label><input type="file" name="custom_3945" data-validate="presence" data-validatemsg="Please enter a valid sample file upload" placeholder="sample file upload" id="custom_3945"><p class="desc">Max upload size: 302mb </p></div><div class="form-row form-row--left "><label for="custom_3664">Address</label><input type="text" name="custom_3664" placeholder="Address" id="custom_3664"></div><div class="form-row form-row--left  row-required"><label for="custom_3946">Autocomplete text field</label><input type="text" name="custom_3946" data-validate="presence" data-validatemsg="Please enter a valid Autocomplete text field" placeholder="Autocomplete text field" id="custom_3946"></div><div class="form-row form-row--left "><label for="custom_3665">State/Region/Province</label><input type="text" name="custom_3665" placeholder="State/Region/Province" id="custom_3665"></div><div class="form-row form-row--left "><label for="custom_3947">Sample hidden field</label><input type="hidden" name="custom_3947" placeholder="Sample hidden field" id="custom_3947"></div><div class="form-row form-row--left "><label for="custom_3666">City</label><input type="text" name="custom_3666" placeholder="City" id="custom_3666"></div><div class="form-row form-row--left  row-required"><label for="custom_3667">Postal Code</label><input type="text" name="custom_3667" data-validate="presence" data-validatemsg="Please enter a valid Postal Code" placeholder="Postal Code" id="custom_3667"></div><div class="form-row form-row--left "><label class="visible-label" for="country">Country</label><select id="country" name="country"><option value=""></option><option value="AF">Afghanistan</option><option value="AL">Albania</option><option value="DZ">Algeria</option><option value="AS">American Samoa</option><option value="AD">Andorra</option><option value="AO">Angola</option><option value="AI">Anguilla</option><option value="AG">Antigua and Barbuda</option><option value="AR">Argentina</option><option value="AM">Armenia</option><option value="AW">Aruba</option><option value="AU">Australia</option><option value="AT">Austria</option><option value="AZ">Azerbaijan</option><option value="BS">Bahamas</option><option value="BH">Bahrain</option><option value="BD">Bangladesh</option><option value="BB">Barbados</option><option value="BY">Belarus</option><option value="BE">Belgium</option><option value="BZ">Belize</option><option value="BJ">Benin</option><option value="BM">Bermuda</option><option value="BT">Bhutan</option><option value="BO">Bolivia</option><option value="BA">Bosnia and Herzegovina</option><option value="BW">Botswana</option><option value="BR">Brazil</option><option value="VG">British Virgin Islands</option><option value="IO">British Indian Ocean Territory</option><option value="BN">Brunei</option><option value="BG">Bulgaria</option><option value="BF">Burkina Faso</option><option value="BI">Burundi</option><option value="KH">Cambodia</option><option value="CM">Cameroon</option><option value="CA">Canada</option><option value="CV">Cape Verde</option><option value="KY">Cayman Islands</option><option value="CF">Central African Republic</option><option value="TD">Chad</option><option value="CL">Chile</option><option value="CN">China</option><option value="CX">Christmas Island</option><option value="CO">Colombia</option><option value="KM">Comoros Islands</option><option value="CD">Congo, Democratic Republic of the</option><option value="CG">Congo, Republic of the</option><option value="CK">Cook Islands</option><option value="CR">Costa Rica</option><option value="CI">Cote D'ivoire</option><option value="HR">Croatia</option><option value="CU">Cuba</option><option value="CY">Cyprus</option><option value="CZ">Czech Republic</option><option value="DK">Denmark</option><option value="DJ">Djibouti</option><option value="DM">Dominica</option><option value="DO">Dominican Republic</option><option value="TP">East Timor</option><option value="EC">Ecuador</option><option value="EG">Egypt</option><option value="SV">El Salvador</option><option value="GQ">Equatorial Guinea</option><option value="ER">Eritrea</option><option value="EE">Estonia</option><option value="ET">Ethiopia</option><option value="FK">Falkland Islands (Malvinas)</option><option value="FO">Faroe Islands</option><option value="FJ">Fiji</option><option value="FI">Finland</option><option value="FR">France</option><option value="GF">French Guiana</option><option value="PF">French Polynesia</option><option value="TF">French Southern Territories</option><option value="GA">Gabon</option><option value="GM">Gambia</option><option value="GE">Georgia</option><option value="DE">Germany</option><option value="GH">Ghana</option><option value="GI">Gibraltar</option><option value="GR">Greece</option><option value="GL">Greenland</option><option value="GD">Grenada</option><option value="GP">Guadeloupe</option><option value="GU">Guam</option><option value="GT">Guatemala</option><option value="GN">Guinea</option><option value="GW">Guinea-Bissau</option><option value="GY">Guyana</option><option value="HT">Haiti</option><option value="VA">Holy See (Vatican City State)</option><option value="HN">Honduras</option><option value="HK">Hong Kong</option><option value="HU">Hungary</option><option value="IS">Iceland</option><option value="IN">India</option><option value="ID">Indonesia</option><option value="IR">Iran</option><option value="IQ">Iraq</option><option value="IE">Republic of Ireland</option><option value="IL">Israel</option><option value="IT">Italy</option><option value="JM">Jamaica</option><option value="JP">Japan</option><option value="JO">Jordan</option><option value="KZ">Kazakhstan</option><option value="KE">Kenya</option><option value="KI">Kiribati</option><option value="KR">South Korea</option><option value="XK">Kosovo</option><option value="KW">Kuwait</option><option value="KG">Kyrgyzstan</option><option value="LA">Laos</option><option value="LV">Latvia</option><option value="LB">Lebanon</option><option value="LS">Lesotho</option><option value="LR">Liberia</option><option value="LY">Libya</option><option value="LI">Liechtenstein</option><option value="LT">Lithuania</option><option value="LU">Luxembourg</option><option value="MO">Macau</option><option value="MK">Macedonia</option><option value="MG">Madagascar</option><option value="MW">Malawi</option><option value="MY">Malaysia</option><option value="MV">Maldives</option><option value="ML">Mali</option><option value="MT">Malta</option><option value="MH">Marshall Islands</option><option value="MQ">Martinique</option><option value="MR">Mauritania</option><option value="MU">Mauritius</option><option value="YT">Mayotte</option><option value="MX">Mexico</option><option value="FM">Micronesia</option><option value="MD">Moldova, Republic of</option><option value="MC">Monaco</option><option value="MN">Mongolia</option><option value="ME">Montenegro</option><option value="MS">Montserrat</option><option value="MA">Morocco</option><option value="MZ">Mozambique</option><option value="MM">Myanmar</option><option value="NA">Namibia</option><option value="NR">Nauru</option><option value="NP">Nepal</option><option value="NL">Netherlands</option><option value="AN">Netherlands Antilles</option><option value="NC">New Caledonia</option><option value="NZ">New Zealand</option><option value="NI">Nicaragua</option><option value="NE">Niger</option><option value="NG">Nigeria</option><option value="NU">Niue</option><option value="NF">Norfolk Island</option><option value="MP">Northern Mariana Islands</option><option value="NO">Norway</option><option value="OM">Oman</option><option value="PK">Pakistan</option><option value="PW">Palau</option><option value="PA">Panama</option><option value="PG">Papua New Guinea</option><option value="PY">Paraguay</option><option value="PE">Peru</option><option value="PH">Philippines</option><option value="PN">Pitcairn Island</option><option value="PL">Poland</option><option value="PT">Portugal</option><option value="PR">Puerto Rico</option><option value="QA">Qatar</option><option value="RE">Reunion</option><option value="RO">Romania</option><option value="RU">Russian Federation</option><option value="RW">Rwanda</option><option value="KN">Saint Kitts and Nevis</option><option value="LC">Saint Lucia</option><option value="VC">Saint Vincent and the Grenadines</option><option value="WS">Samoa</option><option value="SM">San Marino</option><option value="ST">Sao Tome and Principe</option><option value="SA">Saudi Arabia</option><option value="SN">Senegal</option><option value="RS">Serbia</option><option value="SC">Seychelles</option><option value="SL">Sierra Leone</option><option value="SG">Singapore</option><option value="SK">Slovakia</option><option value="SI">Slovenia</option><option value="SB">Solomon Islands</option><option value="SO">Somalia</option><option value="ZA">South Africa</option><option value="SS">South Sudan</option><option value="ES">Spain</option><option value="LK">Sri Lanka</option><option value="SH">St. Helena</option><option value="PM">St. Pierre and Miquelon</option><option value="SD">Sudan</option><option value="SR">Suriname</option><option value="SY">Syria</option><option value="SZ">Swaziland</option><option value="SE">Sweden</option><option value="CH">Switzerland</option><option value="TW">Taiwan</option><option value="TJ">Tajikistan</option><option value="TZ">Tanzania</option><option value="TH">Thailand</option><option value="TG">Togo</option><option value="TK">Tokelau</option><option value="TO">Tonga</option><option value="TT">Trinidad and Tobago</option><option value="TN">Tunisia</option><option value="TR">Turkey</option><option value="TM">Turkmenistan</option><option value="TC">Turks and Caicos Islands</option><option value="TV">Tuvalu</option><option value="UG">Uganda</option><option value="UA">Ukraine</option><option value="AE">United Arab Emirates</option><option value="GB" selected="selected">United Kingdom</option><option value="US">United States</option><option value="UY">Uruguay</option><option value="UZ">Uzbekistan</option><option value="VU">Vanuatu</option><option value="VE">Venezuela</option><option value="VN">Viet Nam</option><option value="VI">Virgin Islands (U.S.)</option><option value="WF">Wallis and Futuna Islands</option><option value="EH">Western Sahara</option><option value="YE">Yemen</option><option value="ZM">Zambia</option><option value="ZW">Zimbabwe</option></select></div><div class="form-row form-row--left "><label for="custom_3669">Phone</label><input type="text" name="custom_3669" placeholder="Phone" id="custom_3669"></div><div class="form-row form-row--left "><label for="custom_3670">Occupation</label><input type="text" name="custom_3670" placeholder="Occupation" id="custom_3670"></div><div class="form-row form-row--left "><label for="custom_3671">Employer</label><input type="text" name="custom_3671" placeholder="Employer" id="custom_3671"></div><div class="form-row"><input type="submit" class="b--btn b--btn__submit" name="fetchform" value="Personalise form"></div></fieldset>          </form></div></div>
 
         <form action="#" name="embed-code" id="embedForm" method="post">
             <fieldset>

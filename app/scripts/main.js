@@ -460,6 +460,10 @@
         $('#generateForm').on('click', '.b--btn__submit', function () {
           Widgets.copyClipboard( $('#generateForm textarea').val() );
           $(this).val('Copied to clipboard');
+
+          setTimeout(function(){
+             $('#generateForm .b--btn__submit').val('Copy to clipboard');
+          }, 5000);
           return false;
         });
 

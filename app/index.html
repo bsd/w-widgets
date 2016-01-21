@@ -35,20 +35,20 @@
       <form name="generate-form" class="form" action="#customiseStep" method="post">
         <fieldset>
           <div class="form-row">
-            <label for="branch">Select your branch</label>
+            <label for="branch">Select your branch  <a class="tooltip" href="#"><i class="icon-info-circle"></i><span class="tooltip-content"><span class="tooltip-text"><span class="tooltip-inner">Your branch name should correspond with the name used within the BSD tools.</span></span></span></a></label>
             <select name="branch" id="branch">
               <option value="https://whichcouk.cp.bsd.net">Primary</option>
               <option value="https://cai-whichcouk.cp.bsd.net">CAI</option>
             </select>
-            <p class="desc">If your branch is not available please get in touch with the administrator</p>
+             <p class="desc">If your branch is not available please get in touch with the administrator</p>
           </div>
           <div class="form-row">
-            <label for="formID">Enter the form ID</label>
+            <label for="formID">Enter the form ID  <a class="tooltip" href="#"><i class="icon-info-circle"></i><span class="tooltip-content"><span class="tooltip-text"><span class="tooltip-inner">You can find your form ID by logging into the tools and editing the relevant signup form. The ID will be available in the URL.</span></span></span></a></label>
             <input type="text" class="b--form-field" data-validateMsg="Please enter a valid Form ID" data-validate="presence numeric" id="formID" placeholder="e.g 194" />
             <span class='uil-ring-css'><span>
           </div>
           <div class="form-row">
-            <input type="submit" class="b--btn b--btn__submit" name="fetchform" value="Next step" />
+            <input type="submit" class="b--btn b--btn__submit" name="fetchform" value="Fetch form" />
           </div>
         </fieldset>
       </form>
@@ -61,7 +61,10 @@
         <li><a href="#generateForm">Generate Code</a></li>
       </ul>
         <section id="customiseForm">
-          <a href="#" class="toggle-btn">Toggle row span</a>
+          <a href="#" class="toggle-btn">Toggle field width</a> 
+
+          <a class="tooltip" href="#"><i class="icon-info-circle"></i><span class="tooltip-content"><span class="tooltip-text"><span class="tooltip-inner">Click the button to be able to alter the width of form fields. Once the button is red, you can click on the form fields to toggle them to be full width or half width Once you are happy with the fields click the button again to save your changes.</span></span></span></a>
+
           <form name="generate-form" class="form" action="#personaliseForm" method="post">
             <fieldset>
 
@@ -91,7 +94,7 @@
               </div>
 
               <div class="form-row">
-                <input type="submit" class="b--btn b--btn__submit" name="fetchform" value="Personalise form" />
+                <input type="submit" class="b--btn b--btn__submit" name="fetchform" value="Save changes" />
               </div>
             </fieldset>
           </form>
