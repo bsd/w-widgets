@@ -1,5 +1,16 @@
 /*global jQuery:false */
 
+/* TO DO 
+  Validation on generated form
+  Validation on URL
+  Fetch form error message
+  Seperate generated code into three sections
+  Tooltip on embed form page
+  Share content
+  Allow the user to personalise the share tweet
+  Hide thank you content
+
+*/
 (function($) {
   'use strict';
     var s, signupInfo, wrapperHTML = '', signupFields,
@@ -46,15 +57,32 @@
       },
       personaliseForm: function() {
 
-        //TO DO: Could this be a class?
         $('#personaliseForm .hide-row').hide();
 
         //if thankyou option selected then show extra options
         $('#destination').on('change', function() {
           if($(this).val() === 'content') {
             $('.hide-row').show();
+            $('.thankyouurl-row').hide();
+          }
+          else {
+            $('.thankyouurl-row').show();
+            $('.hide-row').hide();
           }
         });
+      },
+      thankyouCode: function() {
+
+        //determine if it's a URL redirect
+        if($('#destination').val() !== "url") {
+
+          var thankyouCode = '<p class="thankyou-header">'+$('#thankyouHeader').val()+'</p><div class="thankyou-content">'+$('#thankyouContent').val()+'</div>';
+          var formpostCode = '<div class="form-post"><p>Thank you for submitting the following information:</p></div>';
+          var shareCode = '<div class="share-content"><img src="'+$('#shareImg').val()+'" alt="share this page" /><div class="social-share"><a href="" class="fb-btn">Share on Facebook</a><a href="" class="tw-btn">Share on Twitter</a></div></div>';
+
+          return thankyouCode+formpostCode+shareCode;
+        }
+
       },
       buildEmbedCode: function() {
 
@@ -86,23 +114,47 @@
         var inputMargin = inputMarginV + ' ' + inputMarginH;
 
         //build the css
-        var embedCSS = '<style type="text/css"> .signup-wrapper a { color: ' + $('#linkColour').val() + '  } .form-row--half input, .form-row--half select { width:100%; } .row-hidden {display:none!important;} .form-row--half { display: inline;  float: left;  width: 47.5609756098%;  margin: 0 1.2195121951%; } .signup-wrapper  { color: ' + $('#textColour').val() + '; background: url(' + $('#bgImg').val() + ') no-repeat ' + $('#bgColour').val() + '; background-size:cover; } .signup-wrapper input, .signup-wrapper textarea .signup-wrapper select { padding: ' + inputPadd + '; margin: ' + inputMargin + '; } </style>';
+        var embedCSS = '<style type="text/css">';
 
+        if($('#linkColour').length > 0) {
+          embedCSS += '.signup-wrapper a { color: ' + $('#linkColour').val() + '  }';
+        }
+        if($('#textColour').length > 0) {
+          embedCSS += '.signup-wrapper { color: ' + $('#textColour').val() + '  }';
+        }
 
+        if($('#bgImg').length > 0) {
+          embedCSS += '.signup-wrapper { background: url(' + $('#bgImg').val() + ') no-repeat ' + $('#bgColour').val() + '; background-size:cover;  }';
+        }
+
+         embedCSS += ' .form-row--half input, .form-row--half select { width:100%; } .row-hidden { display:none!important; } .form-row--half { display: inline;  float: left;  width: 47.5609756098%;  margin: 0 1.2195121951%; } body .signup-wrapper input, body .signup-wrapper textarea, body .signup-wrapper select { padding: ' + inputPadd + '; margin: ' + inputMargin + '; } </style>';
+        
         //build the js
         //will include signup API call
-        var embedJS = '<script type="text/javascript">jQuery(".apiform").bsdSignup({no_redirect:true}).on("bsd-success",function(e, response){ console.log("submitted"); return false; });</script>';
+        var embedJS = '<script type="text/javascript">jQuery(".thankyou-wrapper").hide(); jQuery(".apiform").bsdSignup({no_redirect:true}).on("bsd-success",function(e, response){ e.preventDefault();';
+
+          //if redirect to URL build script to redirect window to set URL
+          if($('#formEntry').is(':checked'))
+          {
+            embedJS += ' jQuery(".thankyou-wrapper").append(jQuery(".apiform").serialize())); ';
+          }
+          if($('#destination').val() === "url") {
+            embedJS += ' window.location.replace("'+jQuery('#thankyouURL').val()+'"); ';
+          }
+          
+          else { 
+          //if show thankyou content, hide the form on success and show thank you content
+          embedJS += ' jQuery(".apiform").hide(); jQuery(".thankyouWrapper").show(); ';
+          }
+          embedJS += '});</script>';
 
         //build the html
         var embedHTML = '<div class="bsd-embed-form widgetainer widget-styled">';
 
-        //TODO: add absolute URL before action
-
-        embedHTML += '<form name="' + signupInfo.signup_form_name + '" class="apiform" action="' + signupInfo.signup_form_slug + '" method="post" id="' + signupInfo.signup_form_id + '">';
+        embedHTML += '<form name="' + signupInfo.signup_form_name + '" class="apiform" action="' + $('#branch').val() +'/page/s/'+signupInfo.signup_form_slug + '" method="post" id="' + signupInfo.signup_form_id + '">';
 
         embedHTML += $('#customiseForm form').html();
-        //TODO: add submit button
-
+        embedHTML = embedHTML.replace('Personalise form', 'Submit form');
         embedHTML += '</form>';
         embedHTML += '</div>';
 
@@ -112,6 +164,10 @@
           wrapperHTML += '<div class="signup-logo" style="text-align: ' + $('#logoAlignment').val() + ';"><img src="' + $('#logo').val() + '" alt="logo" /></div>';
         }
         wrapperHTML += embedHTML;
+
+        var tyCode = Widgets.thankyouCode();
+        
+        wrapperHTML += '<div class="thankyou-wrapper">'+tyCode+'</div>';
         wrapperHTML += '</div>';
 
         $('#generateForm textarea').val(embedCSS + embedJS + wrapperHTML);
@@ -292,8 +348,13 @@
         fieldName = '',
         validationTxt = '';
 
-        if(k.is_custom_field === 0) {
-          fieldName = k.description.replace(/\s+/g, '').toLowerCase();
+        if(k.is_custom_field === '0') {
+          if(k.description === 'Postal Code') {
+            fieldName = 'zip';
+          }
+          else { 
+            fieldName = k.description.replace(/\s+/g, '').toLowerCase();
+          }
         }
         else {
           fieldName = 'custom_' + k['@attributes'].id;
@@ -384,7 +445,6 @@
             $(this).addClass('is-dragging');
          });
 
-         //TODO: Better language around the toggle btn
 
          $('.toggle-btn').on('click', function() {
             if($(this).hasClass('is-active')) {

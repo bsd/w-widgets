@@ -155,9 +155,13 @@
               <div class="form-row">
                 <label for="destination">Destination</label>
                 <select name="destination" id="destination">
-                  <option value="url">Inherit thank you settings</option>
+                  <option value="url">Redirect to URL</option>
                   <option value="content">Show thankyou content</option>
                 </select>
+              </div>
+              <div class="form-row thankyouurl-row">
+                <label for="thankyouURL">Thankyou URL</label>
+                <input type="text" name="thankyou_url" class="b--form-field" id="thankyouURL"  placeholder="" />
               </div>
               <div class="form-row hide-row">
                 <label for="thankyouHeader">Thankyou header</label>
@@ -165,7 +169,7 @@
               </div>
               <div class="form-row hide-row">
                 <label for="thankyouContent">Thankyou content</label>
-                <textarea name="thankyou_content"></textarea>
+                <textarea name="thankyou_content" id="thankyouContent"></textarea>
               </div>
               <div class="form-row hide-row">
                 <label for="formEntry">Show user's form entries</label>

@@ -203,8 +203,10 @@ form ol, form ul {
 
   }
 
-  label.visible-label { display:inline-block!important; font-size:18px; padding: 0px;  @include column(11); float:right; margin-bottom:10px;
+  label.visible-label { display:inline-block!important; font-size:18px; padding: 0px;  @include column(11); margin-bottom:10px;
   }
+
+  .form-radio--label + .visible-label, input[type=checkbox] + .visible-label , input[type=radio] + .visible-label { float:right;}
 
   .visible-label + input { @include column(1); margin-top:3px; }
 
