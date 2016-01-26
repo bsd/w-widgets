@@ -106,7 +106,7 @@
             <h3>Styling</h3>
             <div>
               <div class="form-row">
-                <label for="logo">Logo</label>
+                <label for="logo">Logo <a class="tooltip" href="#"><i class="icon-info-circle"></i><span class="tooltip-content"><span class="tooltip-text"><span class="tooltip-inner">Must be a full image URL. Images can be uploaded via the Blue State Tools.</span></span></span></a></label>
                 <input type="text" name="logo" class="b--form-field" id="logo"  placeholder="" />
               </div>
               <div class="form-row">
@@ -122,7 +122,7 @@
                 <input type="text" name="text_col" class="b--form-field picker" id="textColour"  placeholder="" />
               </div>
               <div class="form-row">
-                <label for="bgColour">Background colour</label>
+                <label for="bgColour">BG colour</label>
                 <input type="text" name="bg_col" class="b--form-field picker" id="bgColour"  placeholder="" />
               </div>
               <div class="form-row">
@@ -130,26 +130,34 @@
                 <input type="text" name="link_col" class="b--form-field picker" id="linkColour"  placeholder="" />
               </div>
               <div class="form-row">
-                <label for="bgImg">Background image</label>
+                <label for="bgImg">BG image <a class="tooltip" href="#"><i class="icon-info-circle"></i><span class="tooltip-content"><span class="tooltip-text"><span class="tooltip-inner">Must be a full image URL. Images can be uploaded via the Blue State Tools.</span></span></span></a></label>
                 <input type="text" name="bg_img" class="b--form-field" id="bgImg"  placeholder="" />
               </div>
                <div class="form-row l--half-width">
-                <label for="paddingVertical">Input field padding (vertical)</label>
+                <label for="paddingVertical">Padding (vertical)</label>
                 <input type="text" name="paddingVertical" class="b--form-field" id="paddingVertical"  placeholder="e.g 10px" />
               </div>
                <div class="form-row l--half-width">
-                <label for="paddingHoriz">Input field padding (horizontal)</label>
+                <label for="paddingHoriz">Padding (horizontal)</label>
                 <input type="text" name="paddingHoriz" class="b--form-field" id="paddingHoriz"  placeholder="e.g 10px" />
               </div>
                <div class="form-row l--half-width">
-                <label for="marginVertical">Input field margin (vertical)</label>
+                <label for="marginVertical">Margin (vertical)</label>
                 <input type="text" name="marginVertical" class="b--form-field" id="marginVertical"  placeholder="e.g 10px" />
               </div>
                <div class="form-row l--half-width">
-                <label for="marginHoriz">Input field margin (horizontal)</label>
+                <label for="marginHoriz">Margin (horizontal)</label>
                 <input type="text" name="marginHoriz" class="b--form-field" id="marginHoriz"  placeholder="e.g 10px" />
               </div>
             </div>
+            <h3>Settings</h3>
+            <div>
+              <div class="form-row">
+                <label for="formValidation">Validate form <a class="tooltip" href="#"><i class="icon-info-circle"></i><span class="tooltip-content"><span class="tooltip-text"><span class="tooltip-inner">CONTENT TO GO HERE ABOUT USING PREBUILT FORM VALIDATION - DOESNT ALLOW CUSTOMISATION</span></span></span></a></label>
+                <input type="checkbox" name="form_validation" class="b--form-checkbox" id="formValidation" value="Y" />
+              </div>        
+            </div>
+
               <h3>Thank you</h3>
             <div>
               <div class="form-row">
@@ -161,15 +169,15 @@
               </div>
               <div class="form-row thankyouurl-row">
                 <label for="thankyouURL">Thankyou URL</label>
-                <input type="text" name="thankyou_url" class="b--form-field" id="thankyouURL"  placeholder="" />
+                <input type="text" name="thankyou_url" class="b--form-field required" id="thankyouURL"  placeholder="" />
               </div>
               <div class="form-row hide-row">
                 <label for="thankyouHeader">Thankyou header</label>
-                <input type="text" name="thankyou_header" class="b--form-field" id="thankyouHeader"  placeholder="" />
+                <input type="text" name="thankyou_header" class="b--form-field required" id="thankyouHeader"  placeholder="" />
               </div>
               <div class="form-row hide-row">
                 <label for="thankyouContent">Thankyou content</label>
-                <textarea name="thankyou_content" id="thankyouContent"></textarea>
+                <textarea name="thankyou_content" class=" required" id="thankyouContent"></textarea>
               </div>
               <div class="form-row hide-row">
                 <label for="formEntry">Show user's form entries</label>
@@ -180,9 +188,16 @@
             <div>
               <div class="form-row hide-row">
                 <label for="shareImg">Share image</label>
-                <input type="text" class="b--form-field" name="share_img" id="shareImg"  placeholder="" />
+                <input type="text" class="b--form-field required" name="share_img" id="shareImg"  placeholder="" />
               </div>
-            
+              <div class="form-row hide-row">
+                <label for="shareTweet">Share tweet</label>
+                <input type="text" class="b--form-field required" name="share_tweet" id="shareTweet"  placeholder="" />
+              </div>
+              <div class="form-row hide-row">
+                <label for="sharePage">Page to be shared for Facebook</label>
+                <input type="text" class="b--form-field required" name="share_page" id="sharePage"  placeholder="" />
+              </div>            
             </div>
             <fieldset> 
               <div class="form-row">
@@ -195,7 +210,39 @@
 
         <section id="generateForm">
           <h2>Embed the code</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque pharetra elit sit amet enim molestie porttitor. Nullam lacinia erat vitae luctus efficitur. Quisque ac ultrices justo, sit amet dapibus tellus. Donec nec nisi enim. Donec vitae elementum lorem. </p>
+          <p>Below is code that you need to embed within your website.</p>
+
+          <h3>Style</h3>
+          <p>Copy and paste this code into your page within the <code><head></code> section.</p>
+          <form name="generate-style" class="form" action="#customiseStep" method="post">
+            <fieldset>
+              <div class="form-row">
+                <textarea disabled id="embedStyle">
+                </textarea>
+              </div>
+              <div class="form-row">
+                <input type="submit" class="b--btn b--btn__submit" name="fetchform" value="Copy to clipboard" />
+              </div>
+            </fieldset>
+          </form>
+
+          <h3>Script</h3>
+          <p>Copy and paste this code into your page directly before the <code></body></code> tag. The script requires jQuery to be included within the page before the script below is included.</p>
+          <form name="generate-script" class="form" action="#customiseStep" method="post">
+            <fieldset>
+              <div class="form-row">
+                <textarea disabled id="embedScript">
+                </textarea>
+              </div>
+              <div class="form-row">
+                <input type="submit" class="b--btn b--btn__submit" name="fetchform" value="Copy to clipboard" />
+              </div>
+            </fieldset>
+          </form>
+
+
+          <h3>Markup</h3>
+          <p>Copy and paste this code into your page where you want the form to appear</p>
           <form name="generate-form" class="form" action="#customiseStep" method="post">
             <fieldset>
               <div class="form-row">

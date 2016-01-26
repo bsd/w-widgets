@@ -35,8 +35,9 @@ h1 { color:$which-dblue; font-size:30px; font-weight: 100; text-align:left; padd
 #fetchForm {
 	label { color:$which-red; text-align:left; padding:0 0 20px 0; }
 	.b--form-field { margin-bottom:20px;}
-
+	
 		@include mainBox; 
+	border:1px solid #e0e0e0;
 	form {
 
 			padding:50px;

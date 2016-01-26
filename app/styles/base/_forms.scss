@@ -17,7 +17,13 @@ form ol, form ul {
 
   label {
   	display: block;
+    padding-right:20px;
+    position:relative;
   }
+
+  label .tooltip { position:absolute; right:0; }
+
+  #personaliseForm input[type=checkbox],   #personaliseForm input[type=radio], .b--form-checkbox { margin-top:20px!important; }
 
   button, input, select, textarea {
       font-size:1em;
@@ -31,7 +37,7 @@ form ol, form ul {
       background-color: #f8f8f8;
       outline: none;
       vertical-align: top;
-      font-size: 16px;
+      font-size: 14px;
       color: #212121;
       margin:0 0 10px 0;
   }
@@ -40,6 +46,7 @@ form ol, form ul {
   	-webkit-appearance: none;
   }
 
+  .b--btn { font-size:16px;}
   button, input[type="submit"] {
   	 border:0;
      width:auto;
@@ -240,3 +247,8 @@ form ol, form ul {
     100% {width: 115px;}
 }
 
+.invalid-fields { background: $which-red; border:1px solid $which-red; padding:10px;}
+
+p.form-missing.error {  background: $which-red; border:1px solid $which-red;   width: 100%; padding:10px; float: left; color: white;  margin: 20px 0; opacity: 0.4; }
+
+.invalid-fields { border:2px solid $which-red!important; }
