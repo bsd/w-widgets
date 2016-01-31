@@ -249,6 +249,6 @@ form ol, form ul {
 
 .invalid-fields { background: $which-red; border:1px solid $which-red; padding:10px;}
 
-p.form-missing.error {  background: $which-red; border:1px solid $which-red;   width: 100%; padding:10px; float: left; color: white;  margin: 20px 0; opacity: 0.4; }
+p.form-missing.error {  rgba(231, 55, 85, 0.6); border:1px solid $which-red;   width: 100%; padding:10px; float: left; color: white;  margin: 20px 0; }
 
 .invalid-fields { border:2px solid $which-red!important; }

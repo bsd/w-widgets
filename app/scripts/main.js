@@ -1,14 +1,9 @@
 /*global jQuery:false */
 
-/* TO DO 
-  * Should we allow people to select whether it uses embedded form validation
-
-  Seperate generated code into three sections
-  Tooltip on embed form page
+/* TO DO
   Share content
-  Allow the user to personalise the share tweet
-  Hide thank you content
-
+  serialised form data
+  custom fields not coming through
 */
 (function($) {
   'use strict';
@@ -75,9 +70,14 @@
         //determine if it's a URL redirect
         if($('#destination').val() !== "url") {
 
+          var shareText = encodeURIComponent($('#shareTweet').val().trim());
+
           var thankyouCode = '<p class="thankyou-header">'+$('#thankyouHeader').val()+'</p><div class="thankyou-content">'+$('#thankyouContent').val()+'</div>';
-          var formpostCode = '<div class="form-post"><p>Thank you for submitting the following information:</p></div>';
-          var shareCode = '<div class="share-content"><img src="'+$('#shareImg').val()+'" alt="share this page" /><div class="social-share"><a href="" class="fb-btn">Share on Facebook</a><a href="" class="tw-btn">Share on Twitter</a></div></div>';
+          if($('#formEntry').is(':checked'))
+          {
+            var formpostCode = '<div class="form-post"><p>Thank you for submitting the following information:</p></div>';
+          }
+          var shareCode = '<div class="share-content"><img src="'+$('#shareImg').val()+'" alt="share this page" /><div class="social-share"><a href="https://www.facebook.com/sharer/sharer.php?u='+$('#sharePage').val()+'" class="fb-btn">Share on Facebook</a><a href="https://twitter.com/home?status='+shareText+'" class="tw-btn">Share on Twitter</a></div></div>';
 
           return thankyouCode+formpostCode+shareCode;
         }
@@ -126,11 +126,14 @@
           embedCSS += '.signup-wrapper { background: url(' + $('#bgImg').val() + ') no-repeat ' + $('#bgColour').val() + '; background-size:cover;  }';
         }
 
-         embedCSS += ' .form-row--half input, .form-row--half select { width:100%; } .row-hidden { display:none!important; } .form-row--half { display: inline;  float: left;  width: 47.5609756098%;  margin: 0 1.2195121951%; } body .signup-wrapper input, body .signup-wrapper textarea, body .signup-wrapper select { padding: ' + inputPadd + '; margin: ' + inputMargin + '; } </style>';
+        //social buttons
+        embedCSS += ' .fb-btn {  background-color: #2b4170; /* fallback color */  background: -moz-linear-gradient(top, #3b5998, #2b4170);  background: -ms-linear-gradient(top, #3b5998, #2b4170);  background: -webkit-linear-gradient(top, #3b5998, #2b4170);  border: 1px solid #2b4170;  text-shadow: 0 -1px -1px #1f2f52;} .fb-btn:hover {  background-color: #3b5998; /* fallback color */   background: -moz-linear-gradient(top, #2b4170, #3b5998);  background: -ms-linear-gradient(top, #2b4170, #3b5998);   background: -webkit-linear-gradient(top, #2b4170, #3b5998);}';
+        embedCSS += ' .tw-btn {  background-color: #0081ce; /* fallback color */  background: -moz-linear-gradient(top, #00aced, #0081ce);  background: -ms-linear-gradient(top, #00aced, #0081ce);  background: -webkit-linear-gradient(top, #00aced, #0081ce); border: 1px solid #0081ce;  text-shadow: 0 -1px -1px #005ea3;} .tw-btn:hover { background-color: #00aced; /* fallback color */  background: -moz-linear-gradient(top, #0081ce, #00aced);  background: -ms-linear-gradient(top, #0081ce, #00aced);  background: -webkit-linear-gradient(top, #0081ce, #00aced); } .tw-btn, .fb-btn {  border-radius: 3px;  box-shadow: 0 1px 1px #999;  color: #fff;  display: inline-block;  font-size: 16px;  margin: 0 20px 20px 0;  margin: 0 1rem 2rem 0;  padding: 10px 15px;  padding: 1rem 1.5rem;  text-align: center;  width: 140px;}';
+        embedCSS += ' body .signup-wrapper label.visible-label {display:block;}  body .signup-wrapper label {display:none;} .form-row--half input, .form-row--half select { width:80%; box-sizing:border-box; } .row-hidden { display:none!important; } .form-row--half { display: inline;  float: left;  width: 47.5609756098%;  margin: 0 1.2195121951%; } body .signup-wrapper input:not([type=submit]), body .signup-wrapper textarea, body .signup-wrapper select, body .signup-wrapper label, body .signup-wrapper .form-radio--label, body .signup-wrapper .form-field-static, body .signup-wrapper .form-radio--label, body .signup-wrapper label.visible-label  { padding: ' + inputPadd + '; width:85%; margin: ' + inputMargin + '; } </style>';
         
         //build the js
         //will include signup API call
-        var embedJS = '<script type="text/javascript">jQuery(".thankyou-wrapper").hide();';
+        var embedJS = '<script type="text/javascript">$(document).ready(function() { jQuery(".thankyou-wrapper").hide();';
 
         //add code to validate JS -- only include if checkbox is select
           if($('#formValidation').is(':checked')) { 
@@ -139,7 +142,7 @@
               embedJS += "jQuery('.row-required').each(function(index) {";
               embedJS += "var selectedInput = jQuery(this).find('.w--input-field');";
               embedJS += "if(selectedInput.data('validate') === 'presence' && selectedInput.val().length === 0) {";
-              embedJS += "jQuery(this).append(<p class='form-error'>selectedInput.data('validatemsg')</p>);";
+              embedJS += "jQuery(this).append(\"<p class='form-error'>\"+selectedInput.data('validatemsg')+\"</p>\");";
               embedJS += "selectedInput.addClass('invalid-fields');";
               embedJS += "  selectedInput.on('blur', function() {";
               embedJS += "    if(jQuery(this).length > 0) { jQuery(this).next('p.form-error').remove(); jQuery(this).removeClass('invalid-fields'); }";
@@ -152,7 +155,10 @@
           //if redirect to URL build script to redirect window to set URL
           if($('#formEntry').is(':checked'))
           {
-            embedJS += ' jQuery(".thankyou-wrapper").append(jQuery(".apiform").serialize())); ';
+              embedJS += ' var postedHTML = ""; jQuery(".apiform .form-row").not(".row-hidden").each(function(index) { if($(this).find(".form-radio--label").length > 0) {      var postedLabel = $(this).find(".form-radio--label").text();  }    else {      var postedLabel = $(this).find("label").text(); }   var postedInput = $(this).find(":input").val(); if(postedInput.length > 0 && postedLabel.length > 0) {  postedHTML += postedLabel+" : "+postedInput+"<br />";    }';
+
+
+            embedJS += " jQuery('.thankyou-content').append(\"<p class='wg-form-posted'>\"+postedHTML+\"</p>\"); });";
           }
           if($('#destination').val() === "url") {
             embedJS += ' window.location.replace("'+jQuery('#thankyouURL').val()+'"); ';
@@ -162,7 +168,7 @@
           //if show thankyou content, hide the form on success and show thank you content
           embedJS += ' jQuery(".apiform").hide(); jQuery(".thankyouWrapper").show(); ';
           }
-          embedJS += '});</script>';
+          embedJS += '});});</script>';
 
         //build the html
         var embedHTML = '<div class="bsd-embed-form widgetainer widget-styled">';
@@ -186,8 +192,10 @@
         wrapperHTML += '<div class="thankyou-wrapper">'+tyCode+'</div>';
         wrapperHTML += '</div>';
 
-        $('#generateForm textarea').val(embedCSS + embedJS + wrapperHTML);
-
+        $('#generateForm #embedScript').val(embedJS);
+        $('#generateForm #embedStyle').val(embedCSS);
+        $('#generateForm #embedTextbox').val(wrapperHTML);
+ 
 
       },
       editForm: function() {
@@ -331,9 +339,12 @@
           break;
           case '7':
             //if single checkbox
-            signupFields += '<label  class="visible-label" for="' + fieldName + '">' + k.label + '</label>';
             if(k.extra_def.desc.length > 0 && k.label != k.extra_def.desc) { 
-              signupFields += '<p class="checkbox-text">' + k.extra_def.desc + '</p>';
+              signupFields += '<p class="checkbox-text">' + k.label + '</p>';
+              signupFields += '<label  class="visible-label" for="' + fieldName + '">' +  k.extra_def.desc + '</label>';
+            }
+            else {
+              signupFields += '<label  class="visible-label" for="' + fieldName + '">' + k.label + '</label>';
             }
             signupFields += '<input class="w--input-field" type="checkbox" name="' + fieldName + '" ' + validationTxt + ' value="1" id="' + fieldName + '" />';
           break;
@@ -482,12 +493,12 @@
 
       },
 
-      copyClipboard: function() {
+      copyClipboard: function(textbox) {
 
         // Create a "hidden" input
         var aux = document.createElement('input');
         // Assign it the value of the specified element
-        aux.setAttribute('value', document.getElementById('embedTextbox').value);
+        aux.setAttribute('value', textbox);
         // Append it to the body
         document.body.appendChild(aux);
         // Highlight its content
@@ -551,12 +562,15 @@
         });
 
         //copy to clipboard functionality
-        $('#generateForm').on('click', '.b--btn__submit', function () {
-          Widgets.copyClipboard( $('#generateForm textarea').val() );
+        $('#generateForm').on('click', '.b--btn__submit', function (e) {
+          e.preventDefault();
+          var copyTextarea = $(this).data('copy');
+
+          Widgets.copyClipboard($('#'+copyTextarea).val());
           $(this).val('Copied to clipboard');
 
           setTimeout(function(){
-             $('#generateForm .b--btn__submit').val('Copy to clipboard');
+             $(this).val('Copy to clipboard');
           }, 5000);
           return false;
         });
@@ -578,16 +592,15 @@
         $('#tabbedBox').tabs({ disabled: [2] } );
         //$('#personaliseForm form').accordion();
         $('.picker').spectrum({
-            color: '#e30613',
             showInput: true,
             className: 'full-spectrum',
-            showInitial: true,
+            showInitial: false,
             showPalette: true,
             showSelectionPalette: true,
             maxSelectionSize: 10,
             preferredFormat: 'hex',
               palette: [
-                  ['rgb(45, 53, 61)', 'rgb(231, 55, 85)', 'rgb(58, 85, 175)',
+                  ['rgb(227,6,19)', 'rgb(45, 53, 61)', 'rgb(231, 55, 85)', 'rgb(58, 85, 175)',
                   'rgb(76, 98, 108)']
               ]
           });
