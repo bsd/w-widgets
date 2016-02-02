@@ -188,6 +188,11 @@
         $('#generateForm #embedScript').val(embedJS);
         $('#generateForm #embedStyle').val(embedCSS);
         $('#generateForm #embedTextbox').val(wrapperHTML);
+
+        embedJS = '';
+        embedCSS = '';
+        wrapperHTML = '';
+
       },
       editForm: function() {
 
@@ -292,16 +297,17 @@
             optionFields = optionFields.split('\r\n');
             //iterate through options
             $.each(optionFields, function(key, value) {
-              var radioArr = value.split('|');
-              if(radioArr.length > 1) {
-                signupFields += '<label class="visible-label" for="' + fieldName + '' + radioArr[1] + '">' + radioArr[1] + '</label>';
-                signupFields += '<input class="w--input-field" type="checkbox" name="' + fieldName + '[]" ' + validationTxt + ' value="' + radioArr[0] + '" id="' + fieldName + '' + radioArr[1] + '" />';
-              }
-              else {
-                signupFields += '<label class="visible-label" for="' + fieldName + '' + radioArr[0] + '">' + radioArr[0] + '</label>';
-                signupFields += '<input class="w--input-field" type="checkbox" name="' + fieldName + '[]" ' + validationTxt + ' value="' + radioArr[0] + '" id="' + fieldName + '' + radioArr[0] + '" />';
-              }
+              var radioArr = value.split('|'),
+                  checkLabel = '';
 
+              if(radioArr.length > 1) {
+                checkLabel = radioArr[1];
+              } else {
+                checkLabel = radioArr[0];
+              }
+                signupFields += '<label class="visible-label" for="' + fieldName + '' + key + '">' + checkLabel + '</label>';
+                signupFields += '<input class="w--input-field" type="checkbox" name="' + fieldName + '[]" ' + validationTxt + ' value="' + radioArr[0] + '" id="' + fieldName + '_' + key + '" onclick="if(this.checked) { this.form[\'' + fieldName + '[' + key + ']' + '\'].value=\'' + checkLabel + '\'; } else { this.form[\'' + fieldName + '[' + key + ']' + '\'].value=\'\'; }" />';
+                signupFields += '<input type="hidden" name="' + fieldName + '[' + key + ']" />';
             });
           break;
           case '5':
@@ -316,11 +322,11 @@
               var radioArr = value.split('|');
               if(radioArr.length > 1) {
                 signupFields += '<label class="visible-label" for="' + fieldName + '' + radioArr[1] + '">' + radioArr[1] + '</label>';
-                signupFields += '<input  class="w--input-field" type="radio" name="' + fieldName + '[]" ' + validationTxt + '  value="' + radioArr[0] + ' " id="' + fieldName + ' ' + radioArr[1] + '" />';
+                signupFields += '<input  class="w--input-field" type="radio" name="' + fieldName + '[]" ' + validationTxt + '  value="' + radioArr[0] + ' " id="' + fieldName + '_' + key + '" />';
               }
               else {
                 signupFields += '<label class="visible-label" for="' + fieldName + '' + radioArr[0] + '">' + radioArr[0] + '</label>';
-                signupFields += '<input class="w--input-field" type="radio" name="' + fieldName + '[]" ' + validationTxt + '  value="' + radioArr[0] + ' " id="' + fieldName + ' ' + radioArr[0] + '" />';
+                signupFields += '<input class="w--input-field" type="radio" name="' + fieldName + '[]" ' + validationTxt + '  value="' + radioArr[0] + ' " id="' + fieldName + '_' + key + '" />';
               }
             });
           break;
@@ -438,6 +444,18 @@
                                           $(this).addClass('form-row--half');
                                         }
                                       }
+                                   });
+
+                                   $('.form-row').on('mouseover', function() {
+                                    if($('.toggle-btn').hasClass('is-active')) {                                     
+                                //TO DO GET WORKING
+                                        if($(this).hasClass('form-row--half')) {
+                                          $(this).find('input').addClass('is-hover');                                        
+                                        }
+                                        else {
+                                          $(this).find('input').removeClass('is-hover');      
+                                        }
+                                      } 
                                    });
 
                                   //remove loading animation from submit button and remove disable

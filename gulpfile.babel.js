@@ -52,7 +52,6 @@ gulp.task('html', ['styles'], () => {
     .pipe($.if('*.css', $.minifyCss({compatibility: '*'})))
     .pipe(assets.restore())
     .pipe($.useref())
-    .pipe($.if('*.html', $.minifyHtml({conditionals: true, loose: true})))
     .pipe(gulp.dest('dist'));
 });
 
@@ -89,7 +88,16 @@ gulp.task('extras', () => {
   }).pipe(gulp.dest('dist'));
 });
 
-gulp.task('clean', del.bind(null, ['.tmp', 'dist']));
+
+gulp.task('vendor', () => {
+  return gulp.src([
+    'vendor/**/*'
+  ], {
+    dot: true
+  }).pipe(gulp.dest('dist/vendor'));
+});
+
+gulp.task('clean', del.bind(null, ['.tmp', 'dist', '!dist/.git/**']));
 
 
 gulp.task('php-serve', ['styles', 'fonts'], function () {
@@ -202,7 +210,7 @@ gulp.task('wiredep', () => {
     .pipe(gulp.dest('app'));
 });
 
-gulp.task('build', ['lint', 'html', 'images', 'fonts', 'extras'], () => {
+gulp.task('build', ['lint', 'html', 'images', 'fonts', 'extras', 'vendor'], () => {
   return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
 });
 
