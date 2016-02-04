@@ -7,6 +7,13 @@ form ol, form ul {
 	margin-left: 0;
 }
 
+
+
+  .row-toggled .form-row:hover input, .row-toggled .form-row:hover textarea {
+    border: 2px solid $which-red;
+  }
+
+
 .form { 
 
   fieldset {
@@ -41,11 +48,6 @@ form ol, form ul {
       color: #212121;
       margin:0 0 10px 0;
   }
-
-  .is-hover {
-    border: 2px solid $which-red;
-  }
-
   input[type=text], input[type=search], input[type=url], input[type=number], textarea {
   	-webkit-appearance: none;
   }

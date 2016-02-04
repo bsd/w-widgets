@@ -65,8 +65,6 @@
       },
       thankyouCode: function() {
 
-        //determine if it's a URL redirect
-        if($('#destination').val() !== 'url') {
 
           var shareText = encodeURIComponent($('#shareTweet').val().trim());
 
@@ -78,7 +76,7 @@
           var shareCode = '<div class="share-content"><img src="' + $('#shareImg').val() + '" alt="share this page" /><div class="social-share"><a href="https://www.facebook.com/sharer/sharer.php?u=' + $('#sharePage').val() + '" class="fb-btn">Share on Facebook</a><a href="https://twitter.com/home?status=' + shareText + '" class="tw-btn">Share on Twitter</a></div></div>';
 
           return thankyouCode + formpostCode + shareCode;
-        }
+      
 
       },
       buildEmbedCode: function() {
@@ -152,15 +150,15 @@
           //if redirect to URL build script to redirect window to set URL
           if($('#formEntry').is(':checked'))
           {
-            embedJS += ' var postedHTML = ""; jQuery(".apiform .form-row").not(".row-hidden").each(function(index) { if($(this).find(".form-radio--label").length > 0) {      var postedLabel = $(this).find(".form-radio--label").text();  }    else if ($(this).find("label").length > 0) {      var postedLabel = $(this).find("label").text(); } else { var postedLabel = ""; }  var postedInput = $(this).find(":input").val(); if(postedInput.length > 0 && postedLabel.length > 0) {  postedHTML += postedLabel + " : " + postedInput + "<br />";    }';
-            embedJS += ' jQuery(".thankyou-content").append(\'<p class="wg-form-posted">\' + postedHTML + \'</p>\'); });';
+            embedJS += ' var postedHTML = ""; jQuery(".apiform .form-row").not(".row-hidden").each(function(index) { if($(this).find(".form-radio--label").length > 0) {      var postedLabel = $(this).find(".form-radio--label").text();  }    else if ($(this).find("label").length > 0) {      var postedLabel = $(this).find("label").text(); } else { var postedLabel = ""; }  var postedInput = $(this).find(":input").val(); if(postedInput.length > 0 && postedLabel.length > 0) {  postedHTML += postedLabel + " : " + postedInput + "<br />";    }  });';
+            embedJS += ' jQuery(".thankyou-content").append(\'<p class="wg-form-posted">\' + postedHTML + \'</p>\');';
           }
           if($('#destination').val() === 'url') {
             embedJS += ' window.location.replace("' + jQuery('#thankyouURL').val() + '"); ';
           }
           else {
             //if show thankyou content, hide the form on success and show thank you content
-            embedJS += ' jQuery(".apiform").hide(); jQuery(".thankyouWrapper").show(); ';
+            embedJS += ' jQuery(".apiform").hide(); jQuery(".thankyou-wrapper").show(); ';
           }
           embedJS += '});});</script>';
 
@@ -180,9 +178,11 @@
           wrapperHTML += '<div class="signup-logo" style="text-align: ' + $('#logoAlignment').val() + ';"><img src="' + $('#logo').val() + '" alt="logo" /></div>';
         }
         wrapperHTML += embedHTML;
-
-        var tyCode = Widgets.thankyouCode();
-        wrapperHTML += '<div class="thankyou-wrapper">' + tyCode + '</div>';
+        
+        if($('#destination').val() !== 'url') {
+          var tyCode = Widgets.thankyouCode();
+          wrapperHTML += '<div class="thankyou-wrapper">' + tyCode + '</div>';
+        }
         wrapperHTML += '</div>';
 
         $('#generateForm #embedScript').val(embedJS);
@@ -305,7 +305,7 @@
               } else {
                 checkLabel = radioArr[0];
               }
-                signupFields += '<label class="visible-label" for="' + fieldName + '' + key + '">' + checkLabel + '</label>';
+                signupFields += '<label class="visible-label" for="' + fieldName + '_' + key + '">' + checkLabel + '</label>';
                 signupFields += '<input class="w--input-field" type="checkbox" name="' + fieldName + '[]" ' + validationTxt + ' value="' + radioArr[0] + '" id="' + fieldName + '_' + key + '" onclick="if(this.checked) { this.form[\'' + fieldName + '[' + key + ']' + '\'].value=\'' + checkLabel + '\'; } else { this.form[\'' + fieldName + '[' + key + ']' + '\'].value=\'\'; }" />';
                 signupFields += '<input type="hidden" name="' + fieldName + '[' + key + ']" />';
             });
@@ -319,15 +319,19 @@
 
             //iterate through options
             $.each(optionFields, function(key, value) {
-              var radioArr = value.split('|');
+              var radioArr = value.split('|'),
+                  checkLabel = '';
+
               if(radioArr.length > 1) {
-                signupFields += '<label class="visible-label" for="' + fieldName + '' + radioArr[1] + '">' + radioArr[1] + '</label>';
-                signupFields += '<input  class="w--input-field" type="radio" name="' + fieldName + '[]" ' + validationTxt + '  value="' + radioArr[0] + ' " id="' + fieldName + '_' + key + '" />';
+                checkLabel = radioArr[1];
+              } else {
+                checkLabel = radioArr[0];
               }
-              else {
-                signupFields += '<label class="visible-label" for="' + fieldName + '' + radioArr[0] + '">' + radioArr[0] + '</label>';
-                signupFields += '<input class="w--input-field" type="radio" name="' + fieldName + '[]" ' + validationTxt + '  value="' + radioArr[0] + ' " id="' + fieldName + '_' + key + '" />';
-              }
+
+
+                signupFields += '<label class="visible-label" for="' + fieldName + '_' + key + '">' + checkLabel + '</label>';
+              signupFields += '<input class="w--input-field" type="checkbox" name="' + fieldName + '[]" ' + validationTxt + ' value="' + radioArr[0] + '" id="' + fieldName + '_' + key + '" onclick="if(this.checked) { this.form[\'' + fieldName + '[' + key + ']' + '\'].value=\'' + checkLabel + '\'; } else { this.form[\'' + fieldName + '[' + key + ']' + '\'].value=\'\'; }" />';
+                signupFields += '<input type="hidden" name="' + fieldName + '[' + key + ']" />';
             });
           break;
           case '6':
@@ -446,17 +450,6 @@
                                       }
                                    });
 
-                                   $('.form-row').on('mouseover', function() {
-                                    if($('.toggle-btn').hasClass('is-active')) {                                     
-                                //TO DO GET WORKING
-                                        if($(this).hasClass('form-row--half')) {
-                                          $(this).find('input').addClass('is-hover');                                        
-                                        }
-                                        else {
-                                          $(this).find('input').removeClass('is-hover');      
-                                        }
-                                      } 
-                                   });
 
                                   //remove loading animation from submit button and remove disable
                                   $('#fetchForm .b--btn').removeClass('loading-animation').attr('disabled', false).css({cursor: 'pointer'});
@@ -487,9 +480,11 @@
          $('.toggle-btn').on('click', function() {
             if($(this).hasClass('is-active')) {
               $(this).removeClass('is-active');
+              $(this).parent().removeClass('row-toggled');
             }
             else {
               $(this).addClass('is-active');
+              $(this).parent().addClass('row-toggled');
             }
             return false;
          });
