@@ -128,7 +128,7 @@
         embedCSS += ' body .signup-wrapper label.visible-label {display:inline-block; padding-right: 10px;}  body .signup-wrapper label {display:none;} .form-row--half input:not([type="submit"]):not([type="radio"]):not([type="checkbox"]), .form-row--half select { width:80%; box-sizing:border-box; } .row-hidden { display:none!important; } .form-row--half { display: inline;  float: left;  width: 47.5609756098%;  margin: 0 1.2195121951%; } .signup-wrapper input:not([type=submit]), .signup-wrapper textarea, .signup-wrapper select, .signup-wrapper label, .signup-wrapper .form-radio--label, .signup-wrapper .form-field-static, .signup-wrapper .form-radio--label { padding: ' + inputPadd + '; width:85%; margin: ' + inputMargin + '; } .b--btn.b--btn__submit { box-shadow:0px 2px #a6132c; background-color: #e83755;  border-right-color: #bd1632; width:auto; padding: 12px 60px 12px 25px; color: #ffffff; font-size: 14px; } .signup-wrapper input([type=checkbox]), .signup-wrapper input([type=radio]) { width:auto; } </style>';
         //build the js
         //will include signup API call
-        var embedJS = '<script type="text/javascript">$(document).ready(function() { jQuery(".thankyou-wrapper").hide();';
+        var embedJS = '<script type="text/javascript">jQuery(document).ready(function() { jQuery(".thankyou-wrapper").hide();';
 
         //add code to validate JS -- only include if checkbox is select
           if($('#formValidation').is(':checked')) {
