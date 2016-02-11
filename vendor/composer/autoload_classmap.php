@@ -6,4 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Blue\\Tools\\Api\\Client' => $vendorDir . '/bluestatedigital/tools-api-client/src/Blue/Tools/Api/Client.php',
+    'Blue\\Tools\\Api\\MessageFactory' => $vendorDir . '/bluestatedigital/tools-api-client/src/Blue/Tools/Api/MessageFactory.php',
 );
