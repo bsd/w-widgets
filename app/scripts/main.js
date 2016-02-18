@@ -76,7 +76,6 @@
           var shareCode = '<div class="share-content"><img src="' + $('#shareImg').val() + '" alt="share this page" /><div class="social-share"><a href="https://www.facebook.com/sharer/sharer.php?u=' + $('#sharePage').val() + '" class="fb-btn">Share on Facebook</a><a href="https://twitter.com/home?status=' + shareText + '" class="tw-btn">Share on Twitter</a></div></div>';
 
           return thankyouCode + formpostCode + shareCode;
-      
 
       },
       buildEmbedCode: function() {
@@ -178,7 +177,6 @@
           wrapperHTML += '<div class="signup-logo" style="text-align: ' + $('#logoAlignment').val() + ';"><img src="' + $('#logo').val() + '" alt="logo" /></div>';
         }
         wrapperHTML += embedHTML;
-        
         if($('#destination').val() !== 'url') {
           var tyCode = Widgets.thankyouCode();
           wrapperHTML += '<div class="thankyou-wrapper">' + tyCode + '</div>';
@@ -429,9 +427,8 @@
 
 
                                   });
-                                  signupFields += '<div class="form-row"><input type="submit" class="b--btn b--btn__submit" name="fetchform" value="Personalise form" /></div>';
 
-                                  $('#customiseForm fieldset').html(signupFields);
+                                  $('#customiseForm .sortable-rows').html(signupFields);
                                   $('#fetchForm').hide();
                                   $('#tabbedBox').fadeIn();
                                   //populate and show edit form box
@@ -439,7 +436,7 @@
                                   $('.e--edit-form').show();
 
                                   //toggle field width functionality - simply add/remove a class to form rows when the toggle button is selected
-                                   $('.form-row').on('click', function() {
+                                   $('#customiseForm .form-row').on('click', function() {
                                       if($('.toggle-btn').hasClass('is-active')) {
                                         if($(this).hasClass('form-row--half')) {
                                           $(this).removeClass('form-row--half');
@@ -463,11 +460,11 @@
       },
       fieldSort: function() {
         //identify draggable fields
-         $('#customiseForm fieldset').sortable({
+         $('#customiseForm .sortable-rows').sortable({
             revert: true
           });
 
-         $('#customiseForm fieldset').disableSelection();
+         $('#customiseForm .sortable-rows').disableSelection();
 
          $('#customiseForm .form-row').on('mouseup', function() {
             $(this).removeClass('.is-dragging');
@@ -479,11 +476,11 @@
 
          $('.toggle-btn').on('click', function() {
             if($(this).hasClass('is-active')) {
-              $(this).removeClass('is-active');
+              $(this).removeClass('is-active').text('Toggle field width');
               $(this).parent().removeClass('row-toggled');
             }
             else {
-              $(this).addClass('is-active');
+              $(this).addClass('is-active').text('Confirm field width');
               $(this).parent().addClass('row-toggled');
             }
             return false;
@@ -559,7 +556,7 @@
           Widgets.toggleBtn($('#formID'), $('#fetchForm').find('input[type="submit"]'));
         });
 
-        $('#customiseForm').on('submit', 'form', function(event) {
+        $('#customiseForm').on('#customiseSubmit', 'form', function(event) {
             event.preventDefault();
             //move to the next tab
             $('#tabbedBox').tabs( 'option', 'active', 1);

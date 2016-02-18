@@ -55,7 +55,7 @@ h1 { color:$which-dblue; font-size:30px; font-weight: 100; text-align:left; padd
 #tabbedBox { @include mainBox;  
 
 	display:none;
-	.form-row { text-align:center;}
+	.form-row, .form-row--submit { text-align:center;}
 
 		.ui-state-disabled { opacity:0.3; 
 			a { cursor: pointer; }
@@ -64,7 +64,7 @@ h1 { color:$which-dblue; font-size:30px; font-weight: 100; text-align:left; padd
 	> ul {
 		li { width:33.33%; float:left;  background:#e5e5e5; 
 			text-align:center;
-			a { color:$which-dblue;  padding:10px 20px; display:block; text-decoration:none; }
+			a { color:$which-dblue;  padding:10px 15px; font-size:0.9em; display:block; text-decoration:none; }
 		}
 		li:hover, li:focus { background: lighten($which-dblue, 10%); a { color:$white; } }
 		li:nth-child(2) { border-right:5px solid $white;border-left:5px solid $white; }
@@ -78,7 +78,11 @@ h1 { color:$which-dblue; font-size:30px; font-weight: 100; text-align:left; padd
 	#customiseForm {
 		form { margin:20px 0;}
 		label {display:none;}
-		.form-row { padding:20px 0; cursor:move;}
+		.form-row{ padding:20px 0; cursor:move;
+
+		input, textarea { pointer-events:none; }
+		}
+		.form-row--submit  {padding:20px 0; cursor:move; }
 		.visible-label { font-size:0.8em;}
 		.form-radio--label { margin: 0 0 20px 0; }
 		textarea { font-size: 0.8em; color:$c-placeholder;}
@@ -95,12 +99,12 @@ h1 { color:$which-dblue; font-size:30px; font-weight: 100; text-align:left; padd
 		form { margin:20px 0;}
 		label { @include column(4); font-size:16px;  @include vertical-align(); text-align:left; height:58px; }
 		textarea, select, input:not([type="submit"]) { @include column(8); }
-		.form-row { padding:20px 0;  }
+		.form-row, .form-row--submit { padding:20px 0;  }
 
 	}
 
 	#generateForm {
-		.form-row { margin:20px 0 40px 0; }
+		.form-row, .form-row--submit { margin:20px 0 40px 0; }
 
 		textarea { @include column(12); min-height:300px;}
 	}
