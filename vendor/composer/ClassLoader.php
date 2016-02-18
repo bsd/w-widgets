@@ -13,13 +13,7 @@
 namespace Composer\Autoload;
 
 /**
-<<<<<<< HEAD
  * ClassLoader implements a PSR-0, PSR-4 and classmap class loader.
-=======
- * ClassLoader implements a PSR-0 class loader
- *
- * See https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md
->>>>>>> bd71fe54c9b230e4530d7ff2306448db6be2c0bf
  *
  *     $loader = new \Composer\Autoload\ClassLoader();
  *
@@ -43,11 +37,8 @@ namespace Composer\Autoload;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Jordi Boggiano <j.boggiano@seld.be>
-<<<<<<< HEAD
  * @see    http://www.php-fig.org/psr/psr-0/
  * @see    http://www.php-fig.org/psr/psr-4/
-=======
->>>>>>> bd71fe54c9b230e4530d7ff2306448db6be2c0bf
  */
 class ClassLoader
 {
@@ -360,11 +351,7 @@ class ClassLoader
             foreach ($this->prefixLengthsPsr4[$first] as $prefix => $length) {
                 if (0 === strpos($class, $prefix)) {
                     foreach ($this->prefixDirsPsr4[$prefix] as $dir) {
-<<<<<<< HEAD
                         if (file_exists($file = $dir . DIRECTORY_SEPARATOR . substr($logicalPathPsr4, $length))) {
-=======
-                        if (is_file($file = $dir . DIRECTORY_SEPARATOR . substr($logicalPathPsr4, $length))) {
->>>>>>> bd71fe54c9b230e4530d7ff2306448db6be2c0bf
                             return $file;
                         }
                     }
@@ -374,11 +361,7 @@ class ClassLoader
 
         // PSR-4 fallback dirs
         foreach ($this->fallbackDirsPsr4 as $dir) {
-<<<<<<< HEAD
             if (file_exists($file = $dir . DIRECTORY_SEPARATOR . $logicalPathPsr4)) {
-=======
-            if (is_file($file = $dir . DIRECTORY_SEPARATOR . $logicalPathPsr4)) {
->>>>>>> bd71fe54c9b230e4530d7ff2306448db6be2c0bf
                 return $file;
             }
         }
@@ -397,11 +380,7 @@ class ClassLoader
             foreach ($this->prefixesPsr0[$first] as $prefix => $dirs) {
                 if (0 === strpos($class, $prefix)) {
                     foreach ($dirs as $dir) {
-<<<<<<< HEAD
                         if (file_exists($file = $dir . DIRECTORY_SEPARATOR . $logicalPathPsr0)) {
-=======
-                        if (is_file($file = $dir . DIRECTORY_SEPARATOR . $logicalPathPsr0)) {
->>>>>>> bd71fe54c9b230e4530d7ff2306448db6be2c0bf
                             return $file;
                         }
                     }
@@ -411,11 +390,7 @@ class ClassLoader
 
         // PSR-0 fallback dirs
         foreach ($this->fallbackDirsPsr0 as $dir) {
-<<<<<<< HEAD
             if (file_exists($file = $dir . DIRECTORY_SEPARATOR . $logicalPathPsr0)) {
-=======
-            if (is_file($file = $dir . DIRECTORY_SEPARATOR . $logicalPathPsr0)) {
->>>>>>> bd71fe54c9b230e4530d7ff2306448db6be2c0bf
                 return $file;
             }
         }

@@ -30,6 +30,9 @@
             <select name="branch" id="branch">
               <option value="https://whichcouk.cp.bsd.net">Primary</option>
               <option value="https://cai-whichcouk.cp.bsd.net">CAI</option>
+              <option value="https://conversation-whichcouk.cp.bsd.net">Conversation</option>
+              <option value="https://testenvironment-whichcouk.cp.bsd.net">Testing</option>
+              <option value="https://bsddemouk15.cp.bsd.net">QA Demo account</option>
             </select>
              <p class="desc">If your branch is not available please get in touch with the administrator</p>
           </div>
@@ -47,17 +50,18 @@
 
     <div id="tabbedBox">
       <ul>
-        <li><a href="#customiseForm">Customise Form</a></li>
-        <li><a href="#personaliseForm">Personalise Form</a></li>
-        <li><a href="#generateForm">Generate Code</a></li>
+        <li><a href="#customiseForm">1. Customise Form</a></li>
+        <li><a href="#personaliseForm">2. Personalise Form</a></li>
+        <li><a href="#generateForm">3. Generate Code</a></li>
       </ul>
         <section id="customiseForm">
           <a href="#" class="toggle-btn">Toggle field width</a> 
 
-          <a class="tooltip" href="#"><i class="icon-info-circle"></i><span class="tooltip-content"><span class="tooltip-text"><span class="tooltip-inner">Click the button to be able to alter the width of form fields. Once the button is red, you can click on the form fields to toggle them to be full width or half width Once you are happy with the fields click the button again to save your changes.</span></span></span></a>
+          <a class="tooltip" href="#"><i class="icon-info-circle"></i><span class="tooltip-content"><span class="tooltip-text"><span class="tooltip-inner">Clicking on the "Toggle field width" button allows you to toggle the form fields between spanning full and half width. Click on the button again to save the changes and continue personalising the form.</span></span></span></a>
 
           <form name="generate-form" class="form" action="#personaliseForm" method="post">
             <fieldset>
+            <div class="sortable-rows">
 
               <div class="form-row">
                 <label for="firstname">First name:</label>
@@ -84,8 +88,10 @@
                 <input type="text" id="email" name="email" value="" placeholder="Email address" />
               </div>
 
-              <div class="form-row">
-                <input type="submit" class="b--btn b--btn__submit" name="fetchform" value="Save changes" />
+            </div>
+              <div class="form-row--submit">
+
+                <input type="submit" id="customiseSubmit" class="b--btn b--btn__submit" name="fetchform" value="Personalise Form" />
               </div>
             </fieldset>
           </form>
@@ -144,7 +150,7 @@
             <h3>Settings</h3>
             <div>
               <div class="form-row">
-                <label for="formValidation">Validate form <a class="tooltip" href="#"><i class="icon-info-circle"></i><span class="tooltip-content"><span class="tooltip-text"><span class="tooltip-inner">CONTENT TO GO HERE ABOUT USING PREBUILT FORM VALIDATION - DOESNT ALLOW CUSTOMISATION</span></span></span></a></label>
+                <label for="formValidation">Validate form <a class="tooltip" href="#"><i class="icon-info-circle"></i><span class="tooltip-content"><span class="tooltip-text"><span class="tooltip-inner">Use generated code to handle the form validation. This is inherited from the validation rules set up within the BSD Tools. Alternatively leave unchecked to use the destination site's validation.</span></span></span></a></label>
                 <input type="checkbox" name="form_validation" class="b--form-checkbox" id="formValidation" value="Y" />
               </div>        
             </div>

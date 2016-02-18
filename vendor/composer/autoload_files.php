@@ -6,9 +6,5 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-<<<<<<< HEAD
     'ad155f8f1cf0d418fe49e248db8c661b' => $vendorDir . '/react/promise/src/functions_include.php',
-=======
-    $vendorDir . '/react/promise/src/functions_include.php',
->>>>>>> bd71fe54c9b230e4530d7ff2306448db6be2c0bf
 );
