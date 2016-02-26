@@ -106,7 +106,7 @@
                 <label for="logo">Logo <a class="tooltip" href="#"><i class="icon-info-circle"></i><span class="tooltip-content"><span class="tooltip-text"><span class="tooltip-inner">Must be a full image URL. Images can be uploaded via the Blue State Tools.</span></span></span></a></label>
                 <input type="text" name="logo" class="b--form-field" id="logo"  placeholder="" />
               </div>
-              <div class="form-row">
+              <div class="form-row hide-row">
                 <label for="logoAlignment">Logo alignment</label>
                 <select name="logo_alignment" id="logoAlignment">
                   <option value="left">Left</option>
@@ -142,16 +142,20 @@
                 <label for="marginVertical">Margin (vertical)</label>
                 <input type="text" name="marginVertical" class="b--form-field" id="marginVertical"  placeholder="e.g 10px" />
               </div>
-               <div class="form-row l--half-width">
+             <!--  <div class="form-row l--half-width">
                 <label for="marginHoriz">Margin (horizontal)</label>
                 <input type="text" name="marginHoriz" class="b--form-field" id="marginHoriz"  placeholder="e.g 10px" />
-              </div>
+              </div> -->
             </div>
             <h3>Settings</h3>
             <div>
               <div class="form-row">
                 <label for="formValidation">Validate form <a class="tooltip" href="#"><i class="icon-info-circle"></i><span class="tooltip-content"><span class="tooltip-text"><span class="tooltip-inner">Use generated code to handle the form validation. This is inherited from the validation rules set up within the BSD Tools. Alternatively leave unchecked to use the destination site's validation.</span></span></span></a></label>
                 <input type="checkbox" name="form_validation" class="b--form-checkbox" id="formValidation" value="Y" />
+              </div>   
+              <div class="form-row">
+                <label for="optIn">Include opt-in <a class="tooltip" href="#"><i class="icon-info-circle"></i><span class="tooltip-content"><span class="tooltip-text"><span class="tooltip-inner">Automatically subscribe users to receive updated</span></span></span></a></label>
+                <input type="checkbox" name="opt_in" checked class="b--form-checkbox" id="optIn" value="Y" />
               </div>        
             </div>
 
@@ -185,18 +189,18 @@
             <div>
               <div class="form-row hide-row">
                 <label for="shareImg">Share image</label>
-                <input type="text" class="b--form-field required" name="share_img" id="shareImg"  placeholder="" />
+                <input type="text" class="b--form-field" name="share_img" id="shareImg"  placeholder="" />
               </div>
               <div class="form-row hide-row">
                 <label for="shareTweet">Share tweet</label>
-                <input type="text" class="b--form-field required" name="share_tweet" id="shareTweet"  placeholder="" />
+                <input type="text" class="b--form-field" name="share_tweet" id="shareTweet"  placeholder="" />
               </div>
               <div class="form-row hide-row">
                 <label for="sharePage">Page to be shared for Facebook</label>
-                <input type="text" class="b--form-field required" name="share_page" id="sharePage"  placeholder="" />
+                <input type="text" class="b--form-field" name="share_page" id="sharePage"  placeholder="" />
               </div>            
             </div>
-            <fieldset> 
+            <fieldset class="fieldset--submit"> 
               <div class="form-row">
                 <input type="submit" class="b--btn b--btn__submit" name="fetchform" value="Generate Code" />
               </div>
@@ -222,6 +226,7 @@
               </div>
             </fieldset>
           </form>
+
           <h3>Script</h3>
           <p>Copy and paste this code into your page directly before the <code></body></code> tag. The script requires jQuery to be included within the page before the script below is included.</p>
           <form name="generate-script" class="form" action="#customiseStep" method="post">
