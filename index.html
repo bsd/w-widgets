@@ -214,9 +214,8 @@
         <section id="generateForm">
           <h2>Embed the code</h2>
           <p>Below is code that you need to embed within your website.</p>
-
-          <h3>Style</h3>
-          <p>Copy and paste this code into your page within the <code><head></code> section.</p>
+        <h3>Style</h3>
+          <p>Copy and paste this code into your page within the <code>&lt;head&gt;</code> section.</p>
           <form name="generate-style" class="form" action="#customiseStep" method="post">
             <fieldset>
               <div class="form-row">
@@ -230,8 +229,9 @@
           </form>
 
           <h3>Script</h3>
-          <p>Copy and paste this code into your page directly before the <code></body></code> tag. The script requires jQuery to be included within the page before the script below is included.</p>
+          <p>Copy and paste this code into your page directly before the <code>&lt;/body&gt;</code> tag. The script requires jQuery to be included within the page before the script below is included.</p>
           <form name="generate-script" class="form" action="#customiseStep" method="post">
+            <fieldset>
             <fieldset>
               <div class="form-row">
                 <textarea disabled id="embedScript">
