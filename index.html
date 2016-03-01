@@ -56,11 +56,11 @@
       </ul>
         <section id="customiseForm" class="step1">
           <div class="l-customise--step1 current-step">
-            <h4>Step 1. Order the form</h4>
-            <p>First arrange the order of your fields, to do this click on the field you would like to reorder and drag it into it's new position.</p>
+            <h4>Order the form</h4>
+            <p>Click and drag the fields below to where you would like them.</p>
           </div>
           <div class="l-customise--step2">
-            <h4>Step 2. Position the form fields</h4>
+            <h4>Position the form fields</h4>
             <p>Select a form field to change it's width. Form fields can either span full width or half the width.</p>
           </div>
           <form name="generate-form" class="form" action="#personaliseForm" method="post">
@@ -207,11 +207,13 @@
             </div>
             <fieldset class="fieldset--submit"> 
               <div class="form-row">
+                 <input type="submit" class="b--btn b--btn__preview" name="fetchform" value="Preview Form" />
                 <input type="submit" class="b--btn b--btn__submit" name="fetchform" value="Generate Code" />
               </div>
             </fieldset>
           </form>
         </section>
+
 
 
         <section id="generateForm">
@@ -262,6 +264,13 @@
           </form>
         </section>
     </div> <!-- tabbedBox -->
+
+      <div id="previewForm">
+          <span class="icon-times-circle"></span>
+            <div class="preview-form__wrapper">
+
+            </div>
+          </div>
 
     <script src="scripts/vendor.js"></script>
     
