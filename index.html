@@ -37,7 +37,7 @@
              <p class="desc">If your branch is not available please get in touch with the administrator</p>
           </div>
           <div class="form-row">
-            <label for="formID">Enter the form ID  <a class="tooltip" href="#"><i class="icon-info-circle"></i><span class="tooltip-content"><span class="tooltip-text"><span class="tooltip-inner">You can find your form ID by logging into the tools and editing the relevant signup form. The ID will be available in the URL.</span></span></span></a></label>
+            <label for="formID">Enter the form ID  <a class="tooltip" href="#"><i class="icon-info-circle"></i><span class="tooltip-content"><span class="tooltip-text"><span class="tooltip-inner">You can find your form ID by logging into the tools and editing the relevant signup form. The ID will be available at the end of the URL.</span></span></span></a></label>
             <input type="text" class="b--form-field" data-validateMsg="Please enter a valid Form ID" data-validate="presence numeric" id="formID" placeholder="e.g 194" />
             <span class='uil-ring-css'><span>
           </div>
@@ -54,11 +54,15 @@
         <li><a href="#personaliseForm">2. Personalise Form</a></li>
         <li><a href="#generateForm">3. Generate Code</a></li>
       </ul>
-        <section id="customiseForm">
-          <a href="#" class="toggle-btn">Toggle field width</a> 
-
-          <a class="tooltip" href="#"><i class="icon-info-circle"></i><span class="tooltip-content"><span class="tooltip-text"><span class="tooltip-inner">Clicking on the "Toggle field width" button allows you to toggle the form fields between spanning full and half width. Click on the button again to save the changes and continue personalising the form.</span></span></span></a>
-
+        <section id="customiseForm" class="step1">
+          <div class="l-customise--step1 current-step">
+            <h4>Step 1. Order the form</h4>
+            <p>First arrange the order of your fields, to do this click on the field you would like to reorder and drag it into it's new position.</p>
+          </div>
+          <div class="l-customise--step2">
+            <h4>Step 2. Position the form fields</h4>
+            <p>Select a form field to change it's width. Form fields can either span full width or half the width.</p>
+          </div>
           <form name="generate-form" class="form" action="#personaliseForm" method="post">
             <fieldset>
             <div class="sortable-rows">
@@ -100,10 +104,64 @@
 
         <section id="personaliseForm">
           <form name="generate-form" class="form" action="#generateForm" method="post">
-            <h3>Styling</h3>
-            <div>
+           
+            <h3><a href="#settings">Settings <span class="icon-chevron-up"></span></a></h3>
+            <div class="accordion-content active-content">
+              <div class="form-row validation-row">
+                <label for="formValidation">Validate form</label>
+                <input type="checkbox" name="form_validation" checked class="b--form-checkbox" id="formValidation" value="Y" />
+                <p class="desc">Unchecked to use the destination site's validation. If the necessary validation isn't built within the destination site and the form is submitted without required information it will fail to send the data to the BSD Tools.</p>
+              </div>   
               <div class="form-row">
-                <label for="logo">Logo <a class="tooltip" href="#"><i class="icon-info-circle"></i><span class="tooltip-content"><span class="tooltip-text"><span class="tooltip-inner">Must be a full image URL. Images can be uploaded via the Blue State Tools.</span></span></span></a></label>
+                <label for="optIn">Include opt-in</label>
+                <input type="checkbox" name="opt_in" checked class="b--form-checkbox" id="optIn" value="Y" />
+                <p class="desc">Automatically subscribe users to receive updates from Which? It is a legal requirement to include this opt-in checkbox, by unticking you are agreeing to ignore legal requirements.</p>
+              </div>        
+            </div>
+
+              <h3><a href="#thankyou">Create custom thank you page<span class="icon-chevron-up"></span></a></h3>
+            <div class="accordion-content active-content">
+              <div class="form-row">
+                <label for="destination">Destination</label>
+                <select name="destination" id="destination">
+                  <option value="url">Redirect to URL</option>
+                  <option value="content">Show thankyou content</option>
+                </select>
+              </div>
+              <div class="form-row thankyouurl-row">
+                <label for="thankyouURL">Thankyou URL</label>
+                <input type="text" name="thankyou_url" class="b--form-field required" id="thankyouURL"  placeholder="" />
+              </div>
+              <div class="form-row hide-row">
+                <label for="thankyouHeader">Thankyou header</label>
+                <input type="text" name="thankyou_header" class="b--form-field required" id="thankyouHeader"  placeholder="" />
+              </div>
+              <div class="form-row hide-row">
+                <label for="thankyouContent">Thankyou content</label>
+                <textarea name="thankyou_content" class=" required" id="thankyouContent"></textarea>
+              </div>
+              <div class="form-row hide-row">
+                <label for="formEntry">Show user's form entries <a class="tooltip" href="#"><i class="icon-info-circle"></i><span class="tooltip-content"><span class="tooltip-text"><span class="tooltip-inner">This will display the user's form data underneath the thankyou content.</span></span></span></a></label>
+                <input type="checkbox" name="form_entry" class="b--form-checkbox" id="formEntry" value="Y" />
+              </div>
+              <div class="form-row hide-row">
+                <label for="shareImg">Share image <a class="tooltip" href="#"><i class="icon-info-circle"></i><span class="tooltip-content"><span class="tooltip-text"><span class="tooltip-inner">This will be displayed above the facebook and twitter share buttons, to encourage your users to share on social.</span></span></span></a></label>
+                <input type="text" class="b--form-field" name="share_img" id="shareImg"  placeholder="" />
+              </div>
+              <div class="form-row hide-row">
+                <label for="shareTweet">Share tweet (140 characters)</label>
+                <input type="text" class="b--form-field message" maxlength="140" name="share_tweet" id="shareTweet"  placeholder="" />
+                <span class="countdown"></span>
+              </div>
+              <div class="form-row hide-row">
+                <label for="sharePage">Page to be shared on Facebook  <a class="tooltip" href="#"><i class="icon-info-circle"></i><span class="tooltip-content"><span class="tooltip-text"><span class="tooltip-inner">The information populated by this share button will be taken from the shared page\'s Open Graph metatags.</span></span></span></a></label>
+                <input type="text" class="b--form-field" name="share_page" id="sharePage"  placeholder="" />
+              </div>            
+            </div>
+             <h3><a href="#advanced">Advanced Customisation <span class="icon-chevron-down"></span></a></h3>
+            <div class="accordion-content">
+              <div class="form-row">
+                <label for="logo">Logo <a class="tooltip" href="#"><i class="icon-info-circle"></i><span class="tooltip-content"><span class="tooltip-text"><span class="tooltip-inner">The logo will sit above the form and will the width will not exceed the parent div's width. Must be a full image URL. Images can be uploaded via the Blue State Tools.</span></span></span></a></label>
                 <input type="text" name="logo" class="b--form-field" id="logo"  placeholder="" />
               </div>
               <div class="form-row hide-row">
@@ -146,59 +204,6 @@
                 <label for="marginHoriz">Margin (horizontal)</label>
                 <input type="text" name="marginHoriz" class="b--form-field" id="marginHoriz"  placeholder="e.g 10px" />
               </div> -->
-            </div>
-            <h3>Settings</h3>
-            <div>
-              <div class="form-row">
-                <label for="formValidation">Validate form <a class="tooltip" href="#"><i class="icon-info-circle"></i><span class="tooltip-content"><span class="tooltip-text"><span class="tooltip-inner">Use generated code to handle the form validation. This is inherited from the validation rules set up within the BSD Tools. Alternatively leave unchecked to use the destination site's validation.</span></span></span></a></label>
-                <input type="checkbox" name="form_validation" class="b--form-checkbox" id="formValidation" value="Y" />
-              </div>   
-              <div class="form-row">
-                <label for="optIn">Include opt-in <a class="tooltip" href="#"><i class="icon-info-circle"></i><span class="tooltip-content"><span class="tooltip-text"><span class="tooltip-inner">Automatically subscribe users to receive updated</span></span></span></a></label>
-                <input type="checkbox" name="opt_in" checked class="b--form-checkbox" id="optIn" value="Y" />
-              </div>        
-            </div>
-
-              <h3>Thank you</h3>
-            <div>
-              <div class="form-row">
-                <label for="destination">Destination</label>
-                <select name="destination" id="destination">
-                  <option value="url">Redirect to URL</option>
-                  <option value="content">Show thankyou content</option>
-                </select>
-              </div>
-              <div class="form-row thankyouurl-row">
-                <label for="thankyouURL">Thankyou URL</label>
-                <input type="text" name="thankyou_url" class="b--form-field required" id="thankyouURL"  placeholder="" />
-              </div>
-              <div class="form-row hide-row">
-                <label for="thankyouHeader">Thankyou header</label>
-                <input type="text" name="thankyou_header" class="b--form-field required" id="thankyouHeader"  placeholder="" />
-              </div>
-              <div class="form-row hide-row">
-                <label for="thankyouContent">Thankyou content</label>
-                <textarea name="thankyou_content" class=" required" id="thankyouContent"></textarea>
-              </div>
-              <div class="form-row hide-row">
-                <label for="formEntry">Show user's form entries</label>
-                <input type="checkbox" name="form_entry" class="b--form-checkbox" id="formEntry" value="Y" />
-              </div>
-            </div>
-              <h3 class=" hide-row">Sharing</h3>
-            <div>
-              <div class="form-row hide-row">
-                <label for="shareImg">Share image</label>
-                <input type="text" class="b--form-field" name="share_img" id="shareImg"  placeholder="" />
-              </div>
-              <div class="form-row hide-row">
-                <label for="shareTweet">Share tweet</label>
-                <input type="text" class="b--form-field" name="share_tweet" id="shareTweet"  placeholder="" />
-              </div>
-              <div class="form-row hide-row">
-                <label for="sharePage">Page to be shared for Facebook</label>
-                <input type="text" class="b--form-field" name="share_page" id="sharePage"  placeholder="" />
-              </div>            
             </div>
             <fieldset class="fieldset--submit"> 
               <div class="form-row">
