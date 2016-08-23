@@ -6,7 +6,7 @@ ini_set('display_errors', 'On');
 //define('DB_MAIN', '127.0.0.1|root|abc123|widgets');
 
 //live
-define('DB_MAIN', 'db.test.which-testing.co.uk|SRTe89VG973R|widget');
+define('DB_MAIN', 'db.test.which-testing.co.uk|widget|SRTe89VG973R|widget');
 
 
 // Connect to database db1
