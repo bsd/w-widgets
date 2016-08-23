@@ -1,0 +1,64 @@
+<!doctype html>
+<html class="no-js" lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Which? Widgets</title>
+
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+
+    <link rel="stylesheet" href="styles/bsd-widget.css" />
+
+    <script src="scripts/vendor/modernizr.js"></script>
+
+    <script type="text/javascript" id="widget-generator" data-token="LZiCvpsF6SYWAtwYTppfYGhHBjc3kOgL" class="widget-async-script-loader">
+      (function() {
+        function async_load(){
+          var s = document.createElement('script');
+          s.type = 'text/javascript';
+          s.async = true;
+          var theUrl = 'scripts/bsd-widget.js';
+          s.src = theUrl;
+          var embedder = document.getElementById('w-embed');
+          embedder.parentNode.insertBefore(s, embedder);
+        }
+        if (window.attachEvent)
+          window.attachEvent('onload', async_load);
+        else
+          window.addEventListener('load', async_load, false);
+      })();
+    </script>
+
+  </head>
+  <body>
+      <h1>Widget Generator : preview</h1>
+
+     <div id="w-embed"></div>
+
+  </body>
+
+    <script src="scripts/vendor.js"></script>
+    <script type="text/javascript">
+      var token = getParam('tkn');
+
+      jQuery('#widget-generator').data('token', token);
+      function getParam(sParam) {
+        var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+            sURLVariables = sPageURL.split('&'),
+            sParameterName,
+            i;
+
+        for (i = 0; i < sURLVariables.length; i++) {
+            sParameterName = sURLVariables[i].split('=');
+
+            if (sParameterName[0] === sParam) {
+                return sParameterName[1] === undefined ? true : sParameterName[1];
+            }
+        }
+      }
+    </script>
+    <!-- build:js scripts/main.js -
+    <!-- endbuild -->
+</html>

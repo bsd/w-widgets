@@ -10,7 +10,7 @@
 
 
     <link rel="stylesheet" href="styles/main.css">
-    
+
     <script src="scripts/vendor/modernizr.js"></script>
   </head>
   <body>
@@ -18,7 +18,7 @@
       <img src="/images/which-logo.png" alt="Which? logo" class="m--logo" />
 
       <h2 class="float-r e--edit-form">Editing form: <a href="#"><span class="form-id--display">120</span> <span class="icon-times-circle"></span></a></h2>
-    </header> 
+    </header>
 
       <h1>Widget Generator</h1>
 
@@ -32,6 +32,7 @@
               <option value="https://cai-whichcouk.cp.bsd.net">CAI</option>
               <option value="https://conversation-whichcouk.cp.bsd.net">Conversation</option>
               <option value="https://testenvironment-whichcouk.cp.bsd.net">Testing</option>
+              <option value="https://bsddemouk15.cp.bsd.net">QA Demo account</option>
             </select>
              <p class="desc">If your branch is not available please get in touch with the administrator</p>
           </div>
@@ -55,9 +56,8 @@
       </ul>
         <section id="customiseForm" class="step1">
           <div class="l-customise--step1 current-step">
-            <h4>
-              Step 1. Order the form</h4>
-            <p>Click and drag the fields below to where you would like them.</p>
+            <h4>Step 1. Order the form</h4>
+            <p>First arrange the order of your fields, to do this click on the field you would like to reorder and drag it into it's new position.</p>
           </div>
           <div class="l-customise--step2">
             <h4>Step 2. Position the form fields</h4>
@@ -104,19 +104,36 @@
 
         <section id="personaliseForm">
           <form name="generate-form" class="form" action="#generateForm" method="post">
-           
+
             <h3><a href="#settings">Settings <span class="icon-chevron-up"></span></a></h3>
             <div class="accordion-content active-content">
+                     <div class="form-row">
+                <label for="form_title">Form Title</label>
+                <input type="text" id="form_title" name="form_title"  />
+
+              </div>
+                <div class="form-row validation-row">
+                <label for="form_intro">Form introduction</label>
+                <textarea name="form_intro" id="form_intro" rows="6"></textarea>
+              </div>
+
+
+                     <div class="form-row">
+                <label for="form_cta">Form call to action text</label>
+                <input type="text" id="form_cta" name="form_cta"  />
+
+              </div>
+                     <div class="form-row">
+                <label for="form_btn">Form submit button text</label>
+                <input type="text" id="form_btn" name="form_btn"  />
+
+              </div>
               <div class="form-row validation-row">
-                <label for="formValidation">Validate form</label>
-                <input type="checkbox" name="form_validation" checked class="b--form-checkbox" id="formValidation" value="Y" />
-                <p class="desc">Unchecked to use the destination site's validation. If the necessary validation isn't built within the destination site and the form is submitted without required information it will fail to send the data to the BSD Tools.</p>
-              </div>   
-              <div class="form-row">
-                <label for="optIn">Include opt-in</label>
-                <input type="checkbox" name="opt_in" checked class="b--form-checkbox" id="optIn" value="Y" />
-                <p class="desc">Automatically subscribe users to receive updates from Which? It is a legal requirement to include this opt-in checkbox, by unticking you are agreeing to ignore legal requirements.</p>
-              </div>        
+                <label for="form_signatures">Show petition signature count</label>
+                <input type="checkbox" name="form_signatures" class="b--form-checkbox" id="form_signatures" value="Y" />
+                <p class="desc">Show the number of people who have submitted the signup. Will be displayed in the following format: xxxx petition signatures.</p>
+              </div>
+
             </div>
 
               <h3><a href="#thankyou">Create custom thank you page<span class="icon-chevron-up"></span></a></h3>
@@ -133,20 +150,15 @@
                 <input type="text" name="thankyou_url" class="b--form-field required" id="thankyouURL"  placeholder="" />
               </div>
               <div class="form-row hide-row">
-                <label for="thankyouHeader">Thankyou header</label>
-                <input type="text" name="thankyou_header" class="b--form-field required" id="thankyouHeader"  placeholder="" />
-              </div>
-              <div class="form-row hide-row">
                 <label for="thankyouContent">Thankyou content</label>
-                <textarea name="thankyou_content" rows="8" class=" required" id="thankyouContent"></textarea>
-               
+                <textarea name="thankyou_content" class=" required" id="thankyouContent"></textarea>
               </div>
               <div class="form-row hide-row">
                 <label for="formEntry">Show user's form entries <a class="tooltip" href="#"><i class="icon-info-circle"></i><span class="tooltip-content"><span class="tooltip-text"><span class="tooltip-inner">This will display the user's form data underneath the thankyou content.</span></span></span></a></label>
                 <input type="checkbox" name="form_entry" class="b--form-checkbox" id="formEntry" value="Y" />
               </div>
               <div class="form-row hide-row">
-                <label for="shareImg">Share image URL <a class="tooltip" href="#"><i class="icon-info-circle"></i><span class="tooltip-content"><span class="tooltip-text"><span class="tooltip-inner">This will be displayed above the facebook and twitter share buttons, to encourage your users to share on social.</span></span></span></a></label>
+                <label for="shareImg">Share image <a class="tooltip" href="#"><i class="icon-info-circle"></i><span class="tooltip-content"><span class="tooltip-text"><span class="tooltip-inner">This will be displayed above the facebook and twitter share buttons, to encourage your users to share on social.</span></span></span></a></label>
                 <input type="text" class="b--form-field" name="share_img" id="shareImg"  placeholder="" />
               </div>
               <div class="form-row hide-row">
@@ -155,56 +167,12 @@
                 <span class="countdown"></span>
               </div>
               <div class="form-row hide-row">
-                <label for="sharePage">URL of page to be shared on Facebook  <a class="tooltip" href="#"><i class="icon-info-circle"></i><span class="tooltip-content"><span class="tooltip-text"><span class="tooltip-inner">The information populated by this share button will be taken from the shared page's Open Graph metatags.</span></span></span></a></label>
+                <label for="sharePage">Page to be shared on Facebook  <a class="tooltip" href="#"><i class="icon-info-circle"></i><span class="tooltip-content"><span class="tooltip-text"><span class="tooltip-inner">The information populated by this share button will be taken from the shared page\'s Open Graph metatags.</span></span></span></a></label>
                 <input type="text" class="b--form-field" name="share_page" id="sharePage"  placeholder="" />
-              </div>            
-            </div>
-             <h3><a href="#advanced">Advanced Customisation <span class="icon-chevron-down"></span></a></h3>
-            <div class="accordion-content">
-              <div class="form-row">
-                <label for="logo">Logo URL<a class="tooltip" href="#"><i class="icon-info-circle"></i><span class="tooltip-content"><span class="tooltip-text"><span class="tooltip-inner">The logo will sit above the form and will the width will not exceed the parent div's width. Must be a full image URL. Images can be uploaded via the Blue State Tools.</span></span></span></a></label>
-                <input type="text" name="logo" class="b--form-field" id="logo"  placeholder="" />
-              </div>
-              <div class="form-row hide-row">
-                <label for="logoAlignment">Logo alignment</label>
-                <select name="logo_alignment" id="logoAlignment">
-                  <option value="left">Left</option>
-                  <option value="center">Centre</option>
-                  <option value="right">Right</option>
-                </select>
-              </div>
-              <div class="form-row">
-                <label for="textColour">Text colour</label>
-                <input type="text" name="text_col" class="b--form-field picker" id="textColour"  placeholder="" />
-              </div>
-              <div class="form-row">
-                <label for="bgColour">BG colour</label>
-                <input type="text" name="bg_col" class="b--form-field picker" id="bgColour"  placeholder="" />
-              </div>
-              <div class="form-row">
-                <label for="linkColour">Link colour</label>
-                <input type="text" name="link_col" class="b--form-field picker" id="linkColour"  placeholder="" />
-              </div>
-              <div class="form-row">
-                <label for="bgImg">Background image URL <a class="tooltip" href="#"><i class="icon-info-circle"></i><span class="tooltip-content"><span class="tooltip-text"><span class="tooltip-inner">Must be a full image URL. Images can be uploaded via the Blue State Tools.</span></span></span></a></label>
-                <input type="text" name="bg_img" class="b--form-field" id="bgImg"  placeholder="" />
-              </div>
-               <div class="form-row l--half-width">
-                <label for="paddingVertical">Padding (vertical)</label>
-                <input type="text" name="paddingVertical" class="b--form-field" id="paddingVertical"  placeholder="e.g 10px" />
-              </div>
-               <div class="form-row l--half-width">
-                <label for="paddingHoriz">Padding (horizontal)</label>
-                <input type="text" name="paddingHoriz" class="b--form-field" id="paddingHoriz"  placeholder="e.g 10px" />
-              </div>
-               <div class="form-row l--half-width">
-                <label for="marginVertical">Margin (vertical)</label>
-                <input type="text" name="marginVertical" class="b--form-field" id="marginVertical"  placeholder="e.g 10px" />
               </div>
             </div>
-            <fieldset class="fieldset--submit"> 
+            <fieldset class="fieldset--submit">
               <div class="form-row">
-                 <input type="submit" class="b--btn b--btn__preview" name="fetchform" value="Preview Form" />
                 <input type="submit" class="b--btn b--btn__submit" name="fetchform" value="Generate Code" />
               </div>
             </fieldset>
@@ -212,65 +180,30 @@
         </section>
 
 
-
         <section id="generateForm">
           <h2>Embed the code</h2>
           <p>Below is code that you need to embed within your website.</p>
-        <h3>Style</h3>
-          <p>Copy and paste this code into your page within the <code>&lt;head&gt;</code> section.</p>
-          <form name="generate-style" class="form" action="#customiseStep" method="post">
-            <fieldset>
-              <div class="form-row">
-                <textarea disabled id="embedStyle">
-                </textarea>
-              </div>
-              <div class="form-row">
-                <input type="submit" class="b--btn b--btn__submit" data-copy="embedStyle" name="fetchform" value="Copy to clipboard" />
-              </div>
-            </fieldset>
-          </form>
 
-          <h3>Script</h3>
-          <p>Copy and paste this code into your page directly before the <code>&lt;/body&gt;</code> tag. The script requires jQuery to be included within the page before the script below is included.</p>
+          <h3>Widget Snippet</h3>
+          <p>Copy and paste this code into your page directly before the <code></body></code> tag. The script requires jQuery to be included within the page before the script below is included.</p>
           <form name="generate-script" class="form" action="#customiseStep" method="post">
-            <fieldset>
             <fieldset>
               <div class="form-row">
                 <textarea disabled id="embedScript">
                 </textarea>
               </div>
               <div class="form-row">
+                <a href="preview.html" target="_blank" class="b--btn b--btn__widget b--btn__submit__widget">Preview widget</a>
                 <input type="submit" class="b--btn b--btn__submit" data-copy="embedScript" name="fetchform" value="Copy to clipboard" />
               </div>
             </fieldset>
           </form>
 
-
-          <h3>Markup</h3>
-          <p>Copy and paste this code into your page where you want the form to appear</p>
-          <form name="generate-form" class="form" action="#customiseStep" method="post">
-            <fieldset>
-              <div class="form-row">
-                <textarea disabled id="embedTextbox">
-                </textarea>
-              </div>
-              <div class="form-row">
-                <input type="submit" class="b--btn b--btn__submit" data-copy="embedTextbox" name="fetchform" value="Copy to clipboard" />
-              </div>
-            </fieldset>
-          </form>
         </section>
     </div> <!-- tabbedBox -->
 
-      <div id="previewForm">
-          <span class="icon-times-circle"></span>
-            <div class="preview-form__wrapper">
-
-            </div>
-          </div>
-
     <script src="scripts/vendor.js"></script>
-    
+
     <script src="scripts/main.js"></script>
   </body>
 </html>
