@@ -2,8 +2,12 @@
 
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
+//local
+//define('DB_MAIN', '127.0.0.1|root|abc123|widgets');
 
-define('DB_MAIN', '127.0.0.1|root|abc123|widgets');
+//live
+define('DB_MAIN', 'db.test.which-testing.co.uk|SRTe89VG973R|widget');
+
 
 // Connect to database db1
 $db = new my_db(DB_MAIN);
