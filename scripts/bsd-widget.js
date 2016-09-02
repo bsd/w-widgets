@@ -14,10 +14,10 @@
 
                         jQuery('<script type="text/javascript">'+data[0].embed_script+'</script>').insertBefore('#w-embed');
 
+                        jQuery('#bsd_widget_source').val(window.location.href);
+
                         if(jQuery('.bsd-embed-intro')) {
-
                           jQuery('.bsd-embed-form').hide();
-
                           jQuery('#w-embed').on('click', '.bsd-embed-intro .expand-petition', function() {
                             jQuery('.bsd-embed-intro').toggle();
                             jQuery('.bsd-embed-form').toggle();
@@ -26,7 +26,12 @@
                         }
 
                         jQuery(".thankyou-wrapper").hide();
-                        jQuery(".apiform").bsdSignup({no_redirect:true}).on("bsd-success",function(e, response){ e.preventDefault();
+
+                        jQuery('.apiform').on('submit', function(e) {
+                          e.preventDefault();
+
+                        jQuery.getJSON("/proxy.php?callback=?&" + jQuery(".apiform").serialize(), function(){
+                            // e.preventDefault();
                             //thank you page
                             if(jQuery('.thankyou-wrapper').length > 0) {
                               jQuery('.bsd-embed-form').hide();
@@ -37,6 +42,8 @@
                               window.location.replace(data[0].thankyou_redirect);
                             }
                             //update form data
+
+                        });
 
                         });
 

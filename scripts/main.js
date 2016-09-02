@@ -107,7 +107,7 @@
                       var token = data;
 
                       jQuery('.b--btn__submit__widget').attr('href', 'preview.html?tkn=' + token);
-                      jQuery('#generateForm #embedScript').val('<script type="text/javascript" id="widget-generator" data-token="' + token + '" class="widget-async-script-loader">      (function() {        function async_load(){          var s = document.createElement("script");          s.type = "text/javascript";          s.async = true;          var theUrl = "scripts/bsd-widget.js";          s.src = theUrl;          var embedder = document.getElementById("w-embed");          embedder.parentNode.insertBefore(s, embedder);        }        if (window.attachEvent)          window.attachEvent("onload", async_load);        else          window.addEventListener("load", async_load, false);      })();    </script>');
+                      jQuery('#generateForm #embedScript').val('<script type="text/javascript" id="widget-generator" data-token="' + token + '" class="widget-async-script-loader">      (function() {        function async_load(){          var s = document.createElement("script");          s.type = "text/javascript";          s.async = true;          var theUrl = "https://widget.www.test.which-testing.co.uk/scripts/bsd-widget.js";          s.src = theUrl;          var embedder = document.getElementById("w-embed");          embedder.parentNode.insertBefore(s, embedder);        }        if (window.attachEvent)          window.attachEvent("onload", async_load);        else          window.addEventListener("load", async_load, false);      })();    </script>');
 
                     }
                   });
@@ -162,6 +162,8 @@
 
 
         embedHTML += '<form name="' + signupInfo.signup_form_name + '" class="apiform" action="' + $('#branch').val() + '/page/s/' + signupInfo.signup_form_slug + '" method="post" id="' + signupInfo.signup_form_id + '">';
+        embedHTML += '<input type="hidden" name="signup_form_id" value="' + signupInfo.signup_form_id + '" />';
+        embedHTML += '<input type="hidden" name="source" value="" id="bsd_widget_source" />';
 
     var currForm = $('#customiseForm form').html().split('<div class="form-row--submit">');
         var optinTxt = '<div class="form-row"><input id="email_opt_in" name="email_opt_in" type="checkbox" value="1" ><label for="email_opt_in">' + signupInfo.email_opt_in_label + '</label></div><div class="form-row--submit">';
