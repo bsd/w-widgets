@@ -35,7 +35,19 @@
                             //thank you page
                             if(jQuery('.thankyou-wrapper').length > 0) {
                               jQuery('.bsd-embed-form').hide();
-                              jQuery('.form-post').append('<p>Name:</p>');
+
+                              if(jQuery('.form-post').length > 0) {
+
+                                var formStr = '';
+
+                                jQuery('#w-embed .form-row').each(function() {
+                                  if(jQuery(this).find('.w--input-field').val()) {
+                                    formStr += '<p>' + jQuery(this).find('label').text() + ' : ' + jQuery(this).find('.w--input-field').val() + '</p>';
+                                  }
+                                });
+                              }
+
+                              jQuery('.form-post').append(formStr);
                               jQuery(".thankyou-wrapper").show();
                             }
                             else {

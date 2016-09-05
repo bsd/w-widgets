@@ -118,17 +118,18 @@
               </div>
 
 
-                     <div class="form-row">
+              <div class="form-row">
                 <label for="form_cta">Form call to action text</label>
                 <input type="text" id="form_cta" name="form_cta"  />
 
               </div>
-                     <div class="form-row">
+
+              <div class="form-row">
                 <label for="form_btn">Form submit button text</label>
                 <input type="text" id="form_btn" name="form_btn"  />
 
               </div>
-              <div class="form-row validation-row">
+              <div class="form-row">
                 <label for="form_signatures">Show petition signature count</label>
                 <input type="checkbox" name="form_signatures" class="b--form-checkbox" id="form_signatures" value="Y" />
                 <p class="desc">Show the number of people who have submitted the signup. Will be displayed in the following format: xxxx petition signatures.</p>
@@ -165,10 +166,12 @@
                 <label for="shareTweet">Share tweet (140 characters)</label>
                 <input type="text" class="b--form-field message" maxlength="140" name="share_tweet" id="shareTweet"  placeholder="" />
                 <span class="countdown"></span>
+                <p class="desc">Fill in to include a Twitter share button on the thank you page</p>
               </div>
               <div class="form-row hide-row">
                 <label for="sharePage">Page to be shared on Facebook  <a class="tooltip" href="#"><i class="icon-info-circle"></i><span class="tooltip-content"><span class="tooltip-text"><span class="tooltip-inner">The information populated by this share button will be taken from the shared page\'s Open Graph metatags.</span></span></span></a></label>
                 <input type="text" class="b--form-field" name="share_page" id="sharePage"  placeholder="" />
+                <p class="desc">Fill in to include a Facebook share button on the thank you page</p>
               </div>
             </div>
             <fieldset class="fieldset--submit">
@@ -193,7 +196,7 @@
                 </textarea>
               </div>
               <div class="form-row">
-                <a href="preview.html" target="_blank" class="b--btn b--btn__widget b--btn__submit__widget">Preview widget</a>
+                <a href="preview.html" target="_blank" class="b--btn b--btn__widget wb--btn__submit__widget">Preview widget</a>
                 <input type="submit" class="b--btn b--btn__submit" data-copy="embedScript" name="fetchform" value="Copy to clipboard" />
               </div>
             </fieldset>

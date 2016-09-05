@@ -106,7 +106,7 @@
                     success: function (data) {
                       var token = data;
 
-                      jQuery('.b--btn__submit__widget').attr('href', 'preview.html?tkn=' + token);
+                      jQuery('.wb--btn__submit__widget').attr('href', 'preview.html?tkn=' + token);
                       jQuery('#generateForm #embedScript').val('<script type="text/javascript" id="widget-generator" data-token="' + token + '" class="widget-async-script-loader">      (function() {        function async_load(){          var s = document.createElement("script");          s.type = "text/javascript";          s.async = true;          var theUrl = "https://widget.www.test.which-testing.co.uk/scripts/bsd-widget.js";          s.src = theUrl;          var embedder = document.getElementById("w-embed");          embedder.parentNode.insertBefore(s, embedder);        }        if (window.attachEvent)          window.attachEvent("onload", async_load);        else          window.addEventListener("load", async_load, false);      })();    </script>');
 
                     }
@@ -150,7 +150,7 @@
 
     if($('#form_signatures').is(':checked'))
         {
-          embedHTML += '<div class="supporter_count"><span class="figure group" id="signup_counter">0</span> have signed</div>';
+          embedHTML += '<div class="supporter_count"><span class="figure group" id="signup_counter">0</span> Petition Signatures</div>';
         }
 
         embedHTML += '<div class="btn btn-primary expand-petition"><span>' + jQuery('#form_cta').val() + '</span></div>';
@@ -284,7 +284,7 @@
           case '3':
             //selectbox
             if(k.label === 'Country') {
-              signupFields += '<label class="visible-label" for="country">Country';
+              signupFields += '<label class="visible-label visible-label--select" for="country">Country';
               if(k.is_required === 1 || k.is_required === '1') { signupFields += '*'; }
               signupFields += '</label>';
 
@@ -293,7 +293,7 @@
             else {
 
               //selectbox
-              signupFields += '<label class="visible-label" for="' + fieldName + '">' + k.label;
+              signupFields += '<label class="visible-label  visible-label--select" for="' + fieldName + '">' + k.label;
               if(k.is_required === 1 || k.is_required === '1') { signupFields += '*'; }
               signupFields += '</label>';
               signupFields += '<select ' + validationTxt + ' class="w--input-field" name="' + fieldName + '" id="' + fieldName + '">';
