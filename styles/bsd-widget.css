@@ -2,7 +2,6 @@
 
 #w-embed { border:1px solid #dedede;
   box-sizing: border-box;
-
   background-color: #f5f5f5;
   font-size: 18px;
   color: #6e6e6e;
@@ -12,7 +11,7 @@
 #bsd-stuff {
   display: none;
 }
-
+#w-embed div { box-sizing: border-box; }
 #w-embed fieldset { border:0; padding:0 ; width:90%; box-sizing: border-box;}
 
 #w-embed form { border:0; padding:20px 12px; box-sizing: border-box;}
@@ -63,8 +62,7 @@
   color: #6177bf;
 }
 #w-embed form { width:100%;}
-
-
+#w-embed .visible-label--select + .w--input-field { width:100%;}
 #w-embed input[type="email"],#w-embed input[type="text"],#w-embed input[type="tel"] {
     padding: 4px 8px;
     line-height: 21px;

@@ -41,8 +41,18 @@
                                 var formStr = '';
 
                                 jQuery('#w-embed .form-row').each(function() {
+                                  if(jQuery(this).find('.visible-label').not('.visible-label--select').length > 0) {
+                                    formStr += '<p>' + jQuery(this).find('.form-radio--label').text() + ' : '
+                                    if(jQuery(this).find('.w--input-field:checked').val()) {
+                                        formStr += jQuery(this).find('.w--input-field:checked').prev('.visible-label').text() + ' <br />';
+                                    }
+                                    formStr += '</p>';
+                                  }
+                                  else {
+
                                   if(jQuery(this).find('.w--input-field').val()) {
                                     formStr += '<p>' + jQuery(this).find('label').text() + ' : ' + jQuery(this).find('.w--input-field').val() + '</p>';
+                                  }
                                   }
                                 });
                               }

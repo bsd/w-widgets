@@ -145,7 +145,7 @@
         var embedHTML = '<div class="campaign-header"><div class="wWrapper"><h2>' + jQuery('#form_title').val() + '</h2><div class="bsd-embed-intro ">';
 
         if(jQuery('#form_intro').val().length > 0) {
-          embedHTML += '' + jQuery('#form_intro').val() + '';
+          embedHTML += '' + jQuery('#form_intro').val() + '<br />';
       }
 
     if($('#form_signatures').is(':checked'))
