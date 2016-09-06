@@ -16,7 +16,7 @@
 
                         jQuery('#bsd_widget_source').val(window.location.href);
 
-                        if(jQuery('.bsd-embed-intro')) {
+                        if(jQuery('.bsd-embed-intro').length > 0) {
                           jQuery('.bsd-embed-form').hide();
                           jQuery('#w-embed').on('click', '.bsd-embed-intro .expand-petition', function() {
                             jQuery('.bsd-embed-intro').toggle();

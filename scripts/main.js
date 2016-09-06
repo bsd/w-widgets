@@ -142,23 +142,38 @@
         //build the html
 
 
-        var embedHTML = '<div class="campaign-header"><div class="wWrapper"><h2>' + jQuery('#form_title').val() + '</h2><div class="bsd-embed-intro ">';
+        var embedHTML = '<div class="campaign-header"><div class="wWrapper"><h2>' + jQuery('#form_title').val() + '</h2>';
+
+        if(jQuery('#form_intro').val().length > 0 || jQuery('#form_signatures').is(':checked')) {
+
+        embedHTML += '<div class="bsd-embed-intro ">';
 
         if(jQuery('#form_intro').val().length > 0) {
-          embedHTML += '' + jQuery('#form_intro').val() + '<br />';
-      }
+            embedHTML += '' + jQuery('#form_intro').val() + '<br />';
+        }
 
-    if($('#form_signatures').is(':checked'))
+        if(jQuery('#form_signatures').is(':checked'))
         {
           embedHTML += '<div class="supporter_count"><span class="figure group" id="signup_counter">0</span> Petition Signatures</div>';
         }
 
+        if(jQuery('#form_cta').val().length > 0) {
         embedHTML += '<div class="btn btn-primary expand-petition"><span>' + jQuery('#form_cta').val() + '</span></div>';
 
+        }
+        else {
+
+        embedHTML += '<div class="btn btn-primary expand-petition"><span>Sign the petition</span></div>';
+
+        }
         embedHTML += '</div></div>';
 
         embedHTML += '<div class="bsd-embed-form widgetainer widget-styled">';
+        }
+        else {
 
+        embedHTML += '<div class="bsd-embed-form widgetainer widget-styled expanded-form">';
+        }
 
 
         embedHTML += '<form name="' + signupInfo.signup_form_name + '" class="apiform" action="' + $('#branch').val() + '/page/s/' + signupInfo.signup_form_slug + '" method="post" id="' + signupInfo.signup_form_id + '">';
