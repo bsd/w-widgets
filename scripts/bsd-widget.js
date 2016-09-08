@@ -16,6 +16,14 @@
 
                         jQuery('#bsd_widget_source').val(window.location.href);
 
+                        jQuery('#signup_counter').text(data[1].signup);
+
+                        var target = jQuery('.progress-bar').data('target');
+                        var signupcounts = data[1].signup;
+
+                        var percentage = (signupcounts * 100) / target;
+                        jQuery('.progress').css({'width': percentage + '%'});
+
                         if(jQuery('.bsd-embed-intro').length > 0) {
                           jQuery('.bsd-embed-form').hide();
                           jQuery('#w-embed').on('click', '.bsd-embed-intro .expand-petition', function() {

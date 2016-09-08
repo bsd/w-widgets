@@ -154,7 +154,12 @@
 
         if(jQuery('#form_signatures').is(':checked'))
         {
-          embedHTML += '<div class="supporter_count"><span class="figure group" id="signup_counter">0</span> Petition Signatures</div>';
+          if(jQuery('#target_signatures').val().length > 0) {
+            embedHTML += '<div class="supporter_count"><span class="figure group" style="display: block;" id="signup_counter">0</span><div class="progress-bar" data-target="' + jQuery('#target_signatures').val() + '" style="display: block;"><div class="progress" style="width: 0%;"></div></div> Petition Signatures</div>';
+          }
+          else {
+            embedHTML += '<div class="supporter_count"><span class="figure group" id="signup_counter">0</span> Petition Signatures</div>';
+          }
         }
 
         if(jQuery('#form_cta').val().length > 0) {
@@ -273,8 +278,12 @@
       },
       populateFields: function() {
         jQuery('#form_title').val(signupInfo.form_public_title);
-        jQuery('#form_intro').val(signupInfo.form_html_top);
-        jQuery('#form_btn').val(signupInfo.submit_button_label);
+        if(typeof signupInfo.form_html_top === 'string') {
+          jQuery('#form_intro').val(signupInfo.form_html_top);
+        }
+        if(typeof signupInfo.submit_button_label === 'string') {
+          jQuery('#form_btn').val(signupInfo.submit_button_label);
+        }
         jQuery('#thankyouContent').val(signupInfo.thank_you_html);
       },
 
