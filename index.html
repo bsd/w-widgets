@@ -24,7 +24,7 @@
       <form name="generate-form" class="form" action="#customiseStep" method="post">
         <fieldset>
           <div class="form-row">
-            <label for="branch">Select your branch  <a class="tooltip" href="#"><i class="icon-info-circle"></i><span class="tooltip-content"><span class="tooltip-text"><span class="tooltip-inner">Your branch name should correspond with the name used within the BSD tools.</span></span></span></a></label>
+            <label for="branch">Select your BSD Tools branch  <a class="tooltip" href="#"><i class="icon-info-circle"></i><span class="tooltip-content"><span class="tooltip-text"><span class="tooltip-inner">Your branch name should correspond with the name used within the BSD tools.</span></span></span></a></label>
             <select name="branch" id="branch">
               <option value="https://whichcouk.cp.bsd.net">Primary</option>
               <option value="https://cai-whichcouk.cp.bsd.net">CAI</option>
@@ -35,7 +35,7 @@
              <p class="desc">If your branch is not available please get in touch with the administrator</p>
           </div>
           <div class="form-row">
-            <label for="formID">Enter the form ID  <a class="tooltip" href="#"><i class="icon-info-circle"></i><span class="tooltip-content"><span class="tooltip-text"><span class="tooltip-inner">You can find your form ID by logging into the tools and editing the relevant signup form. The ID will be available at the end of the URL.</span></span></span></a></label>
+            <label for="formID">Enter the form ID  <a class="tooltip" href="#"><i class="icon-info-circle"></i><span class="tooltip-content"><span class="tooltip-text"><span class="tooltip-inner">The form ID can be found at the end of the URL for the relevant sign up form. E.g. “which.org.uk/pages/signup/emailcampaign” <br /><br />Check your sign-up form in the BSD Tools if you don’t have this to hand.</span></span></span></a></label>
             <input type="text" class="b--form-field" data-validateMsg="Please enter a valid Form ID" data-validate="presence numeric" id="formID" placeholder="e.g 194" />
             <span class='uil-ring-css'><span>
           </div>
@@ -48,14 +48,14 @@
 
     <div id="tabbedBox">
       <ul>
-        <li><a href="#customiseForm">1. Customise Form</a></li>
-        <li><a href="#personaliseForm">2. Personalise Form</a></li>
+        <li><a href="#customiseForm">1. Edit Form Fields</a></li>
+        <li><a href="#personaliseForm">2. Customise Form</a></li>
         <li><a href="#generateForm">3. Generate Code</a></li>
       </ul>
         <section id="customiseForm" class="step1">
           <div class="l-customise--step1 current-step">
-            <h4>Step 1. Order the form</h4>
-            <p>First arrange the order of your fields, to do this click on the field you would like to reorder and drag it into it's new position.</p>
+            <h4>Step 1. Order the form fields</h4>
+            <p>Drag and drop to arrange the order of your fields.</p>
           </div>
           <div class="l-customise--step2">
             <h4>Step 2. Position the form fields</h4>
@@ -106,7 +106,7 @@
             <h3><a href="#settings">Settings <span class="icon-chevron-up"></span></a></h3>
             <div class="accordion-content active-content">
                      <div class="form-row">
-                <label for="form_title">Form Title</label>
+                <label for="form_title">Form Display Title</label>
                 <input type="text" id="form_title" name="form_title"  />
 
               </div>
@@ -117,9 +117,9 @@
 
 
               <div class="form-row">
-                <label for="form_cta">Form call to action text</label>
+                <label for="form_cta">Form call to action button</label>
                 <input type="text" id="form_cta" name="form_cta"  />
-
+                <p class="desc">This will show underneath the form introduction, and will show the form when clicked.</p>
               </div>
 
               <div class="form-row">
@@ -163,6 +163,7 @@
               <div class="form-row hide-row">
                 <label for="shareImg">Share image <a class="tooltip" href="#"><i class="icon-info-circle"></i><span class="tooltip-content"><span class="tooltip-text"><span class="tooltip-inner">This will be displayed above the facebook and twitter share buttons, to encourage your users to share on social.</span></span></span></a></label>
                 <input type="text" class="b--form-field" name="share_img" id="shareImg"  placeholder="" />
+                <p class="desc">Include the full image URL</p>
               </div>
               <div class="form-row hide-row">
                 <label for="shareTweet">Share tweet (140 characters)</label>
@@ -171,7 +172,7 @@
                 <p class="desc">Fill in to include a Twitter share button on the thank you page</p>
               </div>
               <div class="form-row hide-row">
-                <label for="sharePage">Page to be shared on Facebook  <a class="tooltip" href="#"><i class="icon-info-circle"></i><span class="tooltip-content"><span class="tooltip-text"><span class="tooltip-inner">The information populated by this share button will be taken from the shared page\'s Open Graph metatags.</span></span></span></a></label>
+                <label for="sharePage">Page to be shared on Facebook  <a class="tooltip" href="#"><i class="icon-info-circle"></i><span class="tooltip-content"><span class="tooltip-text"><span class="tooltip-inner">The information populated by this share button will be taken from the shared page Open Graph metatags.</span></span></span></a></label>
                 <input type="text" class="b--form-field" name="share_page" id="sharePage"  placeholder="" />
                 <p class="desc">Fill in to include a Facebook share button on the thank you page</p>
               </div>
@@ -190,7 +191,7 @@
           <p>Below is code that you need to embed within your website.</p>
 
           <h3>Widget Snippet</h3>
-          <p>Copy and paste this code into your page directly before the <code></body></code> tag. The script requires jQuery to be included within the page before the script below is included.</p>
+          <p>Copy and paste this code into your page directly before the &raquo;/body&raquo; tag. You’ll need to include jQuery script into the page to host the widget before you embed the code below.</p>
           <form name="generate-script" class="form" action="#customiseStep" method="post">
             <fieldset>
               <div class="form-row">
