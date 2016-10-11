@@ -116,7 +116,7 @@
     }
 
     jQuery.ajax({
-      url: '/embed.php',
+      url: 'https://widget.www.test.which-testing.co.uk/embed.php',
       method: 'GET',
       dataType: 'json',
       data: { tkn: token },
