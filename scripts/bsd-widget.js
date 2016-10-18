@@ -1,1 +1,199 @@
-!function(a){function d(a){var d,e,b=decodeURIComponent(window.location.search.substring(1)),c=b.split("&");for(e=0;e<c.length;e++)if(d=c[e].split("="),d[0]===a)return void 0===d[1]||d[1]}function e(){b=window.jQuery.noConflict(!0),f()}function f(){!function(a,b,c){function d(a){var b=document.createElement("a");return b.href=a,b}function e(b){var c="No response from sever";if(b&&b.responseJSON)return b.responseJSON;try{return a.parseJSON(b.responseText)}catch(a){return{status:"fail",code:503,message:c,error:c}}}function f(b){return b&&"success"===b.status?b:a.Deferred().rejectWith(this,[b])}function g(a,b,c){a.one("change keyup",function(){a.val()!==c&&b.setCustomValidity("")})}function h(a){this.trigger("bsd-success",[a]),this.data("bsdsignup").no_redirect!==!0&&a.thanks_url&&(b.href=a.thanks_url)}function i(b){var c=this,d=!1,e=this.data("bsdsignup"),f={};b&&b.field_errors&&b.field_errors.length&&(a.each(b.field_errors,function(a,h){var i=c.find('[name="'+h.field+'"]'),j=i.get()[0];"submit-btn"===h.field?b.message=h.message:j&&j.setCustomValidity&&l&&!c[0].noValidate&&!e.no_html5validate&&(j.setCustomValidity(h.message),g(i,j,h.message),d=!0),h.$field=i,f[h.field]=h.message,i.trigger("invalid",h.message)}),d&&l&&c.find('[type="submit"],[type="image"]').eq(0).click()),c.trigger("bsd-error",[b,f])}function j(c,g,j){return function(k){var l=c.serializeObject();if(c.data("isPaused")!==!0){c.data("isPaused",!0);var m=g.replace("//page/(signup|s)/","/page/sapi"),n=a.ajax({url:m,type:"POST",method:"POST",dataType:"json",timeout:j.timeout||3e4,context:c,data:l,beforeSend:function(c,e){if(j.proxyall||e.crossDomain&&!a.support.cors&&(!a.oldiexdr||d(e.url).protocol!==b.protocol)){if(!j.oldproxy&&!j.proxyall)return!1;e.url=j.oldproxy||j.proxyall,e.crossDomain=!1,e.data+="&purl="+m}k.preventDefault()}});"canceled"!==n.statusText&&(c.trigger("bsd-submit",l),n.then(f,e).always(function(){c.data("isPaused",!1)}).done(h).fail(i))}else k.preventDefault(),c.trigger("bsd-ispaused",l)}}function k(b,c,d){var e,f=b.find('[name="'+c+'"]');f.length||(f=a("<input/>",{type:"hidden",name:c}).appendTo(b)),d&&(e=f.val(),f.val((""!==e?e+",":"")+d))}a.fn.serializeObject=function(){var b={},d=this.serializeArray();return a.each(d,function(){b[this.name]!==c?(b[this.name].push||(b[this.name]=[b[this.name]]),b[this.name].push(this.value||"")):b[this.name]=this.value||""}),b};var l="reportValidity"in a("<form/>").get()[0],m=function(a){var c=new RegExp("[\\?&]"+a.replace(/(\[|\])/g,"\\$1")+"=([^&#]*)"),d=c.exec(b.href);return null===d?"":d[1]},n="source",o="subsource",p=m(n)||m("fb_ref"),q=m(o);a.fn.bsdSignup=function(b){return b=b||{},this.each(function(){var c=a(this),d=c.attr("action");"remove"===b?c.off("submit.bsdsignup").removeData("bsdsignup isPaused"):c.is("form")&&d.indexOf("page/s")>-1&&(c.data("bsdsourced")===!0||b.nosource||(k(c,n,p),k(c,o,q),c.data("bsdsourced",!0)),c.data("bsdsignup",b),b.startPaused&&c.data("isPaused",!0),c.on("submit.bsdsignup",j(c,d,b)))})}}(b,window.location);var a=b("#w-embed").data("token");if(!a)var a=d("tkn");b.ajax({url:"https://widget.www.test.which-testing.co.uk/embed.php",method:"GET",dataType:"json",data:{tkn:a},success:function(a){b("#w-embed").html(a[0].embed_html),b('<script type="text/javascript">  var jQuery;if(void 0===window.jQuery||"2.2.4"!==window.jQuery.fn.jquery){var script_tag=document.createElement("script");script_tag.setAttribute("type","text/javascript"),script_tag.setAttribute("src","//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"),script_tag.readyState?script_tag.onreadystatechange=function(){"complete"!=this.readyState&&"loaded"!=this.readyState||scriptLoadHandler()}:script_tag.onload=scriptLoadHandler,(document.getElementsByTagName("head")[0]||document.documentElement).appendChild(script_tag)}else jQuery=window.jQuery,main(); function scriptLoadHandler(){jQuery=window.jQuery.noConflict(!0),main()} function main(){ !function(e,t,r){function n(e){var t=document.createElement("a");return t.href=e,t}function i(t){var r="No response from sever";if(t&&t.responseJSON)return t.responseJSON;try{return e.parseJSON(t.responseText)}catch(n){return{status:"fail",code:503,message:r,error:r}}}function s(t){return t&&"success"===t.status?t:e.Deferred().rejectWith(this,[t])}function a(e,t,r){e.one("change keyup",function(){e.val()!==r&&t.setCustomValidity("")})}function o(e){this.trigger("bsd-success",[e]),this.data("no_redirect")!==!0&&e.thanks_url&&(t=e.thanks_url)}function u(t){var r=this,n=!1,i={};t&&t.field_errors&&t.field_errors.length&&(e.each(t.field_errors,function(e,s){var o=r.find(\'[name="\'+s.field+\'"]\'),u=o.get()[0];"submit-btn"===s.field?t.message=s.message:u&&u.setCustomValidity&&f&&r.data("no_html5validate")!==!0&&(u.setCustomValidity(s.message),a(o,u,s.message),n=!0),s.$field=o,i[s.field]=s.message,o.trigger("invalid",s.message)}),n&&f&&r.find(\'[type="submit"],[type="image"]\').eq(0).click()),r.trigger("bsd-error",[t,i])}function c(r,a,c){return function(l){var f=r.serializeObject(),d=a.replace("/page/(signup|s)/","/page/sapi"),m=e.ajax({url:d,type:"POST",method:"POST",dataType:"json",timeout:c.timeout||3e4,context:r,data:f,beforeSend:function(r,i){if(i.crossDomain&&!e.support.cors&&(!e.oldiexdr||n(i.url).protocol!==t.protocol)){if(!c.oldproxy)return!1;i.url=c.oldproxy,i.crossDomain=!1,i.data+="&purl="+d}l.preventDefault()}});"canceled"!==m.statusText&&m.then(s,i).done(o).fail(u)}}function l(t,r,n){var i,s=t.find(\'[name="\'+r+\'"]\');s.length||(s=e("<input/>",{type:"hidden",name:r}).appendTo(t)),n&&(i=s.val(),s.val((""!==i?i+",":"")+n))}e.fn.serializeObject=function(){var t={},n=this.serializeArray();return e.each(n,function(){t[this.name]!==r?(t[this.name].push||(t[this.name]=[t[this.name]]),t[this.name].push(this.value||"")):t[this.name]=this.value||""}),t};var f="reportValidity"in e("<form/>").get()[0],d=function(e){var r=new RegExp("[?&]"+e.replace(/([|])/g,"$1")+"=([^&#]*)"),n=r.exec(t.href);return null===n?"":n[1]},m="source",p="subsource",h=d(m)||d("fb_ref"),g=d(p);e.fn.bsdSignup=function(t){return this.each(function(){var r=e(this),n=r.attr("action");r.is("form")&&n.indexOf("page/s")>-1&&(l(r,m,h),l(r,p,g),e.isPlainObject(t)&&r.data(t),r.on("submit",c(r,n,t)))})}}(jQuery,window.location); '+a[0].embed_script+"   }</script>").insertBefore("#w-embed"),b("#bsd_widget_source").val(window.location.href),b("#signup_counter").text(a[1].signup);var c=b(".progress-bar").data("target"),d=a[1].signup;d=d.replace(",",""),d=parseInt(d);var e=100*d/c;e>100&&(e=100),b(".progress").css({width:e+"%"}),b(".bsd-embed-intro").length>0&&(b(".bsd-embed-form").hide(),b("#w-embed").on("click",".bsd-embed-intro .expand-petition",function(){b(".bsd-embed-intro").toggle(),b(".bsd-embed-form").toggle()})),b(".thankyou-wrapper").hide(),b(".apiform").on("submit",function(c){c.preventDefault(),b.getJSON("https://widget.www.test.which-testing.co.uk/proxy.php?callback=?&"+b(".apiform").serialize(),function(){if(b(".thankyou-wrapper").length>0){if(b(".bsd-embed-form").hide(),b(".form-post").length>0){var c="";b("#w-embed .form-row").each(function(){b(this).find(".visible-label").not(".visible-label--select").length>0?(c+="<p>"+b(this).find(".form-radio--label").text()+" : ",b(this).find(".w--input-field:checked").val()&&(c+=b(this).find(".w--input-field:checked").prev(".visible-label").text()+" <br />"),c+="</p>"):b(this).find(".w--input-field").val()&&(c+="<p>"+b(this).find("label").text()+" : "+b(this).find(".w--input-field").val()+"</p>")})}b(".form-post").append(c),b(".thankyou-wrapper").show()}else window.location.replace(a[0].thankyou_redirect)})})},error:function(){return!1}})}var b;if(void 0===window.jQuery||"2.2.4"!==window.jQuery.fn.jquery){var c=document.createElement("script");c.setAttribute("type","text/javascript"),c.setAttribute("src","//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"),c.readyState?c.onreadystatechange=function(){"complete"!=this.readyState&&"loaded"!=this.readyState||e()}:c.onload=e,(document.getElementsByTagName("head")[0]||document.documentElement).appendChild(c)}else b=window.jQuery,f()}(this);
+(function (global) {
+  var jQuery;
+
+  /******** Load jQuery if not present *********/
+  if (window.jQuery === undefined || window.jQuery.fn.jquery !== '2.2.4') {
+    var script_tag = document.createElement('script');
+    script_tag.setAttribute("type", "text/javascript");
+    script_tag.setAttribute("src", "//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js");
+    if (script_tag.readyState) {
+      script_tag.onreadystatechange = function () {
+        // For old versions of IE
+        if (this.readyState == 'complete' || this.readyState == 'loaded') {
+          scriptLoadHandler();
+        }
+      };
+    } else {
+      // Other browsers
+      script_tag.onload = scriptLoadHandler;
+    }
+    // Try to find the head, otherwise default to the documentElement
+    (document.getElementsByTagName("head")[0] || document.documentElement).appendChild(script_tag);
+  } else {
+    // The jQuery version on the window is the one we want to use
+    jQuery = window.jQuery;
+    main();
+  }
+  function getParam(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+      sParameterName = sURLVariables[i].split('=');
+
+      if (sParameterName[0] === sParam) {
+        return sParameterName[1] === undefined ? true : sParameterName[1];
+      }
+    }
+  }
+
+  /******** Called once jQuery has loaded ******/
+  function scriptLoadHandler() {
+    // Restore $ and window.jQuery to their previous values and store the
+    // new jQuery in our local jQuery variable
+    jQuery = window.jQuery.noConflict(true);
+    // Call our main function
+    main();
+  }
+  //# sourceMappingURL=bsd-signup-jsapi-simple.js.map
+  function main() {
+    !function (e, t, s) {
+      function a(e) {
+        var t = document.createElement("a");return t.href = e, t;
+      }function r(t) {
+        var s = "No response from sever";if (t && t.responseJSON) return t.responseJSON;try {
+          return e.parseJSON(t.responseText);
+        } catch (a) {
+          return { status: "fail", code: 503, message: s, error: s };
+        }
+      }function i(t) {
+        return t && "success" === t.status ? t : e.Deferred().rejectWith(this, [t]);
+      }function n(e, t, s) {
+        e.one("change keyup", function () {
+          e.val() !== s && t.setCustomValidity("");
+        });
+      }function o(e) {
+        this.trigger("bsd-success", [e]), this.data("bsdsignup").no_redirect !== !0 && e.thanks_url && (t.href = e.thanks_url);
+      }function u(t) {
+        var s = this,
+            a = !1,
+            r = this.data("bsdsignup"),
+            i = {};t && t.field_errors && t.field_errors.length && (e.each(t.field_errors, function (e, o) {
+          var u = s.find('[name="' + o.field + '"]'),
+              d = u.get()[0];"submit-btn" === o.field ? t.message = o.message : d && d.setCustomValidity && l && !s[0].noValidate && !r.no_html5validate && (d.setCustomValidity(o.message), n(u, d, o.message), a = !0), o.$field = u, i[o.field] = o.message, u.trigger("invalid", o.message);
+        }), a && l && s.find('[type="submit"],[type="image"]').eq(0).click()), s.trigger("bsd-error", [t, i]);
+      }function d(s, n, d) {
+        return function (c) {
+          var l = s.serializeObject();if (s.data("isPaused") !== !0) {
+            s.data("isPaused", !0);var f = n.replace("/\/page\/(signup|s)/", "/page/sapi"),
+                p = e.ajax({ url: f, type: "POST", method: "POST", dataType: "json", timeout: d.timeout || 3e4, context: s, data: l, beforeSend: function (s, r) {
+                if (d.proxyall || r.crossDomain && !e.support.cors && (!e.oldiexdr || a(r.url).protocol !== t.protocol)) {
+                  if (!d.oldproxy && !d.proxyall) return !1;r.url = d.oldproxy || d.proxyall, r.crossDomain = !1, r.data += "&purl=" + f;
+                }c.preventDefault();
+              } });"canceled" !== p.statusText && (s.trigger("bsd-submit", l), p.then(i, r).always(function () {
+              s.data("isPaused", !1);
+            }).done(o).fail(u));
+          } else c.preventDefault(), s.trigger("bsd-ispaused", l);
+        };
+      }function c(t, s, a) {
+        var r,
+            i = t.find('[name="' + s + '"]');i.length || (i = e("<input/>", { type: "hidden", name: s }).appendTo(t)), a && (r = i.val(), i.val(("" !== r ? r + "," : "") + a));
+      }e.fn.serializeObject = function () {
+        var t = {},
+            a = this.serializeArray();return e.each(a, function () {
+          t[this.name] !== s ? (t[this.name].push || (t[this.name] = [t[this.name]]), t[this.name].push(this.value || "")) : t[this.name] = this.value || "";
+        }), t;
+      };var l = "reportValidity" in e("<form/>").get()[0],
+          f = function (e) {
+        var s = new RegExp("[\\?&]" + e.replace(/(\[|\])/g, "\\$1") + "=([^&#]*)"),
+            a = s.exec(t.href);return null === a ? "" : a[1];
+      },
+          p = "source",
+          m = "subsource",
+          g = f(p) || f("fb_ref"),
+          h = f(m);e.fn.bsdSignup = function (t) {
+        return t = t || {}, this.each(function () {
+          var s = e(this),
+              a = s.attr("action");"remove" === t ? s.off("submit.bsdsignup").removeData("bsdsignup isPaused") : s.is("form") && a.indexOf("page/s") > -1 && (s.data("bsdsourced") === !0 || t.nosource || (c(s, p, g), c(s, m, h), s.data("bsdsourced", !0)), s.data("bsdsignup", t), t.startPaused && s.data("isPaused", !0), s.on("submit.bsdsignup", d(s, a, t)));
+        });
+      };
+    }(jQuery, window.location);
+    var token = jQuery('#w-embed').data('token');
+    if (!token) {
+      var token = getParam('tkn');
+    }
+
+    jQuery.ajax({
+      url: 'https://widget.www.test.which-testing.co.uk/server/embed.php',
+      method: 'GET',
+      dataType: 'json',
+      data: { tkn: token },
+      success: function (data) {
+
+        jQuery('#w-embed').html(data[0].embed_html);
+
+        jQuery('<script type="text/javascript">  var jQuery;if(void 0===window.jQuery||"2.2.4"!==window.jQuery.fn.jquery){var script_tag=document.createElement("script");script_tag.setAttribute("type","text/javascript"),script_tag.setAttribute("src","//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"),script_tag.readyState?script_tag.onreadystatechange=function(){"complete"!=this.readyState&&"loaded"!=this.readyState||scriptLoadHandler()}:script_tag.onload=scriptLoadHandler,(document.getElementsByTagName("head")[0]||document.documentElement).appendChild(script_tag)}else jQuery=window.jQuery,main(); function scriptLoadHandler(){jQuery=window.jQuery.noConflict(!0),main()} function main(){ !function(e,t,r){function n(e){var t=document.createElement("a");return t.href=e,t}function i(t){var r="No response from sever";if(t&&t.responseJSON)return t.responseJSON;try{return e.parseJSON(t.responseText)}catch(n){return{status:"fail",code:503,message:r,error:r}}}function s(t){return t&&"success"===t.status?t:e.Deferred().rejectWith(this,[t])}function a(e,t,r){e.one("change keyup",function(){e.val()!==r&&t.setCustomValidity("")})}function o(e){this.trigger("bsd-success",[e]),this.data("no_redirect")!==!0&&e.thanks_url&&(t=e.thanks_url)}function u(t){var r=this,n=!1,i={};t&&t.field_errors&&t.field_errors.length&&(e.each(t.field_errors,function(e,s){var o=r.find(\'[name="\'+s.field+\'"]\'),u=o.get()[0];"submit-btn"===s.field?t.message=s.message:u&&u.setCustomValidity&&f&&r.data("no_html5validate")!==!0&&(u.setCustomValidity(s.message),a(o,u,s.message),n=!0),s.$field=o,i[s.field]=s.message,o.trigger("invalid",s.message)}),n&&f&&r.find(\'[type="submit"],[type="image"]\').eq(0).click()),r.trigger("bsd-error",[t,i])}function c(r,a,c){return function(l){var f=r.serializeObject(),d=a.replace("/page/(signup|s)/","/page/sapi"),m=e.ajax({url:d,type:"POST",method:"POST",dataType:"json",timeout:c.timeout||3e4,context:r,data:f,beforeSend:function(r,i){if(i.crossDomain&&!e.support.cors&&(!e.oldiexdr||n(i.url).protocol!==t.protocol)){if(!c.oldproxy)return!1;i.url=c.oldproxy,i.crossDomain=!1,i.data+="&purl="+d}l.preventDefault()}});"canceled"!==m.statusText&&m.then(s,i).done(o).fail(u)}}function l(t,r,n){var i,s=t.find(\'[name="\'+r+\'"]\');s.length||(s=e("<input/>",{type:"hidden",name:r}).appendTo(t)),n&&(i=s.val(),s.val((""!==i?i+",":"")+n))}e.fn.serializeObject=function(){var t={},n=this.serializeArray();return e.each(n,function(){t[this.name]!==r?(t[this.name].push||(t[this.name]=[t[this.name]]),t[this.name].push(this.value||"")):t[this.name]=this.value||""}),t};var f="reportValidity"in e("<form/>").get()[0],d=function(e){var r=new RegExp("[\?&]"+e.replace(/([|])/g,"\$1")+"=([^&#]*)"),n=r.exec(t.href);return null===n?"":n[1]},m="source",p="subsource",h=d(m)||d("fb_ref"),g=d(p);e.fn.bsdSignup=function(t){return this.each(function(){var r=e(this),n=r.attr("action");r.is("form")&&n.indexOf("page/s")>-1&&(l(r,m,h),l(r,p,g),e.isPlainObject(t)&&r.data(t),r.on("submit",c(r,n,t)))})}}(jQuery,window.location); ' + data[0].embed_script + '   }</script>').insertBefore('#w-embed');
+
+        jQuery('#bsd_widget_source').val(window.location.href);
+
+        jQuery('#signup_counter').text(data[1].signup);
+
+        var target = jQuery('.progress-bar').data('target');
+        var signupcounts = data[1].signup;
+        signupcounts = signupcounts.replace(',', '');
+        signupcounts = parseInt(signupcounts);
+        var percentage = signupcounts * 100 / target;
+        if (percentage > 100) {
+          percentage = 100;
+        }
+        jQuery('.progress').css({ 'width': percentage + '%' });
+
+        if (jQuery('.bsd-embed-intro').length > 0) {
+          jQuery('.bsd-embed-form').hide();
+          jQuery('#w-embed').on('click', '.bsd-embed-intro .expand-petition', function () {
+            jQuery('.bsd-embed-intro').toggle();
+            jQuery('.bsd-embed-form').toggle();
+          });
+        }
+
+        jQuery(".thankyou-wrapper").hide();
+
+        jQuery('.apiform').on('submit', function (e) {
+          e.preventDefault();
+
+          jQuery.getJSON("https://widget.www.test.which-testing.co.uk/server/proxy.php?callback=?&" + jQuery(".apiform").serialize(), function () {
+            // e.preventDefault();
+            //thank you page
+            if (jQuery('.thankyou-wrapper').length > 0) {
+              jQuery('.bsd-embed-form').hide();
+
+              if (jQuery('.form-post').length > 0) {
+
+                var formStr = '';
+
+                jQuery('#w-embed .form-row').each(function () {
+                  if (jQuery(this).find('.visible-label').not('.visible-label--select').length > 0) {
+                    formStr += '<p>' + jQuery(this).find('.form-radio--label').text() + ' : ';
+                    if (jQuery(this).find('.w--input-field:checked').val()) {
+                      formStr += jQuery(this).find('.w--input-field:checked').prev('.visible-label').text() + ' <br />';
+                    }
+                    formStr += '</p>';
+                  } else {
+
+                    if (jQuery(this).find('.w--input-field').val()) {
+                      formStr += '<p>' + jQuery(this).find('label').text() + ' : ' + jQuery(this).find('.w--input-field').val() + '</p>';
+                    }
+                  }
+                });
+              }
+
+              jQuery('.form-post').append(formStr);
+              jQuery(".thankyou-wrapper").show();
+            } else {
+              window.location.replace(data[0].thankyou_redirect);
+            }
+            //update form data
+          });
+        });
+      },
+      error: function () {
+        return false;
+      }
+    });
+  }
+})(this);
+//# sourceMappingURL=bsd-widget.js.map
+//# sourceMappingURL=bsd-widget.js.map
+//# sourceMappingURL=bsd-widget.js.map

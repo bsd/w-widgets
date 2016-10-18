@@ -1,5 +1,5 @@
 <?php
-    require "vendor/autoload.php";
+    require "../vendor/autoload.php";
     require "config.php";
     use Blue\Tools\Api\Client;
 

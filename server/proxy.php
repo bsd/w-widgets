@@ -1,6 +1,8 @@
 <?php
-define("api_secret", "d1c6e74be0a60754087ce47f9f0435fff15005ba"); // set the api_secret
-define("app_id", "widget-generator"); // set the API app_id
+require "config.php";
+
+define("api_secret", $config['secret']); // set the api_secret
+define("app_id", $config['username']); // set the API app_id
 define("domain", "https://https://whichcouk.bsd.net"); // set the API domain.
 class BSDAPI {
 

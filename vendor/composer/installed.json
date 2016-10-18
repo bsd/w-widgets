@@ -249,6 +249,8 @@
             "rest",
             "web service"
         ]
+<<<<<<< HEAD
+=======
     },
     {
         "name": "bluestatedigital/tools-api-client",
@@ -283,5 +285,6 @@
         },
         "notification-url": "https://packagist.org/downloads/",
         "description": "Client library for the BSD Tools API"
+>>>>>>> bd71fe54c9b230e4530d7ff2306448db6be2c0bf
     }
 ]

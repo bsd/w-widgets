@@ -1,15 +1,4 @@
-<!doctype html>
-<html class="no-js" lang="">
-  <head>
-    <meta charset="utf-8">
-    <meta name="description" content="">
-
-    <title>Which? Widgets</title>
-
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
-
-    <link rel="stylesheet" href="styles/bsd-widget.css" />
-<script type="text/javascript">
+<!doctype html><html class="no-js" lang=""><head><meta charset="utf-8"><meta name="description" content=""><title>Which? Widgets</title><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="stylesheet" href="styles/bsd-widget.css"><script type="text/javascript">//for preview page only - get token passed through
       function getParam(sParam) {
         var sPageURL = decodeURIComponent(window.location.search.substring(1)),
             sURLVariables = sPageURL.split('&'),
@@ -23,10 +12,7 @@
                 return sParameterName[1] === undefined ? true : sParameterName[1];
             }
         }
-      }
-    </script>
-    <script type="text/javascript" id="widget-generator">
-      var tokenParam = getParam('tkn');
+      }</script><script type="text/javascript" id="widget-generator">var tokenParam = getParam('tkn');
 
       (function() {
         function async_load(){
@@ -44,11 +30,7 @@
           window.attachEvent('onload', async_load);
         else
           window.addEventListener('load', async_load, false);
-      })();
-    </script>
-
-    <style type="text/css">
-    body {
+      })();</script><style type="text/css">body {
       margin:0; width:100%;
       font-size: 18px;
       color: #05171d;
@@ -56,19 +38,5 @@
       padding:0;
       box-sizing:border-box;
     }
-    .container { width:90%; margin: 20px 5%;}
-  </style>
-  </head>
-  <body>
-    <div class="container">
-      <h1>Widget Generator : preview</h1>
-      <div id="w-embed"></div>
-   </div>
-  </body>
-
-    <script src="scripts/vendor.js"></script>
-
-    <!-- build:js scripts/main.js -
-    <!-- endbuild -->
-</html>
-
+    .container { width:90%; margin: 20px 5%;}</style></head><body><div class="container"><h1>Widget Generator : preview</h1><div id="w-embed"></div></div></body><script src="scripts/vendor.js"></script><!-- build:js scripts/main.js -
+    <!-- endbuild --></html>

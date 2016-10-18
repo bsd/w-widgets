@@ -1,32 +1,38 @@
 <?php
-
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
-//local
-//define('DB_MAIN', '127.0.0.1|root|abc123|widgets');
+//This script inserts the generated markup and JS into the DB on W? server and assigns it a token so that it can retrieved
+function is_local() {
+    if($_SERVER['HTTP_HOST'] == 'localhost'
+        || substr($_SERVER['HTTP_HOST'],0,3) == '10.'
+        || $_SERVER['HTTP_HOST'] == 'which-widgets-build.app.local'
+        || substr($_SERVER['HTTP_HOST'],0,7) == '192.168') return true;
+    return false;
+}
 
+$localEnv = is_local();
+
+if($localEnv) {
+//local
+define('DB_MAIN', '127.0.0.1|root|abc123|widgets');
+}
+else {
 //live
 define('DB_MAIN', 'db.test.which-testing.co.uk|widget|SRTe89VG973R|widget');
-
+}
 
 // Connect to database db1
 $db = new my_db(DB_MAIN);
 
-// Request "SELECT * FROM table1 WHERE a=16 AND b=22"
-// Get an array of stdClass's
-$token = $_GET['tkn'];
-$rows = $db->fetchAll('SELECT * FROM embed WHERE token="'.$token.'"');
 
-$count = file_get_contents("https://whichcouk.cp.bsd.net/utils/cons_counter/signup_counter.ajax.php?signup_form_id=".$rows[0]->form_ID);
-$count = $count + 10000;
-$count = number_format($count);
-
-
-array_push($rows, array('signup' => $count));
-echo json_encode($rows);
+if($_POST['type'] === "insert") {
+    $sql = "INSERT INTO embed (token, form_id, thankyou_redirect, embed_script, embed_html, date_added) VALUES (:token, :formID, :thankyou, :embedJS, :embedHTML, :dateadded)";
+    $query = $db->insert( $sql );
+}
 
 function crypto_rand_secure($min, $max)
 {
+    //create token
     $range = $max - $min;
     if ($range < 1) return $min; // not so random...
     $log = ceil(log($range, 2));
@@ -40,6 +46,18 @@ function crypto_rand_secure($min, $max)
     return $min + $rnd;
 }
 
+function getToken($length)
+{
+    $token = "";
+    $codeAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    $codeAlphabet.= "abcdefghijklmnopqrstuvwxyz";
+    $codeAlphabet.= "0123456789";
+    $max = strlen($codeAlphabet) - 1;
+    for ($i=0; $i < $length; $i++) {
+        $token .= $codeAlphabet[crypto_rand_secure(0, $max)];
+    }
+    return $token;
+}
 
 
 class my_db{
@@ -51,17 +69,10 @@ class my_db{
         if(!is_object(self::$databases[$connDetails])){
             list($host, $user, $pass, $dbname) = explode('|', $connDetails);
             $dsn = "mysql:host=$host;dbname=$dbname";
+
             self::$databases[$connDetails] = new PDO($dsn, $user, $pass);
         }
         $this->connection = self::$databases[$connDetails];
-    }
-
-    public function fetchAll($sql){
-        $args = func_get_args();
-        array_shift($args);
-        $statement = $this->connection->prepare($sql);
-        $statement->execute($args);
-         return $statement->fetchAll(PDO::FETCH_OBJ);
     }
 
     public function insert($sql){
@@ -72,12 +83,13 @@ class my_db{
 
         $statement->bindParam(':token', $token, PDO::PARAM_STR);
         $statement->bindParam(':embedJS', $_POST['JS'], PDO::PARAM_STR);
-        $statement->bindParam(':embedJS', $_POST['JS'], PDO::PARAM_STR);
         $statement->bindParam(':formID', $_POST['signupID'], PDO::PARAM_STR);
+        $statement->bindParam(':thankyou', $_POST['thankyouURL'], PDO::PARAM_STR);
         $statement->bindParam(':embedHTML', $_POST['HTML'], PDO::PARAM_STR);
         $statement->bindParam(':dateadded', $timestamp, PDO::PARAM_STR);
 
         if($statement->execute()) {
+          //return token so that it can be inserted into the embed script
           echo $token;
         }
 
