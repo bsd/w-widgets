@@ -1,8 +1,7 @@
 /*global jQuery:false */
 
 /* TO DO
- custom fields not coming through
- address should be addr1 (?)
+ seperate out into modules
  */
 (function ($) {
     'use strict';
@@ -270,9 +269,12 @@
                 jQuery('#form_btn').val(signupInfo.submit_button_label);
             }
             jQuery('#thankyouContent').val(signupInfo.thank_you_html);
+
+            CKEDITOR.replace('form_intro');
+            CKEDITOR.replace('thankyouContent');
         },
         fieldType: function (k, fieldName, fieldType, validationTxt) {
-
+            //there are a variety of different field types the tools can return this runs through them and builds out the HTML to be sympathetic to the Tools setup
             switch (k.format) {
                 case '1':
                     //if input type text
@@ -281,7 +283,7 @@
                         signupFields += '*';
                     }
                     signupFields += '</label>';
-                    signupFields += '<input class="w--input-field" type="' + fieldType + '" name="' + fieldName + '" ' + validationTxt + ' placeholder="' + k.label + '" id="' + fieldName + '" />';
+                    signupFields += '<input class="w--input-field" type="' + fieldType + '" name="' + fieldName + '" ' + validationTxt + ' id="' + fieldName + '" />';
                     break;
                 case '2':
                     //if textarea
@@ -405,7 +407,7 @@
                         signupFields += '*';
                     }
                     signupFields += '</label>';
-                    signupFields += '<input  class="w--input-field" type="file" name="' + fieldName + '" ' + validationTxt + ' placeholder="' + k.label + '" id="' + fieldName + '" />';
+                    signupFields += '<input  class="w--input-field" type="file" name="' + fieldName + '" ' + validationTxt + ' id="' + fieldName + '" />';
                     signupFields += '<p class="desc">Max upload size: ' + k.extra_def.file_size + 'mb ';
                     break;
                 case '9':
@@ -415,12 +417,12 @@
                         signupFields += '*';
                     }
                     signupFields += '</label>';
-                    signupFields += '<input  class="w--input-field" type="text" name="' + fieldName + '" ' + validationTxt + ' placeholder="' + k.label + '" id="' + fieldName + '" />';
+                    signupFields += '<input  class="w--input-field" type="text" name="' + fieldName + '" ' + validationTxt + ' id="' + fieldName + '" />';
                     break;
                 case '10':
                     //if hidden type text
                     signupFields += '<label for="' + fieldName + '">' + k.label + '</label>';
-                    signupFields += '<input  class="w--input-field" type="hidden" name="' + fieldName + '" ' + validationTxt + ' placeholder="' + k.label + '" id="' + fieldName + '" />';
+                    signupFields += '<input  class="w--input-field" type="hidden" name="' + fieldName + '" ' + validationTxt + ' id="' + fieldName + '" />';
                     break;
                 default:
                     signupFields += '<label for="' + fieldName + '">' + k.label;
@@ -428,7 +430,7 @@
                         signupFields += '*';
                     }
                     signupFields += '</label>';
-                    signupFields += '<input  class="w--input-field" type="' + fieldType + '" name="' + fieldName + '" ' + validationTxt + ' placeholder="' + k.label + '" id="' + fieldName + '" />';
+                    signupFields += '<input  class="w--input-field" type="' + fieldType + '" name="' + fieldName + '" ' + validationTxt + ' id="' + fieldName + '" />';
             }
         },
         buildFields: function (k) {
@@ -688,8 +690,6 @@
             });
         },
         bindUIActions: function () {
-            CKEDITOR.replace('form_intro');
-            CKEDITOR.replace('thankyouContent');
 
             //disable the form button until necessary fields are populate
             $('#fetchForm').find('input[type="submit"]').addClass('btn-disabled');
