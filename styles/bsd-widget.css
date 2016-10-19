@@ -89,7 +89,7 @@
   min-height:150px;
 }
 #w-embed .form-row--checkbox, #w-embed .form-row--radio {width: 90%; float:left; clear:both; display:block; margin:5px 0; position:relative;}
-#w-embed .form-row--checkbox input, #w-embed .form-row--radio input  {  margin:0; padding:0; position:absolute; left:0; top:4px;}
+#w-embed .form-row--checkbox input, #w-embed .form-row--radio input  { width:15px; margin:0; padding:0; position:absolute; left:0; top:4px;}
 #w-embed .form-row--checkbox label, #w-embed .form-row--radio label  { float:left; width: 100%; padding: 0 0 0 40px;}
 
 #w-embed .frm-row {
