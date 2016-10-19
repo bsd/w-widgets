@@ -1,4 +1,6 @@
 <?php
+//This script inserts the generated markup and JS into the DB on W? server and assigns it a token so that it can retrieved
+
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 //This script inserts the generated markup and JS into the DB on W? server and assigns it a token so that it can retrieved
@@ -20,7 +22,6 @@ else {
 //live
 define('DB_MAIN', 'db.test.which-testing.co.uk|widget|SRTe89VG973R|widget');
 }
-
 // Connect to database db1
 $db = new my_db(DB_MAIN);
 
@@ -69,7 +70,6 @@ class my_db{
         if(!is_object(self::$databases[$connDetails])){
             list($host, $user, $pass, $dbname) = explode('|', $connDetails);
             $dsn = "mysql:host=$host;dbname=$dbname";
-
             self::$databases[$connDetails] = new PDO($dsn, $user, $pass);
         }
         $this->connection = self::$databases[$connDetails];
