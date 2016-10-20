@@ -163,10 +163,10 @@
                 }
                 embedHTML += '</div></div>';
 
-                embedHTML += '<div class="bsd-embed-form widgetainer widget-styled">';
+                embedHTML += '<div class="bsd-embed-form bsd-widgetainer bsd-widget-styled">';
             } else {
 
-                embedHTML += '<div class="bsd-embed-form widgetainer widget-styled expanded-form">';
+                embedHTML += '<div class="bsd-embed-form bsd-widgetainer bsd-widget-styled bsd-expanded-form">';
             }
 
             embedHTML += '<form name="' + signupInfo.signup_form_name + '" class="apiform" action="' + $('#branch').val() + '/page/s/' + signupInfo.signup_form_slug + '" method="post" id="' + signupInfo.signup_form_id + '">';
@@ -350,7 +350,7 @@
                         } else {
                             checkLabel = radioArr[0];
                         }
-                        signupFields += '<div class="form-row--checkbox"><label class="visible-label" for="' + fieldName + '_' + key + '">' + checkLabel + '</label>';
+                        signupFields += '<div class="form-row--checkbox"><label class="visible-label" for="' + fieldName + '_' + key + '">' + radioArr[0] + '</label>';
                         signupFields += '<input class="w--input-field" type="checkbox" name="' + fieldName + '[]" ' + validationTxt + ' value="' + radioArr[0] + '" id="' + fieldName + '_' + key + '" onclick="if(this.checked) { this.form[\'' + fieldName + '[' + key + ']' + '\'].value=\'' + checkLabel + '\'; } else { this.form[\'' + fieldName + '[' + key + ']' + '\'].value=\'\'; }" />';
                         signupFields += '<input type="hidden" name="' + fieldName + '[' + key + ']" /></div>';
                     });
