@@ -350,7 +350,7 @@
                         } else {
                             checkLabel = radioArr[0];
                         }
-                        signupFields += '<div class="form-row--checkbox"><label class="visible-label" for="' + fieldName + '_' + key + '">' + radioArr[0] + '</label>';
+                        signupFields += '<div class="form-row--checkbox"><label class="visible-label" for="' + fieldName + '_' + key + '">' + checkLabel + '</label>';
                         signupFields += '<input class="w--input-field" type="checkbox" name="' + fieldName + '[]" ' + validationTxt + ' value="' + radioArr[0] + '" id="' + fieldName + '_' + key + '" onclick="if(this.checked) { this.form[\'' + fieldName + '[' + key + ']' + '\'].value=\'' + checkLabel + '\'; } else { this.form[\'' + fieldName + '[' + key + ']' + '\'].value=\'\'; }" />';
                         signupFields += '<input type="hidden" name="' + fieldName + '[' + key + ']" /></div>';
                     });
@@ -377,7 +377,7 @@
                             checkLabel = radioArr[0];
                         }
 
-                        signupFields += '<div class="form-row--radio"><label class="visible-label" for="' + fieldName + '_' + key + '">' + checkLabel + '</label>';
+                        signupFields += '<div class="form-row--radio"><label class="visible-label" for="' + fieldName + '_' + key + '">' + radioArr[0] + '</label>';
                         signupFields += '<input class="w--input-field" type="radio" name="' + fieldName + '[]" ' + validationTxt + ' value="' + radioArr[0] + '" id="' + fieldName + '_' + key + '" onclick="if(this.checked) { this.form[\'' + fieldName + '[' + key + ']' + '\'].value=\'' + checkLabel + '\'; } else { this.form[\'' + fieldName + '[' + key + ']' + '\'].value=\'\'; }" />';
                         signupFields += '<input type="hidden" name="' + fieldName + '[' + key + ']" /></div>';
                     });
