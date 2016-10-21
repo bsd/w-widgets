@@ -115,7 +115,7 @@
       var token = getParam('tkn');
     }
 
-    host = jQuery('#w-embed').data('env');
+    host = jQuery('#w-embed').attr('class');
 
     jQuery.ajax({
       url: '//' + host + '/server/embed.php',
