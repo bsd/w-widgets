@@ -3,7 +3,7 @@ $host = $_SERVER['HTTP_HOST'];
 
 if(strpos($host, 'widget.which') !== false) { $env = 'prod'; }
 else if(strpos($host, 'test.which') !== false) { $env = 'testing'; }
-else if(strpos($host, 'staging-which') !== false) { $env = 'staging'; }
+else if(strpos($host, 'staging.which') !== false) { $env = 'staging'; }
 else { $env = 'local'; }
 
 if($env === 'prod')
