@@ -12,7 +12,7 @@ if($env === 'prod')
             'username' => 'widget-generator',
             'secret' => '16a5024e331bf5ed07606bf31dde455abb26496e',
             'dbuser' => 'widget',
-            'dbpass' => 'SRTe89VG973R',
+            'dbpass' => '83HEiVqPNCw7',
             'dbhost' => 'db.which.co.uk',
             'dbname' => 'widget'
         );
@@ -22,7 +22,7 @@ elseif($env === 'staging') {
             'username' => 'widget-generator',
             'secret' => '16a5024e331bf5ed07606bf31dde455abb26496e',
             'dbuser' => 'widget',
-            'dbpass' => 'SRTe89VG973R',
+            'dbpass' => 'U3qonZplenbD',
             'dbhost' => 'db.staging.which-testing.co.uk',
             'dbname' => 'widget'
         );
