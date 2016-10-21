@@ -13,6 +13,7 @@
             }
         }
       }</script><script type="text/javascript" id="widget-generator">var tokenParam = getParam('tkn');
+      var env = location.hostname;
 
       (function() {
         function async_load(){
@@ -25,6 +26,7 @@
           embedder.parentNode.insertBefore(s, embedder);
           var token = tokenParam;
           embedder.setAttribute("data-token", tokenParam);
+          embedder.classList.add(env);
         }
         if (window.attachEvent)
           window.attachEvent('onload', async_load);
