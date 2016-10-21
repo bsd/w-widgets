@@ -1,5 +1,5 @@
 (function (global) {
-  var jQuery;
+  var jQuery, host;
 
   /******** Load jQuery if not present *********/
   if (window.jQuery === undefined || window.jQuery.fn.jquery !== '2.2.4') {
@@ -114,8 +114,9 @@
     if (!token) {
       var token = getParam('tkn');
     }
-    console.log(location.hostname);
-    var host = location.hostname;
+
+    host = jQuery('#w-embed').data('env');
+
     jQuery.ajax({
       url: '//' + host + '/server/embed.php',
       method: 'GET',
