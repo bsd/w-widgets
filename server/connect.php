@@ -1,30 +1,16 @@
 <?php
 //This script inserts the generated markup and JS into the DB on W? server and assigns it a token so that it can retrieved
+require "config.php";
 
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
+
 //This script inserts the generated markup and JS into the DB on W? server and assigns it a token so that it can retrieved
-function is_local() {
-    if($_SERVER['HTTP_HOST'] == 'localhost'
-        || substr($_SERVER['HTTP_HOST'],0,3) == '10.'
-        || $_SERVER['HTTP_HOST'] == 'which-widgets-build.app.local'
-        || substr($_SERVER['HTTP_HOST'],0,7) == '192.168') return true;
-    return false;
-}
 
-$localEnv = is_local();
+define('DB_MAIN', ''.$config['dbhost'].'|'.$config['dbuser'].'|'.$config['dbpass'].'|'.$config['dbname'].'');
 
-if($localEnv) {
-//local
-define('DB_MAIN', '127.0.0.1|root|abc123|widgets');
-}
-else {
-//live
-define('DB_MAIN', 'db.test.which-testing.co.uk|widget|SRTe89VG973R|widget');
-}
 // Connect to database db1
 $db = new my_db(DB_MAIN);
-
 
 if($_POST['type'] === "insert") {
     $sql = "INSERT INTO embed (token, form_id, thankyou_redirect, embed_script, embed_html, date_added) VALUES (:token, :formID, :thankyou, :embedJS, :embedHTML, :dateadded)";
