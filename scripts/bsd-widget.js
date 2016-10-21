@@ -1,5 +1,6 @@
 (function (global) {
-  var jQuery;
+  var jQuery,
+      host = location.hostname;
 
   /******** Load jQuery if not present *********/
   if (window.jQuery === undefined || window.jQuery.fn.jquery !== '2.2.4') {
@@ -116,7 +117,7 @@
     }
 
     jQuery.ajax({
-      url: 'https://widget.www.test.which-testing.co.uk/server/embed.php',
+      url: '//' + host + '/server/embed.php',
       method: 'GET',
       dataType: 'json',
       data: { tkn: token },
@@ -153,7 +154,7 @@
         jQuery('.apiform').on('submit', function (e) {
           e.preventDefault();
 
-          jQuery.getJSON("https://widget.www.test.which-testing.co.uk/server/proxy.php?callback=?&" + jQuery(".apiform").serialize(), function () {
+          jQuery.getJSON("//" + host + "/server/proxy.php?callback=?&" + jQuery(".apiform").serialize(), function () {
             // e.preventDefault();
             //thank you page
             if (jQuery('.thankyou-wrapper').length > 0) {

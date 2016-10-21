@@ -13,7 +13,8 @@
         Widgets = {
         settings: {
             formURL: './server/form.php',
-            fieldsURL: './server/fields.php'
+            fieldsURL: './server/fields.php',
+            env: location.hostname
         },
 
         init: function () {
@@ -107,7 +108,7 @@
                     var token = data;
 
                     jQuery('.wb--btn__submit__widget').attr('href', 'preview.html?tkn=' + token);
-                    jQuery('#generateForm #embedScript').val('<script type="text/javascript" id="widget-generator">   var link = document.createElement( "link" );     link.href = "//widget.www.test.which-testing.co.uk/styles/bsd-widget.css";      link.type = "text/css";      link.rel = "stylesheet";      link.media = "screen,print";      document.getElementsByTagName( "head" )[0].appendChild( link );   (function() {        function async_load(){          var s = document.createElement("script");          s.type = "text/javascript";          s.async = true;          var theUrl = "https://widget.www.test.which-testing.co.uk/scripts/bsd-widget.js";          s.src = theUrl;          var embedder = document.getElementById("w-embed");   var token = "' + token + '"; embedder.setAttribute("data-token", token);   embedder.parentNode.insertBefore(s, embedder);        }        if (window.attachEvent)          window.attachEvent("onload", async_load);        else          window.addEventListener("load", async_load, false);      })();    </script><div id="w-embed"></div>');
+                    jQuery('#generateForm #embedScript').val('<script type="text/javascript" id="widget-generator">   var link = document.createElement( "link" );     link.href = "//' + s.env + '/styles/bsd-widget.css";      link.type = "text/css";      link.rel = "stylesheet";      link.media = "screen,print";      document.getElementsByTagName( "head" )[0].appendChild( link );   (function() {        function async_load(){          var s = document.createElement("script");          s.type = "text/javascript";          s.async = true;          var theUrl = "https://' + s.env + '/scripts/bsd-widget.js";          s.src = theUrl;          var embedder = document.getElementById("w-embed");   var token = "' + token + '"; embedder.setAttribute("data-token", token);   embedder.parentNode.insertBefore(s, embedder);        }        if (window.attachEvent)          window.attachEvent("onload", async_load);        else          window.addEventListener("load", async_load, false);      })();    </script><div id="w-embed"></div>');
                 }
             });
         },
@@ -376,7 +377,6 @@
                         } else {
                             checkLabel = radioArr[0];
                         }
-
                         signupFields += '<div class="form-row--radio"><label class="visible-label" for="' + fieldName + '_' + key + '">' + radioArr[0] + '</label>';
                         signupFields += '<input class="w--input-field" type="radio" name="' + fieldName + '[]" ' + validationTxt + ' value="' + radioArr[0] + '" id="' + fieldName + '_' + key + '" onclick="if(this.checked) { this.form[\'' + fieldName + '[' + key + ']' + '\'].value=\'' + checkLabel + '\'; } else { this.form[\'' + fieldName + '[' + key + ']' + '\'].value=\'\'; }" />';
                         signupFields += '<input type="hidden" name="' + fieldName + '[' + key + ']" /></div>';
@@ -718,5 +718,4 @@
     Widgets.personaliseForm();
     Widgets.fieldSort();
 })(jQuery);
-//# sourceMappingURL=main.js.map
 //# sourceMappingURL=main.js.map
