@@ -1,6 +1,5 @@
 (function (global) {
-  var jQuery,
-      host = location.hostname;
+  var jQuery;
 
   /******** Load jQuery if not present *********/
   if (window.jQuery === undefined || window.jQuery.fn.jquery !== '2.2.4') {
@@ -115,7 +114,8 @@
     if (!token) {
       var token = getParam('tkn');
     }
-
+    console.log(location.hostname);
+    var host = location.hostname;
     jQuery.ajax({
       url: '//' + host + '/server/embed.php',
       method: 'GET',
